@@ -1,1 +1,199 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    <div id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+         class="modal fade">
+        <div role="document" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="exampleModalLabel" class="modal-title">Customer Login</h4>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="https://demo.bootstrapious.com/jobs/2-0-1/customer-orders.html" method="post">
+                        <div class="form-group">
+                            <input id="email_modal" type="text" placeholder="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="password_modal" type="password" placeholder="password" class="form-control">
+                        </div>
+                        <p class="text-center">
+                            <button type="button" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i>
+                                Log in
+                            </button>
+                        </p>
+                    </form>
+                    <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted"><a href="client-register.html"><strong>Register now</strong></a>!
+                        It
+                        is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *** LOGIN MODAL END ***-->
+    <section class="job-form-section job-form-section--image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job-form-box">
+                        <h2 class="heading">Find a <span class="accent">job</span> you will <span
+                                class="accent">love</span>.
+                        </h2>
+                        <form id="job-main-form" method="get" action="#" class="job-main-form">
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="profession">Profession</label>
+                                            <input type="text" id="profession" name="profession"
+                                                   placeholder="Profession you are looking for" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" id="location" name="location"
+                                                   placeholder="Any particular location?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" name="submit"
+                                                class="btn btn-outline-white-primary job-main-form__button"><i
+                                                class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Featured jobs</h3>
+            <div class="row featured align-items-stretch">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="box-image-text bg-visible full-height">
+                        <div class="top"><a href="detail.html">
+                            <div class="image"><img
+                                    src="{% static 'img/featured1.jpg' %}" alt=""
+                                    class="img-fluid"></div>
+                            <div class="bg"></div>
+                            <div class="logo"><img src="{% static 'img/company-1.png' %}"
+                                                   alt="" style="max-width: 80px;"></div>
+                        </a></div>
+                        <div class="content">
+                            <h5><a href="detail.html">Software Engineer</a></h5>
+                            <p class="featured__details"><i class="fa fa-map-marker job__location"></i>San
+                                Francisco<span
+                                        class="badge featured-badge badge-success">Full Time</span></p>
+                            <p>Advantage old had otherwise sincerity dependent additions. It in adapted natural hastily
+                                is
+                                justice. Six draw you him full not mean evil. Prepare garrets it expense windows shewing
+                                do
+                                an.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="box-image-text bg-visible full-height">
+                        <div class="top"><a href="detail.html">
+                            <div class="image"><img
+                                    src="{% static 'img/featured2.jpg' %}" alt=""
+                                    class="img-fluid"></div>
+                            <div class="bg"></div>
+                            <div class="logo"><img src="{% static 'img/company-3.png' %}"
+                                                   alt="" style="max-width: 80px;"></div>
+                        </a></div>
+                        <div class="content">
+                            <h5><a href="detail.html">Customer support</a></h5>
+                            <p class="featured__details"><i class="fa fa-map-marker job__location"></i>Palo Alto<span
+                                    class="badge featured-badge badge-success">Full Time</span></p>
+                            <p>Am terminated it excellence invitation projection as. She graceful shy believed distance
+                                use
+                                nay. Lively is people so basket ladies window expect. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="box-image-text bg-visible full-height">
+                        <div class="top"><a href="detail.html">
+                            <div class="image"><img
+                                    src="{% static 'img/featured3.jpg' %}" alt=""
+                                    class="img-fluid"></div>
+                            <div class="bg"></div>
+                            <div class="logo"><img src="{% static 'img/company-2.png' %}"
+                                                   alt="" style="max-width: 80px;"></div>
+                        </a></div>
+                        <div class="content">
+                            <h5><a href="detail.html">Graphic designer</a></h5>
+                            <p class="featured__details"><i class="fa fa-map-marker job__location"></i>San
+                                Francisco<span
+                                        class="badge featured-badge badge-dark">Part Time</span></p>
+                            <p>Fifth abundantly made Give sixth hath. Cattle creature i be dont them behold green moved
+                                fowl
+                                Moved life us beast good yielding. Have bring.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h4 class="heading">Trending this month</h4>
+            <div class="job-listing  job-listing--last">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-2"><img
+                                    src="{% static 'img/company-4.png' %}"
+                                    alt="ShareBoardd " class="img-fluid"></div>
+                            <div class="col-10">
+                                <h4 class="job__title"><a href="detail.html">Team Leader</a></h4>
+                                <p class="job__company">
+
+                                    Share Board
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>Palo
+                        Alto
+                    </div>
+                    <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                        <p>Posted 10 days ago</p>
+                    </div>
+                    <div class="col-sm-12 col-md-2 col-lg-1">
+                        <div class="job__star">
+                            <a href="#" data-toggle="tooltip" data-placement="top"
+                               title="Save to favourites" class="job__star__link">
+                                <i class="fa fa-star"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="background-image: url({% static 'img/startup.jpg' %}); " class="section-divider">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Start searching for your new job now! </p>
+                    <p><a href="#" class="btn btn-outline-light">See our job offers </a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
