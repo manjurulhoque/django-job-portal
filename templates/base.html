@@ -54,22 +54,52 @@
                         <a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="#" class="nav-link">About Us</a>
                     </li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item dropdown">
-                        <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                           class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register</a>
-                        <div aria-labelledby="pages" class="dropdown-menu">
-                            <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
-                            <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Employers</a>
-                        </div>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Contact</a>
                     </li>
-                    <li class="nav-item" style="color: #fff">
-                        <a href="{% url 'accounts:login' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
-                            <i class="fa fa-sign-in"></i>Login
-                        </a>
-                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a id="clientZone" href="#" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"
+                               class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
+                                <div class="client-menu-image">
+                                    <div class="inner">
+                                        <img src="{% static 'img/company-1.png' %}"
+                                             alt="company image"
+                                             class="img-fluid">
+                                    </div>
+                                </div>
+                                {% if request.user.role == 'employee' %}
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                {% else %}
+                                    {{ request.user.first_name }}
+                                {% endif %}
+                            </a>
+                            <div aria-labelledby="clientZone" class="dropdown-menu">
+                                <a href="#" class="dropdown-item">Dashboard</a>
+                                <a href="#" class="dropdown-item">Applicants </a>
+                                <a href="#" class="dropdown-item">Post a new job </a>
+                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                               class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register
+                            </a>
+                            <div aria-labelledby="pages" class="dropdown-menu">
+                                <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
+                                <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Employers</a>
+                            </div>
+                        </li>
+                        <li class="nav-item" style="color: #fff">
+                            <a href="{% url 'accounts:login' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
+                                <i class="fa fa-sign-in"></i>Login
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

@@ -164,7 +164,6 @@ class UserLoginForm(forms.Form):
             if not self.user.is_active:
                 raise forms.ValidationError("User is not Active.")
 
-        # return self.cleaned_data
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
     def get_user(self):
