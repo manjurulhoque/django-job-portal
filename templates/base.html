@@ -42,7 +42,7 @@
             <a href="index-2.html" class="navbar-brand">
                 <img src="{% static 'img/logo.png' %}" alt="logo" class="d-none d-lg-block">
                 <img src="{% static 'img/logo-small.png' %}" alt="logo" class="d-block d-lg-none">
-                <span class="sr-only">Go to homepage</span>
+                <span class="sr-only">Home</span>
             </a>
             <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
@@ -51,7 +51,7 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a href="category.html" class="nav-link">Jobs <span class="sr-only">(current)</span></a>
+                        <a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="about.html" class="nav-link">About Us</a>
@@ -61,12 +61,12 @@
                         <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                            class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register</a>
                         <div aria-labelledby="pages" class="dropdown-menu">
-                            <a href="index-2.html" class="dropdown-item">Employee</a>
+                            <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
                             <a href="category.html" class="dropdown-item">Employers</a>
                         </div>
                     </li>
                     <li class="nav-item" style="color: #fff">
-                        <a href="#" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
+                        <a href="{% url 'accounts:login' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
                             <i class="fa fa-sign-in"></i>Login
                         </a>
                     </li>
@@ -75,7 +75,9 @@
         </div>
     </nav>
 </header>
-{% block content %} {% endblock %}
+<div style="margin-top: 20px">
+    {% block content %} {% endblock %}
+</div>
 <footer class="footer">
     <div class="footer__block">
         <div class="container">
