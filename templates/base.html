@@ -28,6 +28,7 @@
           id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block styles %}{% endblock %}
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -39,9 +40,8 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a href="index-2.html" class="navbar-brand">
-                <img src="{% static 'img/logo.png' %}" alt="logo" class="d-none d-lg-block">
-                <img src="{% static 'img/logo-small.png' %}" alt="logo" class="d-block d-lg-none">
+            <a href="/" class="navbar-brand">
+                <img src="{% static 'img/logo-small.png' %}" alt="logo" class="d-none d-lg-block">
                 <span class="sr-only">Home</span>
             </a>
             <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -80,7 +80,7 @@
                             <div aria-labelledby="clientZone" class="dropdown-menu">
                                 <a href="#" class="dropdown-item">Dashboard</a>
                                 <a href="#" class="dropdown-item">Applicants </a>
-                                <a href="#" class="dropdown-item">Post a new job </a>
+                                <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new job </a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -124,7 +124,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-md-left text-center">
-                    <p>&copy;2019 Best company</p>
+                    <p>&copy;2019 Jobs</p>
                 </div>
             </div>
         </div>
@@ -138,6 +138,9 @@
 <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
 <script src="{% static 'js/front.js' %}"></script>
+
+{% block javascripts %}{% endblock %}
+
 </body>
 
 </html>
