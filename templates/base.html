@@ -78,9 +78,10 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Dashboard</a>
+                                <a href="{% url 'jobs:employer-dashboard' %}" class="dropdown-item">Dashboard</a>
                                 <a href="#" class="dropdown-item">Applicants </a>
-                                <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new job </a>
+                                <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new
+                                    job </a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>

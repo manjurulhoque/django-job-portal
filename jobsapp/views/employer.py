@@ -1,9 +1,25 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
+from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
+from jobsapp.models import Job
+
+
+class DashboardView(ListView):
+    model = Job
+    template_name = 'jobs/employer/dashboard.html'
+    context_object_name = 'jobs'
+
+    @method_decorator(login_required(login_url=reverse_lazy('accounts:login')))
+    @method_decorator(user_is_employer)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.model.objects.filter(user_id=self.request.user.id)
 
 
 class JobCreateView(CreateView):

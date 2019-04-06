@@ -1,11 +1,7 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
-from django.urls import reverse_lazy
+from django.http import Http404
 from django.utils import timezone
-from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import ListView, DetailView
 
-from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job
 
 
