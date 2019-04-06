@@ -59,7 +59,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">Contact</a>
                     </li>
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated and request.user.role == 'employer' %}
                         <li class="nav-item dropdown">
                             <a id="clientZone" href="#" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"

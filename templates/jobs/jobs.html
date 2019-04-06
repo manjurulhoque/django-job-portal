@@ -38,16 +38,17 @@
         <div class="container">
             <h3 class="heading">We have found <span class="accent">{{ jobs.count }}</span> jobs</h3>
             {% for job in jobs %}
-
                 <div class="job-listing  ">
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
                             <div class="row">
-                                <div class="col-2"><img
-                                        src="{% static 'img/company-1.png' %}"
-                                        alt="Ipsioou " class="img-fluid"></div>
+                                <div class="col-2">
+                                    <img src="{% static 'img/company-1.png' %}"
+                                         alt="Ipsioou " class="img-fluid">
+                                </div>
                                 <div class="col-10">
-                                    <h4 class="job__title"><a href="#">{{ job.title }}</a></h4>
+                                    <h4 class="job__title"><a
+                                            href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h4>
                                     <p class="job__company">
                                         {{ job.company_name }}
                                     </p>

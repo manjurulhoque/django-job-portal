@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Job details
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <h1 class="heading">{{ job.title }}<br>
+                <small>at <a href="#"> {{ job.company_name }}</a></small>
+            </h1>
+            <div class="job-detail-description"><i class="fa fa-map-marker job__location"> </i>
+                {{ job.location }} | Posted {{ job.created_at|timesince }} |
+                {% if job.type == '1' %}
+                    <span class="badge featured-badge badge-success">Full time</span>
+                {% elif job.type == '2' %}
+                    <span class="badge featured-badge badge-primary">Part time</span>
+                {% else %}
+                    <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>{{ job.category }}</h3>
+                    <blockquote class="blockquote">
+                        <p>{{ job.description }}</p>
+                    </blockquote>
+                    <div class="job-detail__apply-bottom">
+                        <a href="#" class="btn btn-outline-white-primary">Apply for this job</a>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3">
+                    <h4>About {{ job.company_name }}</h4>
+                    <p class="job-detail__company-description">{{ job.company_description }}</p>
+                    <p class="job-detail__social social social--outline">
+                        <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website" class="link">
+                            <i class="fa fa-link"></i>
+                        </a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter" class="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook" class="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </p>
+                    <div class="job-detail__apply-top">
+                        <a href="#" class="btn btn-outline-white-primary">Apply for this job</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
