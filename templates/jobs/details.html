@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load is_already_applied %}
 {% block title %}
     Job details
 {% endblock %}
@@ -32,7 +33,16 @@
                         <p>{{ job.description }}</p>
                     </blockquote>
                     <div class="job-detail__apply-bottom">
-                        <a href="#" class="btn btn-outline-white-primary">Apply for this job</a>
+                        {% is_already_applied job request.user as is_applied %}
+                        {% if is_applied %}
+                            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                        {% else %}
+                            <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="job" value="{{ job.id }}">
+                                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-1"></div>
@@ -40,7 +50,8 @@
                     <h4>About {{ job.company_name }}</h4>
                     <p class="job-detail__company-description">{{ job.company_description }}</p>
                     <p class="job-detail__social social social--outline">
-                        <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website" class="link">
+                        <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website"
+                           class="link">
                             <i class="fa fa-link"></i>
                         </a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter" class="twitter">
@@ -51,7 +62,15 @@
                         </a>
                     </p>
                     <div class="job-detail__apply-top">
-                        <a href="#" class="btn btn-outline-white-primary">Apply for this job</a>
+                        {% if is_applied %}
+                            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                        {% else %}
+                            <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="job" value="{{ job.id }}">
+                                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

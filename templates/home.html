@@ -95,7 +95,7 @@
                                 </a>
                             </div>
                             <div class="content">
-                                <h5><a href="#">{{ job.title }}</a></h5>
+                                <h5><a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h5>
                                 <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
                                     {{ job.location }}
                                     {% if job.type == '1' %}
