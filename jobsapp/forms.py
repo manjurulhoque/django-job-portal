@@ -6,7 +6,7 @@ from jobsapp.models import Job, Applicant
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('user',)
+        exclude = ('user', 'created_at',)
 
     def is_valid(self):
         valid = super(CreateJobForm, self).is_valid()
@@ -21,7 +21,6 @@ class CreateJobForm(forms.ModelForm):
         if commit:
             job.save()
         return job
-
 
 
 class ApplyJobForm(forms.ModelForm):

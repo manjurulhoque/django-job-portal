@@ -51,18 +51,34 @@
                                     <td>{{ job.created_at }}</td>
                                     <td>{{ job.last_date }}</td>
                                     <td>
-                                        <a href="client-applicants.html" class="btn btn-success">
-                                            <i class="fa fa-users"></i>4
+                                        <a href="{% url 'jobs:employer-dashboard-applicants' job.id %}"
+                                           class="btn btn-success">
+                                            <i class="fa fa-users"></i>{{ job.applicants.count }}
                                             <span class="hidden-xs hidden-sm">Applicants</span>
                                         </a>
                                     </td>
-                                    <td><a href="client-job.html" class="btn btn-outline-white-secondary"> <i
-                                            class="fa fa-edit"></i>Edit</a><br><a href="#"
-                                                                                  class="btn btn-outline-white-secondary">
-                                        <i class="fa fa-check-circle-o"></i><span
-                                            class="hidden-xs hidden-sm">Mark as </span>filled</a><br><a href="#"
-                                                                                                        class="btn btn-outline-white-secondary">
-                                        <i class="fa fa-times-circle-o"></i>Delete</a></td>
+                                    <td>
+                                        <a href="#" class="btn btn-outline-white-secondary">
+                                            <i class="fa fa-edit"></i>Edit
+                                        </a>
+                                        <br>
+                                        {% if job.filled %}
+                                            <a href="{% url 'jobs:job-mark-filled' job.id %}"
+                                               class="btn btn-outline-white-secondary">
+                                                <i class="fa fa-check-circle-o"></i>
+                                                <span class="hidden-xs hidden-sm">Filled</span>
+                                            </a><br>
+                                        {% else %}
+                                            <a href="{% url 'jobs:job-mark-filled' job.id %}"
+                                               class="btn btn-outline-white-secondary">
+                                                <i class="fa fa-check-circle-o"></i>
+                                                <span class="hidden-xs hidden-sm">Mark as </span>filled
+                                            </a><br>
+                                        {% endif %}
+                                        <a href="#" class="btn btn-outline-white-secondary">
+                                            <i class="fa fa-times-circle-o"></i>Delete
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

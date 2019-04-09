@@ -6,8 +6,10 @@ app_name = "jobs"
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('employer/', include([
-        path('dashboard', DashboardView.as_view(), name='employer-dashboard'),
+    path('employer/dashboard', include([
+        path('', DashboardView.as_view(), name='employer-dashboard'),
+        path('applicants/<int:job_id>', ApplicantPerJobView.as_view(), name='employer-dashboard-applicants'),
+        path('mark-filled/<int:job_id>', filled, name='job-mark-filled'),
     ])),
     path('apply-job/<int:job_id>', ApplyJobView.as_view(), name='apply-job'),
     path('jobs', JobListView.as_view(), name='jobs'),
