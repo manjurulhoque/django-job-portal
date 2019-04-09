@@ -72,7 +72,13 @@ class JobCreateView(CreateView):
 
 
 class ApplicantsListView(ListView):
-    pass
+    model = Applicant
+    template_name = 'jobs/employer/all-applicants.html'
+    context_object_name = 'applicants'
+
+    def get_queryset(self):
+        # jobs = Job.objects.filter(user_id=self.request.user.id)
+        return self.model.objects.filter(job__user_id=self.request.user.id)
 
 
 @login_required(login_url=reverse_lazy('accounts:login'))

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}
+    Applicants
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="heading">All applicants who applied for your position</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                {% for applicant in applicants %}
+                    <div class="col-lg-6">
+                        <div class="box applicant">
+                            <h4>{{ applicant.user.get_full_name }}</h4>
+                            <p><strong>Applied position: {{ applicant.job.title }}</strong></p>
+                            <a href="#" data-toggle="modal" data-target="#contact-modal"
+                               class="btn btn-outline-white-secondary btn-sm">
+                                <i class="fa fa-envelope"></i>Contact
+                            </a>
+                            <p>
+                                <span class="badge badge-info">Applied {{ applicant.created_at.astimezone }}</span>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <p class="intro"></p>
+                                <div class="image">
+                                    <img src="{% static 'img/avatar.png' %}" alt=""
+                                         class="img-fluid rounded-circle">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if is_paginated %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a href="?page={{ page_obj.previous_page_number }}"
+                                               class="page-link">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link">&laquo;</a>
+                                        </li>
+                                    {% endif %}
+                                    {% for i in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            <li class="page-item active">
+                                                <a class="page-link">{{ i }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a href="?page={{ page_obj.next_page_number }}"
+                                               class="page-link">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link">&raquo;</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                {% else %}
+                    <h3>You are end</h3>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

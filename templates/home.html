@@ -124,9 +124,12 @@
                             <div class="row">
                                 <div class="col-2">
                                     <img src="{% static 'img/company-1.png' %}"
-                                        alt="ShareBoardd " class="img-fluid"></div>
+                                         alt="ShareBoardd " class="img-fluid">
+                                </div>
                                 <div class="col-10">
-                                    <h4 class="job__title"><a href="#">{{ trending.title }}</a></h4>
+                                    <h4 class="job__title">
+                                        <a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a>
+                                    </h4>
                                     <p class="job__company">
                                         {{ trending.company_name }}
                                     </p>
