@@ -46,14 +46,14 @@
                         <h2 class="heading">Find a <span class="accent">job</span> you will
                             <span class="accent">love</span>.
                         </h2>
-                        <form id="job-main-form" method="get" action="#" class="job-main-form">
+                        <form id="job-main-form" method="get" action="{% url 'jobs:searh' %}" class="job-main-form">
                             <div class="controls">
                                 <div class="row align-items-center">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="profession">Profession</label>
-                                            <input type="text" id="profession" name="profession"
-                                                   placeholder="Profession you are looking for" class="form-control">
+                                            <label for="profession">Position</label>
+                                            <input type="text" id="profession" name="position"
+                                                   placeholder="Position you are looking for" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
@@ -64,9 +64,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="submit" name="submit"
-                                                class="btn btn-outline-white-primary job-main-form__button"><i
-                                                class="fa fa-search"></i></button>
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary job-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -24,6 +24,16 @@ class HomeView(ListView):
         return context
 
 
+class SearchView(ListView):
+    model = Job
+    template_name = 'jobs/search.html'
+    context_object_name = 'jobs'
+
+    def get_queryset(self):
+        return self.model.objects.filter(location__contains=self.request.GET['location'],
+                                         title__contains=self.request.GET['position'])
+
+
 class JobListView(ListView):
     model = Job
     template_name = 'jobs/jobs.html'

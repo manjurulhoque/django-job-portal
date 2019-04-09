@@ -6,6 +6,7 @@ app_name = "jobs"
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('search', SearchView.as_view(), name='searh'),
     path('employer/dashboard', include([
         path('', DashboardView.as_view(), name='employer-dashboard'),
         path('/all-applicants', ApplicantsListView.as_view(), name='employer-all-applicants'),

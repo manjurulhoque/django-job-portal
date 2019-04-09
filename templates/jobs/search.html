@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    All jobs
+{% endblock %}
+
+{% block content %}
+
+    <section class="job-form-section job-form-section--compressed">
+        <div class="container">
+            <h4 class="heading">Find a <span class="accent">job </span> you will <span class="accent">love</span></h4>
+            <form id="job-main-form" method="get" action="#" class="job-main-form">
+                <div class="controls">
+                    <div class="row align-items-end">
+                        <div class="col-sm-1 col-lg-2"></div>
+                        <div class="col-sm-5 col-lg-4 form-group">
+                            <label for="profession">Position</label>
+                            <input type="text" id="position" name="position"
+                                   placeholder="Position you are looking for" class="form-control">
+                        </div>
+                        <div class="col-sm-5 col-lg-4 form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="Any particular location?"
+                                   value="" class="form-control">
+                        </div>
+                        <div class="col-sm-1 col-lg-2 form-group">
+                            <button type="submit" name="name"
+                                    class="btn btn-outline-white-primary job-main-form__button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h3 class="heading">We have found <span class="accent">{{ jobs.count }}</span> jobs</h3>
+            {% for job in jobs %}
+                <div class="job-listing  ">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="{% static 'img/company-1.png' %}"
+                                         alt="Ipsioou " class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <h4 class="job__title"><a
+                                            href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h4>
+                                    <p class="job__company">
+                                        {{ job.company_name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
+                            {{ job.location }}
+                        </div>
+                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                            <p>Posted {{ job.created_at|timesince }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_paginated %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.previous_page_number }}"
+                                           class="page-link">&laquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active">
+                                            <a class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}
