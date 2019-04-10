@@ -85,7 +85,7 @@
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
-                    {% elif request.user.is_authenticated %}
+                    {% elif request.user.is_authenticated and request.user.role == 'employee' %}
                         <li class="nav-item dropdown">
                             <a id="clientZone" href="#" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"
@@ -104,6 +104,7 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
+                                <a href="{% url 'accounts:employer-profile-update' %}" class="dropdown-item">Edit Profile</a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
