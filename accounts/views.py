@@ -82,7 +82,7 @@ class LoginView(FormView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_success_url(self):
-        if self.request.GET['next'] != '':
+        if 'next' in self.request.GET and self.request.GET['next'] != '':
             return self.request.GET['next']
         else:
             return self.success_url
