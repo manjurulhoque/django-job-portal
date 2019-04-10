@@ -76,6 +76,7 @@ class ApplyJobView(CreateView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
+            messages.info(self.request, 'Successfully applied for the job!')
             return self.form_valid(form)
         else:
             return HttpResponseRedirect(reverse_lazy('jobs:home'))

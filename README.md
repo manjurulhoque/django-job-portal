@@ -17,4 +17,7 @@ Used Tech Stack
 ## Add new position as employer
 <img src="screenshots/two.png" height="800">
 
-Feel free to contribute.
+## Job details
+<img src="screenshots/three.png" height="800">
+
+Show your support by 🌟 the project!!

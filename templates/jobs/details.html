@@ -28,7 +28,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <h3>{{ job.category }}</h3>
+                    <h3>Category: {{ job.category }}</h3>
+                    <h5>Last date: {{ job.last_date|date }}</h5>
+                    <h5 class="text-info">Salary: Negotiable</h5>
                     <blockquote class="blockquote">
                         <p>{{ job.description }}</p>
                     </blockquote>
