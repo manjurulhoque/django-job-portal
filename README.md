@@ -1,10 +1,20 @@
-## Django QA Application
+## Django Job Portal
 
-Live: [Demo](https://my-django-qa.herokuapp.com/)
+#### An open source online job portal.
+
+Live: [Demo](https://django-portal.herokuapp.com/)
 
 Used Tech Stack
 
 1. Django
 2. Sqlite
+
+### Screenshots
+
+## Home page
+<img src="screenshots/one.png" height="800">
+
+## Add new position as employer
+<img src="screenshots/two.png" height="800">
 
 Feel free to contribute.
