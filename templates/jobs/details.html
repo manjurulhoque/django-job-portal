@@ -35,14 +35,24 @@
                         <p>{{ job.description }}</p>
                     </blockquote>
                     <div class="job-detail__apply-bottom">
-                        {% is_already_applied job request.user as is_applied %}
-                        {% if is_applied %}
-                            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                        {% if request.user.is_authenticated %}
+                            {% is_already_applied job request.user as is_applied %}
+                            {% if is_applied %}
+                                <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                            {% else %}
+                                <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job" value="{{ job.id }}">
+                                    <input type="submit" class="btn btn-outline-white-primary"
+                                           value="Apply for this job"/>
+                                </form>
+                            {% endif %}
                         {% else %}
                             <form action="{% url 'jobs:apply-job' job.id %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="job" value="{{ job.id }}">
-                                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+                                <input type="submit" class="btn btn-outline-white-primary"
+                                       value="Apply for this job"/>
                             </form>
                         {% endif %}
                     </div>
