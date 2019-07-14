@@ -3,3 +3,4 @@ pytz==2018.9
 whitenoise==4.1.2
 gunicorn
 psycopg2
+djangorestframework
