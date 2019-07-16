@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
 
-from jobsapp.forms import ApplyJobForm
-from jobsapp.models import Job, Applicant
+from ..forms import ApplyJobForm
+from ..models import Job, Applicant
 
 
 class HomeView(ListView):

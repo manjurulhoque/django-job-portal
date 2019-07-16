@@ -7,7 +7,8 @@ router = DefaultRouter()
 router.register('jobs', JobViewSet, base_name='jobs')
 
 urlpatterns = [
-    path('search/', SearchView.as_view())
+    path('search/', SearchApiView.as_view()),
+    path('apply-job/<int:job_id>', ApplyJobApiView.as_view())
 ]
 
 urlpatterns += router.urls
