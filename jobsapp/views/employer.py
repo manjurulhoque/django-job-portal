@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -64,6 +65,7 @@ class JobCreateView(CreateView):
         return super(JobCreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
+        self.object = None
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
@@ -83,7 +85,11 @@ class ApplicantsListView(ListView):
 
 @login_required(login_url=reverse_lazy('accounts:login'))
 def filled(request, job_id=None):
-    job = Job.objects.get(user_id=request.user.id, id=job_id)
-    job.filled = True
-    job.save()
+    try:
+        job = Job.objects.get(user_id=request.user.id, id=job_id)
+        job.filled = True
+        job.save()
+    except IntegrityError as e:
+        print(e.message)
+        return HttpResponseRedirect(reverse_lazy('jobs:employer-dashboard'))
     return HttpResponseRedirect(reverse_lazy('jobs:employer-dashboard'))

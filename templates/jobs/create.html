@@ -28,7 +28,7 @@
                             {% for error in field.errors %}
                                 <div class="alert alert-danger alert-dismissable">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <strong>{{ field.name }} {{ error|escape }}</strong>
+                                    <strong>{{ field.label }}: {{ error|escape }}</strong>
                                 </div>
                             {% endfor %}
                         {% endfor %}
@@ -50,42 +50,47 @@
                         <div class="row">
                             <div class="col-lg-12 form-group">
                                 <label for="title">Job Title</label>
-                                <input id="title" name="title" type="text" class="form-control">
+                                <input id="title" name="title" type="text" class="form-control" value="{{ form.title.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
                                 <label for="text">Job Description</label>
-                                <textarea id="text" name="description" rows="5" class="form-control"></textarea>
+                                <textarea id="text" name="description" rows="5" class="form-control">{{ form.description.value|default_if_none:"" }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                <label for="salary">Salary(Leave empty if it's negotiable)</label>
+                                <input id="salary" name="salary" type="number" min="1000" class="form-control" value="{{ form.salary.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 form-group">
                                 <label for="location">Location</label>
-                                <input id="location" name="location" type="text" placeholder="e.g. Rio de Janeiro"
-                                       class="form-control">
+                                <input id="location" name="location" type="text" placeholder="e.g. Dhaka, Bangladesh"
+                                       class="form-control" value="{{ form.location.value|default_if_none:"" }}">
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="type">Type</label>
                                 <select id="type" name="type" placeholder="Choose job type"
                                         class="form-control select2">
-                                    <option value="1">Full time</option>
-                                    <option value="2">Part time</option>
-                                    <option value="3">Internship</option>
+                                    <option value="1" {% if form.type.value == "1" %} selected {% endif %}>Full time</option>
+                                    <option value="2" {% if form.type.value == "2" %} selected {% endif %}>Part time</option>
+                                    <option value="3" {% if form.type.value == "3" %} selected {% endif %}>Internship</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
                                 <label for="category">Category</label>
-                                <select id="category" name="category" placeholder="Choose category"
-                                        class="form-control select2">
-                                    <option value="web-design">Web design</option>
-                                    <option value="graphic-design">Graphic design</option>
-                                    <option value="web-development">Web development</option>
-                                    <option value="human-resource">Human Resources</option>
-                                    <option value="support">Support</option>
-                                    <option value="android">Android</option>
+                                <select id="category" name="category" class="form-control select2">
+                                    <option value="web-design" {% if form.category.value == "web-design" %} selected {% endif %}>Web design</option>
+                                    <option value="graphic-design" {% if form.category.value == "graphic-design" %} selected {% endif %}>Graphic design</option>
+                                    <option value="web-development" {% if form.category.value == "web-development" %} selected {% endif %}>Web development</option>
+                                    <option value="human-resource" {% if form.category.value == "human-resource" %} selected {% endif %}>Human Resources</option>
+                                    <option value="support" {% if form.category.value == "support" %} selected {% endif %}>Support</option>
+                                    <option value="android" {% if form.category.value == "android" %} selected {% endif %}>Android</option>
                                 </select>
                             </div>
                         </div>
@@ -97,7 +102,7 @@
                             </div>
                             <div class="col-xl-6 form-group">
                                 <label for="validity">Validity of the post</label>
-                                <input id="validity" name="last_date" type="date" class="form-control">
+                                <input id="validity" name="last_date" type="date" class="form-control" value="{{ form.last_date.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
@@ -113,20 +118,21 @@
                         <div class="row">
                             <div class="col-lg-12 form-group">
                                 <label for="company_name">Company name</label>
-                                <input id="company_name" name="company_name" type="text" class="form-control">
+                                <input id="company_name" name="company_name" type="text" class="form-control" value="{{ form.company_name.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
+{#                                <p class="text-danger">{{ form.company_description.errors }}</p>#}
                                 <label for="company_description">Company Description</label>
                                 <textarea id="company_description" name="company_description" rows="3"
-                                          class="form-control"></textarea>
+                                          class="form-control">{{ form.company_description.value|default_if_none:"" }}</textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-4 form-group">
                                 <label for="company_website">Website</label>
-                                <input id="company_website" name="website" type="url" class="form-control">
+                                <input id="company_website" name="website" type="url" class="form-control" value="{{ form.website.value|default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">

@@ -23,6 +23,7 @@ class Job(models.Model):
     website = models.CharField(max_length=100, default="")
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
+    salary = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return self.title
