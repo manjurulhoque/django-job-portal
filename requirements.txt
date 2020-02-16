@@ -1,7 +1,9 @@
-Django==2.1.7
+asgiref==3.2.3
+Django==3.0.2
+django-cors-headers==3.2.1
+djangorestframework==3.11.0
+gunicorn==20.0.4
+psycopg2==2.8.4
 pytz==2018.9
-whitenoise==4.1.2
-gunicorn
-psycopg2
-djangorestframework
-django-cors-headers
+sqlparse==0.3.0
+whitenoise==5.0.1
