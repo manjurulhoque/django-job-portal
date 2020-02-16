@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
 
+from ..documents import JobDocument
 from ..forms import ApplyJobForm
 from ..models import Job, Applicant
 
@@ -30,8 +31,11 @@ class SearchView(ListView):
     context_object_name = 'jobs'
 
     def get_queryset(self):
-        return self.model.objects.filter(location__contains=self.request.GET['location'],
-                                         title__contains=self.request.GET['position'])
+        q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
+        print(q)
+        return q
+        # return self.model.objects.filter(location__contains=self.request.GET['location'],
+        #                                  title__contains=self.request.GET['position'])
 
 
 class JobListView(ListView):

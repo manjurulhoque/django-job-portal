@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_elasticsearch_dsl',
     'corsheaders',
     'rest_framework',
     'jobsapp',
@@ -162,3 +163,15 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = "accounts.user"
+
+
+ELASTIC_HOST_NAME = os.environ.get('ELASTIC_HOST_NAME', 'localhost')
+ELASTIC_HOST_PORT = os.environ.get('ELASTIC_HOST_PORT', '9200')
+# ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
+
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': ELASTIC_HOST_NAME + ':' + ELASTIC_HOST_PORT,
+    },
+}
