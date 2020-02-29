@@ -33,3 +33,4 @@ sqlparse==0.3.0
 uritemplate==3.0.1
 urllib3==1.25.8
 whitenoise==5.0.1
+rest_framework_simplejwt
