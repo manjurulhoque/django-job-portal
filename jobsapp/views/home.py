@@ -31,11 +31,11 @@ class SearchView(ListView):
     context_object_name = 'jobs'
 
     def get_queryset(self):
-        q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
-        print(q)
-        return q
-        # return self.model.objects.filter(location__contains=self.request.GET['location'],
-        #                                  title__contains=self.request.GET['position'])
+        # q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
+        # print(q)
+        # return q
+        return self.model.objects.filter(location__contains=self.request.GET['location'],
+                                         title__contains=self.request.GET['position'])
 
 
 class JobListView(ListView):
