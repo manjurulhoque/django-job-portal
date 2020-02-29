@@ -7,7 +7,7 @@ Django
 django-cors-headers==3.2.1
 django-elasticsearch-dsl==7.1.1
 djangorestframework==3.11.0
-djangorestframework-simplejwt==4.4.0
+djangorestframework-simplejwt
 drf-yasg==1.17.1
 elasticsearch==7.5.1
 elasticsearch-dsl==7.1.0
@@ -33,4 +33,3 @@ sqlparse==0.3.0
 uritemplate==3.0.1
 urllib3==1.25.8
 whitenoise==5.0.1
-rest_framework_simplejwt
