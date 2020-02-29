@@ -3,7 +3,7 @@ certifi==2019.11.28
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==3.0.3
+Django
 django-cors-headers==3.2.1
 django-elasticsearch-dsl==7.1.1
 djangorestframework==3.11.0

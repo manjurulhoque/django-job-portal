@@ -6,8 +6,8 @@ ssh root@103.108.140.130 <<EOF
   cd /var/www/html/jobsproject/
   source jobsenv/bin/activate
   cd jobsportal/
-  pip install -r requirements.txt
-  ./manage.py migrate
+  cat requirements.txt | xargs -n 1 pip install
+  python manage.py migrate
   sudo systemctl restart gunicorn
   exit
 EOF
