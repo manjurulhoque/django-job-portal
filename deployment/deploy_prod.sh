@@ -8,6 +8,6 @@ ssh root@103.108.140.130 <<EOF
   cd jobsportal/
   pip install -r requirements.txt
   ./manage.py migrate
-  sudo systemctl restart jobsportal
+  sudo systemctl restart gunicorn
   exit
 EOF
