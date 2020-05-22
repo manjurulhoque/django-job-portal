@@ -61,7 +61,7 @@ class JobDetailsView(DetailView):
         try:
             self.object = self.get_object()
         except Http404:
-            # redirect here
+            # raise error
             raise Http404("Job doesn't exists")
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
