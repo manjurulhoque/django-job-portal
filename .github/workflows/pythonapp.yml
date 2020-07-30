@@ -1,4 +1,4 @@
-name: Python(Django) application
+name: job-portal
 
 on: [push]
 

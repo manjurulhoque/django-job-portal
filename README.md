@@ -2,6 +2,8 @@
 
 #### An open source online job portal.
 
+![Github Actions](https://github.com/manjurulhoque/django-job-portal/workflows/job-portal/badge.svg)
+
 Live: [Demo](https://django-portal.herokuapp.com/) or [Second Demo](http://jobs.manjurulhoque.com/)
 
 Used Tech Stack
