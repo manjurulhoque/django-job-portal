@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from .serializers import *
@@ -9,10 +9,12 @@ from rest_framework.generics import ListAPIView, CreateAPIView
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
     queryset = serializer_class.Meta.model.objects.all()
+    permission_classes = [AllowAny]
 
 
 class SearchApiView(ListAPIView):
     serializer_class = JobSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         if 'location' in self.request.GET and 'position' in self.request.GET:
