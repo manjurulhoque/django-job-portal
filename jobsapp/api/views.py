@@ -29,6 +29,9 @@ class ApplyJobApiView(CreateAPIView):
     http_method_names = [u'post']
     permission_classes = [IsAuthenticated]
 
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

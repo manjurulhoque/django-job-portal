@@ -34,5 +34,8 @@ class Applicant(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants')
     created_at = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        unique_together = ['user', 'job']
+
     def __str__(self):
         return self.user.get_full_name()

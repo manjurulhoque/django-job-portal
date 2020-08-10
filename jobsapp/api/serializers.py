@@ -13,6 +13,8 @@ class JobSerializer(serializers.ModelSerializer):
 
 
 class ApplicantSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Applicant
         fields = "__all__"
