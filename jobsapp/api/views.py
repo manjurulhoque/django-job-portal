@@ -2,6 +2,7 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
+from .permissions import IsEmployer, IsEmployee
 from .serializers import *
 from rest_framework.generics import ListAPIView, CreateAPIView
 
@@ -27,7 +28,7 @@ class SearchApiView(ListAPIView):
 class ApplyJobApiView(CreateAPIView):
     serializer_class = ApplicantSerializer
     http_method_names = [u'post']
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsEmployee]
 
     # def perform_create(self, serializer):
     #     serializer.save(user=self.request.user)
@@ -38,3 +39,12 @@ class ApplyJobApiView(CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class ApplicantsListAPIView(ListAPIView):
+    serializer_class = ApplicantSerializer
+    permission_classes = [IsAuthenticated, IsEmployer]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Applicant.objects.filter(job__user_id=user.id)
