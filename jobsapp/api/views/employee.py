@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -31,3 +32,13 @@ class AppliedJobsAPIView(ListAPIView):
     def get_queryset(self):
         applied_jobs_id = list(Applicant.objects.filter(user=self.request.user).values_list('job_id', flat=True))
         return Job.objects.filter(id__in=applied_jobs_id)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsEmployee])
+def already_applied_api_view(request, job_id):
+    is_applied = Applicant.objects.filter(user=request.user, job_id=job_id).exists()
+    content = {
+        'is_applied': is_applied
+    }
+    return Response(content)
