@@ -11,6 +11,26 @@ Used Tech Stack
 1. Django
 2. Sqlite
 
+### Install
+
+1. Create a virtual environment
+
+    `virtualenv venv`
+2. Activate it
+
+    `source venv/bin/activate`
+
+3. Install the packages in the virtual env:
+
+    `pip install -r requirements.txt`
+
+### Run
+With the venv activate it, execute:
+
+`python manage.py collectstatic`
+
+`python manage.py runserver 0.0.0.0:8000`
+
 ### Screenshots
 
 ## Home page
