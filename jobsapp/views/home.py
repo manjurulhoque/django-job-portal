@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
 
-from ..documents import JobDocument
+# from ..documents import JobDocument
 from ..forms import ApplyJobForm
 from ..models import Job, Applicant
 
