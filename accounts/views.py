@@ -2,7 +2,7 @@ from django.contrib import messages, auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, RedirectView
-from accounts.forms import *
+from accounts.forms import EmployeeRegistrationForm, EmployerRegistrationForm, UserLoginForm
 from accounts.models import User
 
 

@@ -217,6 +217,7 @@ fabric.properties
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 
 # Installer logs
+logs
 
 # Unit test / coverage reports
 
@@ -260,3 +261,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/python,django,pycharm
 
 __pycache__/
+.vscode
