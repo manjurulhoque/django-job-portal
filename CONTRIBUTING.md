@@ -4,6 +4,44 @@ Welcome, and thank you for your interest in contributing to Anem per feina!
 
 There are many ways in which you can contribute, beyond writing code. The goal of this document is to provide a high-level overview of how you can get involved.
 
+## How to contribute
+
+1. Fork this very repository (use the `fork` button at the top left)
+2. Clone the newly created fork (use the green `clone` button)
+> Remember to [configure your SSH key]()
+3. Add this repository remote and name it `common`, use the follow command:
+```bash
+git remote add common git@github.com:GeeksCAT/anem-per-feina.git
+```
+4. Fetch the latest changes from the `common` repository:
+```bash
+git fetch common
+```
+5. Create your branch from the latest changes of the branch `master` in the `common` remote:
+```bash
+git checkout common/master -b <your_branch_name>
+```
+
+> **Tip:** Use a descriptive name for your branch.
+
+6. Make your changes
+
+7. Commit yout changes
+
+8. Push the commited changes to your fork (the `origin` remote)
+```bash
+git push origin HEAD
+```
+
+9. Go to your fork (on the browser), you'll a big yellow banner offering you to create a pull request to the `common` remote. Click to `Create pull request`
+
+10. Fill the gaps of the pull request template.
+
+> **Tip:** You can reference the issu that you are solving using the `#<issue_number>` format.
+
+11. Be social, you can mention the leader or talk to other people.
+
+
 ## Code of conduct
 
 Please keep the tone polite & professional.  For some users a discussion on this project may be their first engagement with the open source community.  First impressions count, so let's try to make everyone feel welcome.
