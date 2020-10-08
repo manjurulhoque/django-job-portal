@@ -1,22 +1,12 @@
 import os
 from datetime import timedelta
-
-
-# Force to cast strings to bool
-def str2bool(value: str, default: bool = False) -> bool:
-    cleaned_value = value.lower().strip()
-    if cleaned_value in ['true', 't', '1', 'yes']:
-        return True
-    if cleaned_value in ['false', 'f', '0', 'no']:
-        return False
-    return default
-
+from distutils.util import strtobool
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb'
 
-DEBUG = str2bool(os.environ.get('APF_DEBUG', 'False'))
+DEBUG = strtobool(os.environ.get('APF_DEBUG', False))
 
 INSTALLED_APPS = [
     'django.contrib.admin',
