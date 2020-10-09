@@ -190,7 +190,9 @@ ELASTIC_HOST_PORT = os.environ.get("APF_ELASTIC_HOST_PORT", "9200")
 
 
 ELASTICSEARCH_DSL = {
-    "default": {"hosts": ELASTIC_HOST_NAME + ":" + ELASTIC_HOST_PORT,},
+    "default": {
+        "hosts": ELASTIC_HOST_NAME + ":" + ELASTIC_HOST_PORT,
+    },
 }
 
 # Documentation

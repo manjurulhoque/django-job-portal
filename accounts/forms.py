@@ -21,19 +21,29 @@ class EmployeeRegistrationForm(UserCreationForm):
         # self.fields['gender'].widget = forms.CheckboxInput()
 
         self.fields["first_name"].widget.attrs.update(
-            {"placeholder": "Enter First Name",}
+            {
+                "placeholder": "Enter First Name",
+            }
         )
         self.fields["last_name"].widget.attrs.update(
-            {"placeholder": "Enter Last Name",}
+            {
+                "placeholder": "Enter Last Name",
+            }
         )
         self.fields["email"].widget.attrs.update(
-            {"placeholder": "Enter Email",}
+            {
+                "placeholder": "Enter Email",
+            }
         )
         self.fields["password1"].widget.attrs.update(
-            {"placeholder": "Enter Password",}
+            {
+                "placeholder": "Enter Password",
+            }
         )
         self.fields["password2"].widget.attrs.update(
-            {"placeholder": "Confirm Password",}
+            {
+                "placeholder": "Confirm Password",
+            }
         )
 
     class Meta:
@@ -81,19 +91,29 @@ class EmployerRegistrationForm(UserCreationForm):
         self.fields["password2"].label = "Confirm Password"
 
         self.fields["first_name"].widget.attrs.update(
-            {"placeholder": "Enter Company Name",}
+            {
+                "placeholder": "Enter Company Name",
+            }
         )
         self.fields["last_name"].widget.attrs.update(
-            {"placeholder": "Enter Company Address",}
+            {
+                "placeholder": "Enter Company Address",
+            }
         )
         self.fields["email"].widget.attrs.update(
-            {"placeholder": "Enter Email",}
+            {
+                "placeholder": "Enter Email",
+            }
         )
         self.fields["password1"].widget.attrs.update(
-            {"placeholder": "Enter Password",}
+            {
+                "placeholder": "Enter Password",
+            }
         )
         self.fields["password2"].widget.attrs.update(
-            {"placeholder": "Confirm Password",}
+            {
+                "placeholder": "Confirm Password",
+            }
         )
 
     class Meta:
@@ -121,7 +141,9 @@ class EmployerRegistrationForm(UserCreationForm):
 class UserLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(
-        label="Password", strip=False, widget=forms.PasswordInput,
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput,
     )
 
     def __init__(self, *args, **kwargs):
@@ -154,10 +176,14 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployeeProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["first_name"].widget.attrs.update(
-            {"placeholder": "Enter First Name",}
+            {
+                "placeholder": "Enter First Name",
+            }
         )
         self.fields["last_name"].widget.attrs.update(
-            {"placeholder": "Enter Last Name",}
+            {
+                "placeholder": "Enter Last Name",
+            }
         )
 
     class Meta:
