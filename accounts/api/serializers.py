@@ -7,14 +7,24 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         # fields = "__all__"
-        exclude = ("password", "user_permissions", "groups", "is_staff", "is_active", "is_superuser", "last_login")
+        exclude = (
+            "password",
+            "user_permissions",
+            "groups",
+            "is_staff",
+            "is_active",
+            "is_superuser",
+            "last_login",
+        )
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, style={
-        "input_type": "password"})
+    password = serializers.CharField(
+        write_only=True, required=True, style={"input_type": "password"}
+    )
     password2 = serializers.CharField(
-        style={"input_type": "password"}, write_only=True, label="Confirm password")
+        style={"input_type": "password"}, write_only=True, label="Confirm password"
+    )
 
     class Meta:
         model = User
@@ -35,10 +45,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
         role = validated_data["role"]
         if email and User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                {"email": "Email addresses must be unique."})
+                {"email": "Email addresses must be unique."}
+            )
         if password != password2:
-            raise serializers.ValidationError(
-                {"password": "The two passwords differ."})
+            raise serializers.ValidationError({"password": "The two passwords differ."})
         user = User(email=email, gender=gender, role=role)
         user.set_password(password)
         user.save()

@@ -21,15 +21,15 @@ def custom_exception_handler(exc, context):
             else:
                 errors.append("{}: {}".format(field, value))
 
-        response.data['errors'] = errors
-        response.data['status'] = False
+        response.data["errors"] = errors
+        response.data["status"] = False
 
         if type(exc) is ValidationError:
-            response.data['message'] = ''
+            response.data["message"] = ""
             for field, value in data.items():
-                response.data['message'] += value[0] + ' '
+                response.data["message"] += value[0] + " "
         else:
-            response.data['message'] = str(exc)
+            response.data["message"] = str(exc)
 
     return response
 
