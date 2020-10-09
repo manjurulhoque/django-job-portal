@@ -14,6 +14,6 @@ def registration(request):
     serializer.save()
     res = {
         "status": True,
-        "message": 'Successfully registered',
+        "message": "Successfully registered",
     }
     return response.Response(res, status.HTTP_201_CREATED)
