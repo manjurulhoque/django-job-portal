@@ -6,6 +6,7 @@ coreschema==0.0.4
 Django==3.0.7
 django-cors-headers==3.2.1
 django-elasticsearch-dsl==7.1.1
+django-environ==0.4.5
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.4.0
 drf-yasg==1.17.1
