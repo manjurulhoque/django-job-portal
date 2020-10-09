@@ -2,11 +2,11 @@ import os
 from datetime import timedelta
 from distutils.util import strtobool
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 SECRET_KEY = '@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb'
 
-DEBUG = strtobool(os.environ.get('APF_DEBUG', False))
+DEBUG = strtobool(os.environ.get('APF_DEBUG', 'False'))
 
 INSTALLED_APPS = [
     'django.contrib.admin',
