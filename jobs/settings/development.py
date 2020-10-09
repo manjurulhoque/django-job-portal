@@ -1,4 +1,4 @@
-from .base import *
+from . import *
 
 LOGGING = {
     "version": 1,
