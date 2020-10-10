@@ -38,7 +38,18 @@ With the venv activate it, execute:
 
 `python manage.py collectstatic`
 
-*Note* : Collect static is not necessary in dev mode
+*Note* : Collect static is not necessary when debug is True (in dev mode)
+
+Create initial database:
+
+`python manage.py migrate`
+
+
+Load demo data (optional):
+
+`python manage.py loaddata demo`
+
+Run server:
 
 `python manage.py runserver 0.0.0.0:8000`
 
