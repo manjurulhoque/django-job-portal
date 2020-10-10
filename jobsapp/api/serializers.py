@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from accounts.api.serializers import UserSerializer
-from ..models import *
+from ..models import Job, Applicant
 
 
 class JobSerializer(serializers.ModelSerializer):

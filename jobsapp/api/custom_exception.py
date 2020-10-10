@@ -36,7 +36,7 @@ def custom_exception_handler(exc, context):
 
 """
 # to work with this custom error handler, save this file in your project,
-#add this in settings.py 
+#add this in settings.py
  REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'core.api.custom_exception.custom_exception_handler', #location for your file
 }
