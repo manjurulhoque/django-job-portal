@@ -132,3 +132,5 @@ please see [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-C
 # Thank You!
 
 Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to contribute.
+
+
