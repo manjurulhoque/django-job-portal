@@ -1,0 +1,142 @@
+[
+    {
+        "model": "jobsapp.job",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "title": "Learn Laravel with vue2",
+            "description": "Some additional info for this screen about validity of the ads",
+            "location": "Dhaka, Bangladesh",
+            "type": "1",
+            "category": "web-design",
+            "last_date": "2019-04-18T00:00:00Z",
+            "company_name": "ggnhfh",
+            "company_description": "Some additional info for this screen about validity of the ads",
+            "website": "https://www.youtube.com",
+            "created_at": "2019-04-06T02:20:19.993Z",
+            "filled": false,
+            "salary": 40000
+        }
+    },
+    {
+        "model": "jobsapp.job",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "title": "Software Engineer",
+            "description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+            "location": "Dhaka, Bangladesh",
+            "type": "2",
+            "category": "web-development",
+            "last_date": "2019-04-26T00:00:00Z",
+            "company_name": "Reve System",
+            "company_description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+            "website": "https://www.reve.com",
+            "created_at": "2019-04-06T02:20:19.993Z",
+            "filled": false,
+            "salary": 35000
+        }
+    },
+    {
+        "model": "jobsapp.job",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "title": "Android Developer",
+            "description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.",
+            "location": "Dhaka, Bangladesh",
+            "type": "3",
+            "category": "android",
+            "last_date": "2019-04-30T00:00:00Z",
+            "company_name": "Audacity Ltd.",
+            "company_description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.",
+            "website": "https://www.audacity.com",
+            "created_at": "2019-04-06T02:20:19.993Z",
+            "filled": true,
+            "salary": 30000
+        }
+    },
+    {
+        "model": "jobsapp.job",
+        "pk": 5,
+        "fields": {
+            "user": 1,
+            "title": "Dot net Developer",
+            "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+            "location": "Uttara, Bangladesh",
+            "type": "3",
+            "category": "web-development",
+            "last_date": "2019-04-25T00:00:00Z",
+            "company_name": "DevSkill",
+            "company_description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+            "website": "https://www.lipsum.com/",
+            "created_at": "2019-04-09T14:55:59.779Z",
+            "filled": false,
+            "salary": 30000
+        }
+    },
+    {
+        "model": "jobsapp.job",
+        "pk": 7,
+        "fields": {
+            "user": 2,
+            "title": "Senior Android Engineer",
+            "description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.",
+            "location": "Dhaka",
+            "type": "2",
+            "category": "android",
+            "last_date": "2019-12-31T00:00:00Z",
+            "company_name": "Audacity",
+            "company_description": "Some additional info for this screen about validity of the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.",
+            "website": "https://www.glassdoor.com/",
+            "created_at": "2019-12-10T11:03:11.733Z",
+            "filled": false,
+            "salary": 30000
+        }
+    },
+    {
+        "model": "jobsapp.applicant",
+        "pk": 1,
+        "fields": {
+            "user": 3,
+            "job": 1,
+            "created_at": "2019-04-08T14:45:05.411Z"
+        }
+    },
+    {
+        "model": "jobsapp.applicant",
+        "pk": 2,
+        "fields": {
+            "user": 3,
+            "job": 2,
+            "created_at": "2019-04-08T14:49:20.099Z"
+        }
+    },
+    {
+        "model": "jobsapp.applicant",
+        "pk": 3,
+        "fields": {
+            "user": 4,
+            "job": 2,
+            "created_at": "2019-04-10T17:15:59.381Z"
+        }
+    },
+    {
+        "model": "jobsapp.applicant",
+        "pk": 4,
+        "fields": {
+            "user": 3,
+            "job": 5,
+            "created_at": "2019-04-10T17:34:09.403Z"
+        }
+    },
+    {
+        "model": "jobsapp.applicant",
+        "pk": 5,
+        "fields": {
+            "user": 3,
+            "job": 3,
+            "created_at": "2020-08-10T19:31:15.593Z"
+        }
+    }
+]
