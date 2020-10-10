@@ -1,4 +1,4 @@
-from . import *
+from .base import *  # noqa
 
 LOGGING = {
     "version": 1,
