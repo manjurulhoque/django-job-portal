@@ -3,10 +3,11 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DeleteView, ListView
+from django.views.generic import CreateView, ListView
+
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Job, Applicant
 
 
 class DashboardView(ListView):
@@ -68,12 +69,6 @@ class JobCreateView(CreateView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
-
-class JobDeleteView(DeleteView):
-    model = Job
-    success_url = reverse_lazy('jobs:employer-dashboard')
-    template_name = 'jobs/delete.html'
 
 
 class ApplicantsListView(ListView):
