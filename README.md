@@ -16,6 +16,11 @@ Used Tech Stack
 1. Create a virtual environment
 
     `virtualenv venv`
+
+    Or
+
+    `python3.8 -m venv venv`
+
 2. Activate it
 
     `source venv/bin/activate`
@@ -24,10 +29,18 @@ Used Tech Stack
 
     `pip install -r requirements.txt`
 
+4. Add `.env` file.
+
+    `cd jobs/settings`
+
+    `cp .env.dev.sample .env`
+
 ### Run
 With the venv activate it, execute:
 
 `python manage.py collectstatic`
+
+*Note* : Collect static is not necessary in dev mode
 
 `python manage.py runserver 0.0.0.0:8000`
 

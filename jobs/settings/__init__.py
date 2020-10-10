@@ -3,7 +3,9 @@ from datetime import timedelta
 import environ
 
 env = environ.Env(
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    ELASTIC_HOST_NAME=(str, 'localhost'),
+    ELASTIC_HOST_PORT=(str, '9200')
 )
 environ.Env.read_env()
 
@@ -189,14 +191,13 @@ LOGGING = {
     },
 }
 
-ELASTIC_HOST_NAME = os.environ.get('APF_ELASTIC_HOST_NAME', 'localhost')
-ELASTIC_HOST_PORT = os.environ.get('APF_ELASTIC_HOST_PORT', '9200')
-# ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
+ELASTIC_HOST_NAME = env('ELASTIC_HOST_NAME')
+ELASTIC_HOST_PORT = env('ELASTIC_HOST_PORT')
 
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': ELASTIC_HOST_NAME + ':' + ELASTIC_HOST_PORT,
+        'hosts': f'{ELASTIC_HOST_NAME}:{ELASTIC_HOST_PORT}',
     },
 }
 
