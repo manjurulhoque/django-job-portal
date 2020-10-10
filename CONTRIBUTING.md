@@ -34,20 +34,16 @@ git checkout common/master -b <your_branch_name>
 7. Commit your changes
 8. Before push your changes into the main branch, please:
 
-- Check if your code styled is accordantly with the project code style (PEP8) using `flake8`. If there is any error or warning, please solve it before continue:
+- Check if your code contribution is formatted and styled accordantly with the project source code running:
 
   ```bash
-  flake8 ./ --exclude="venv, migrations" --count --exit-zero --max-complexity=10 --max-line-length=120
+  pre-commit run --all
   ```
 
-- Ensure your code is well formatted using `black`.
+> **Tip:** Ensure you have `pre-commit` tool installed by doing `python -m pip -r requirements-test.txt` inside you virtual environment.
+> **Note:** If there is any error or warning, please solve it before continue.
 
-  ```bash
-  black --line-length=120 --exclude="venv" --force-exclude=./*/migrations/ ./
-  ```
-> **Note:** If your virtual environment is named something different then **venv/**, change the above commands parameter value **--exclude=** to the appropriate name.
-
-9.  Push the commited changes to your fork (the `origin` remote)
+1.  Push the committed changes to your fork (the `origin` remote)
 
 ```bash
 git push origin HEAD
