@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <p>Are you sure you want to delete "{{ job }}"?</p>
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock %}
