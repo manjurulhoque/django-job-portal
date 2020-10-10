@@ -2,13 +2,14 @@ import os
 from datetime import timedelta
 import environ
 
-env = environ.Env()
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
 
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env("DEBUG")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
