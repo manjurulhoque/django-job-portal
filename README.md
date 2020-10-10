@@ -31,8 +31,6 @@ Used Tech Stack
 
 4. Add `.env` file.
 
-    `cd jobs/settings`
-
     `cp .env.dev.sample .env`
 
 ### Run
