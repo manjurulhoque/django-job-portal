@@ -4,11 +4,11 @@ from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import CreateView, DetailView, ListView
 
 # from ..documents import JobDocument
 from ..forms import ApplyJobForm
-from ..models import Job, Applicant
+from ..models import Applicant, Job
 
 
 class HomeView(ListView):
