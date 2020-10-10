@@ -4,13 +4,13 @@ import pytest
 
 
 # List of factories
-class UserFactory(factory.Factory):
+class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
+        django_get_or_create = ('first_name', 'last_name')
 
     first_name = 'John'
     last_name = 'Doe'
-    admin = False
 
 
 class JobFactory(factory.django.DjangoModelFactory):
@@ -22,11 +22,3 @@ class JobFactory(factory.django.DjangoModelFactory):
     title = factory.Sequence(lambda n: 'Title %d' % n)
     description = factory.Sequence(lambda n: 'Description %d' % n)
     type = '1'
-
-
-# Create your tests here.
-@pytest.mark.django_db
-class TestExampe:
-    def test__exemple__ok(self):
-        x = "my simple app test"
-        assert 'simple app' in x
