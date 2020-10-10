@@ -8,16 +8,21 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 1. Fork this very repository (use the `fork` button at the top left)
 2. Clone the newly created fork (use the green `clone` button)
-> Remember to [configure your SSH key]()
+   > Remember to [configure your SSH key]()
 3. Add this repository remote and name it `common`, use the follow command:
+
 ```bash
 git remote add common git@github.com:GeeksCAT/anem-per-feina.git
 ```
+
 4. Fetch the latest changes from the `common` repository:
+
 ```bash
 git fetch common
 ```
+
 5. Create your branch from the latest changes of the branch `master` in the `common` remote:
+
 ```bash
 git checkout common/master -b <your_branch_name>
 ```
@@ -26,27 +31,41 @@ git checkout common/master -b <your_branch_name>
 
 6. Make your changes
 
-7. Commit yout changes
+7. Commit your changes
+8. Before push your changes into the main branch, please:
 
-8. Push the commited changes to your fork (the `origin` remote)
+- Check if your code styled is accordantly with the project code style (PEP8) using `flake8`. If there is any error or warning, please solve it before continue:
+
+  ```bash
+  flake8 ./ --exclude="venv, migrations" --count --exit-zero --max-complexity=10 --max-line-length=120
+  ```
+
+- Ensure your code is well formatted using `black`.
+
+  ```bash
+  black --line-length=120 --exclude="venv" --force-exclude=./*/migrations/ ./
+  ```
+> **Note:** If your virtual environment is named something different then **venv/**, change the above commands parameter value **--exclude=** to the appropriate name.
+
+9.  Push the commited changes to your fork (the `origin` remote)
+
 ```bash
 git push origin HEAD
 ```
 
-9. Go to your fork (on the browser), you'll a big yellow banner offering you to create a pull request to the `common` remote. Click to `Create pull request`
+10. Go to your fork (on the browser), you'll a big yellow banner offering you to create a pull request to the `common` remote. Click to `Create pull request`
 
-10. Fill the gaps of the pull request template.
+11. Fill the gaps of the pull request template.
 
 > **Tip:** You can reference the issu that you are solving using the `#<issue_number>` format.
 
-11. Be social, you can mention the leader or talk to other people.
-
+12. Be social, you can mention the leader or talk to other people.
 
 ## Code of conduct
 
-Please keep the tone polite & professional.  For some users a discussion on this project may be their first engagement with the open source community.  First impressions count, so let's try to make everyone feel welcome.
+Please keep the tone polite & professional. For some users a discussion on this project may be their first engagement with the open source community. First impressions count, so let's try to make everyone feel welcome.
 
-Be mindful in the language you choose.  As an example, in an environment that is heavily male-dominated, posts that start 'Hey guys,' can come across as unintentionally exclusive.  It's just as easy, and more inclusive to use gender neutral language in those situations. (e.g. 'Hey folks,')
+Be mindful in the language you choose. As an example, in an environment that is heavily male-dominated, posts that start 'Hey guys,' can come across as unintentionally exclusive. It's just as easy, and more inclusive to use gender neutral language in those situations. (e.g. 'Hey folks,')
 
 The [Django code of conduct](https://www.djangoproject.com/conduct/) gives a fuller set of guidelines for participating in community forums.
 
@@ -64,8 +83,8 @@ Before you create a new issue, please do a search in [open issues](https://githu
 
 If you find your issue already exists, make relevant comments and add your [reaction](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments). Use a reaction in place of a "+1" comment:
 
-* 👍 - upvote
-* 👎 - downvote
+- 👍 - upvote
+- 👎 - downvote
 
 If you cannot find an existing issue that describes your bug or feature, create a new issue using the guidelines below.
 
@@ -81,27 +100,27 @@ The more information you can provide, the more likely someone will be successful
 
 Please include the following with each issue:
 
-* Your operating system
+- Your operating system
 
-* Reproducible steps (1... 2... 3...) that cause the issue
+- Reproducible steps (1... 2... 3...) that cause the issue
 
-* What you expected to see, versus what you actually saw
+- What you expected to see, versus what you actually saw
 
-* Images, animations, or a link to a video showing the issue occurring
+- Images, animations, or a link to a video showing the issue occurring
 
-* A code snippet that demonstrates the issue or a link to a code repository the developers can easily pull down to recreate the issue locally
+- A code snippet that demonstrates the issue or a link to a code repository the developers can easily pull down to recreate the issue locally
 
-  * **Note:** Because the developers need to copy and paste the code snippet, including a code snippet as a media file (i.e. .gif) is not sufficient.
+  - **Note:** Because the developers need to copy and paste the code snippet, including a code snippet as a media file (i.e. .gif) is not sufficient.
 
 ### Final Checklist
 
 Please remember to do the following:
 
-* [ ] Search the issue repository to ensure your report is a new issue
+- [ ] Search the issue repository to ensure your report is a new issue
 
-* [ ] Recreate the issue
+- [ ] Recreate the issue
 
-* [ ] Simplify your code around the issue to better isolate the problem
+- [ ] Simplify your code around the issue to better isolate the problem
 
 Don't feel bad if the developers can't reproduce the issue right away. They will simply ask for more information!
 
