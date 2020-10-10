@@ -19,7 +19,7 @@ jobs:
       - name: Run flake8 linter
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+          flake8 . --count --max-complexity=10 --max-line-length=120 --statistics
       - name: Run black code formatter
         run: |
           black --check --line-length=120 --force-exclude=./*/migrations/ ./
