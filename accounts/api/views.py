@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from rest_framework import response, decorators, permissions, status
+from rest_framework import decorators, permissions, response, status
+
 from .serializers import UserCreateSerializer
 
 User = get_user_model()

@@ -1,10 +1,10 @@
-from django.urls import path
-
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
 
 from jobsapp.views.employee import EditProfileView
-from .views import RegisterEmployeeView, RegisterEmployerView, LogoutView, LoginView
+
+from .views import LoginView, LogoutView, RegisterEmployeeView, RegisterEmployerView
 
 app_name = "accounts"
 

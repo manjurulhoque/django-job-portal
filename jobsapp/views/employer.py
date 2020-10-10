@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView
 
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Job, Applicant
+from jobsapp.models import Applicant, Job
 
 
 class DashboardView(ListView):

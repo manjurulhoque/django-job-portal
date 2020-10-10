@@ -2,11 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from .views.common import JobViewSet, SearchApiView
-from .views.employee import (
-    ApplyJobApiView,
-    AppliedJobsAPIView,
-    already_applied_api_view,
-)
+from .views.employee import AppliedJobsAPIView, ApplyJobApiView, already_applied_api_view
 
 router = DefaultRouter()
 router.register("jobs", JobViewSet)
