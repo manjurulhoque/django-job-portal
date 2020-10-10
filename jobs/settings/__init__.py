@@ -2,16 +2,15 @@ import os
 from datetime import timedelta
 import environ
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
-environ.Env.read_env()
+env = environ.Env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 SECRET_KEY = '@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb'
 
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -189,14 +188,13 @@ LOGGING = {
     },
 }
 
-ELASTIC_HOST_NAME = os.environ.get('APF_ELASTIC_HOST_NAME', 'localhost')
-ELASTIC_HOST_PORT = os.environ.get('APF_ELASTIC_HOST_PORT', '9200')
-# ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
+ELASTIC_HOST_NAME = env.str('ELASTIC_HOST_NAME', default='localhost')
+ELASTIC_HOST_PORT = env.str('ELASTIC_HOST_PORT', default='9200')
 
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': ELASTIC_HOST_NAME + ':' + ELASTIC_HOST_PORT,
+        'hosts': f'{ELASTIC_HOST_NAME}:{ELASTIC_HOST_PORT}',
     },
 }
 
