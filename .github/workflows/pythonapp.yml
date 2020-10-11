@@ -21,3 +21,6 @@ jobs:
       - name: Run source code analysis and code format
         run: |
           pre-commit run --all
+      - name: Run checks
+        run: |
+          python checks.py --since origin/master --typing
