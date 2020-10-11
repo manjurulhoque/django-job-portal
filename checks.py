@@ -6,7 +6,7 @@ from subprocess import check_output, CalledProcessError
 import sys
 
 IGNORE_PATHS: List[str] = [
-    "jobsapp/migrations",
+    "./*/migrations",
 ]
 
 
@@ -22,7 +22,7 @@ def filter_files(find_command: str) -> List[str]:
     """
 
     if IGNORE_PATHS:
-        find_command = "{find} | grep -v '{additional}'".format(
+        find_command = "{find} | grep -vE '{additional}'".format(
             find=find_command, additional="' | grep -v '".join(IGNORE_PATHS)
         )
 
