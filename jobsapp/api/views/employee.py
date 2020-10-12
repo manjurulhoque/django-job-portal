@@ -30,7 +30,9 @@ class AppliedJobsAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployee]
 
     def get_queryset(self):
-        applied_jobs_id = list(Applicant.objects.filter(user=self.request.user).values_list("job_id", flat=True))
+        applied_jobs_id = list(
+            Applicant.objects.filter(user=self.request.user).values_list("job_id", flat=True)
+        )
         return Job.objects.filter(id__in=applied_jobs_id)
 
 
