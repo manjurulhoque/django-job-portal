@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 120
+line-length = 100
 include = '\.pyi?$'
 exclude = 'venv'
 force-exclude = '''
@@ -7,6 +7,7 @@ force-exclude = '''
     \.git
   | \.hg
   | \.mypy_cache
+  | \.pytest_cache
   | \.tox
   | \.venv
   | _build

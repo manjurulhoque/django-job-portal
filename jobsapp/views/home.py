@@ -98,7 +98,9 @@ class ApplyJobView(CreateView):
 
     def form_valid(self, form):
         # check if user already applied
-        applicant = Applicant.objects.filter(user_id=self.request.user.id, job_id=self.kwargs["job_id"])
+        applicant = Applicant.objects.filter(
+            user_id=self.request.user.id, job_id=self.kwargs["job_id"]
+        )
         if applicant:
             messages.info(self.request, "You already applied for this job")
             return HttpResponseRedirect(self.get_success_url())
