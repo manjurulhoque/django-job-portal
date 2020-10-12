@@ -1,6 +1,5 @@
 import factory
 from jobsapp.models import User, Job
-import pytest
 
 
 # List of factories

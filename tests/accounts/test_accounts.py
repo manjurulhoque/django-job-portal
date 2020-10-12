@@ -1,5 +1,3 @@
-from django.test import TestCase
-from accounts import models
 import pytest
 from accounts.forms import EmployeeRegistrationForm
 
