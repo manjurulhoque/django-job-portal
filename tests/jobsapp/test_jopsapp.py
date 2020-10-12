@@ -1,7 +1,5 @@
-from django.test import TestCase
 import pytest
 from tests.factories import UserFactory
-from jobsapp import models
 
 
 # Create your tests here.
