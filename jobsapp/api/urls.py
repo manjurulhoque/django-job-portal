@@ -1,5 +1,6 @@
-from django.urls import path
 from rest_framework.routers import DefaultRouter
+
+from django.urls import path
 
 from .views.common import JobViewSet, SearchApiView
 from .views.employee import AppliedJobsAPIView, ApplyJobApiView, already_applied_api_view
