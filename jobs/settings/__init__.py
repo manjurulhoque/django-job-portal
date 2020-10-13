@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 
 import environ
+from collections import OrderedDict
 
 env = environ.Env()
 
@@ -27,6 +28,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "jobsapp",
     "accounts",
+    "constance",
+    "constance.backends.database",
 ]
 
 MIDDLEWARE = [
@@ -105,7 +108,7 @@ USE_TZ = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
-# ALLOWED_HOSTS = ['django-portal.herokuapp.com', 'localhost', 'jobs.manjurulhoque.com', '127.0.0.1', 'localhost:3000']
+# ALLOWED_HOSTS = ['django-portal.herokuapp.com', .backends.database'localhost', 'jobs.manjurulhoque.com', '127.0.0.1', 'localhost:3000']
 # cors config
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ["*"]
@@ -190,4 +193,21 @@ ELASTICSEARCH_DSL = {
 # Documentation
 SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+
+CONSTANCE_CONFIG = {
+    'SITE_NAME': ('My Title', 'Website title'),
+    'SITE_DESCRIPTION': ('', 'Website description'),
+    'JOBS_URL': ('', 'URL Jobs'),
+}
+CONSTANCE_CONFIG_FIELDSETS = {
+    'General Configuration Service': {
+        'fields': ('SITE_NAME', 'SITE_DESCRIPTION'),
+    },
+    'Jobs Configuration Service': {
+        'fields': ('JOBS_URL',),
+    }
 }
