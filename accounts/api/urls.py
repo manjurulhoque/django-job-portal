@@ -1,5 +1,6 @@
-from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
+
+from django.urls import path
 
 from .custom_claims import MyTokenObtainPairView
 from .views import registration
