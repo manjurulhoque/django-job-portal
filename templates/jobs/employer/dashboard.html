@@ -77,7 +77,7 @@
                                                 <span class="hidden-xs hidden-sm">Mark as </span>filled
                                             </a><br>
                                         {% endif %}
-                                        <a href="#" class="btn btn-outline-white-secondary">
+                                        <a href="{% url 'jobs:employer-dashboard-delete-offer' job.id %}" class="btn btn-outline-white-secondary">
                                             <i class="fa fa-times-circle-o"></i>Delete
                                         </a>
                                     </td>
