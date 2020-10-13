@@ -5,6 +5,7 @@ from .views.employer import (
     ApplicantsListView,
     DashboardView,
     JobCreateView,
+    JobDeleteView,
     filled,
 )
 from .views.home import ApplyJobView, HomeView, JobDetailsView, JobListView, SearchView
@@ -30,6 +31,11 @@ urlpatterns = [
                     name="employer-dashboard-applicants",
                 ),
                 path("mark-filled/<int:job_id>", filled, name="job-mark-filled"),
+                path(
+                    "delete/<int:pk>",
+                    JobDeleteView.as_view(),
+                    name="employer-dashboard-delete-offer",
+                ),
             ]
         ),
     ),
