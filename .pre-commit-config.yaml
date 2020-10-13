@@ -3,6 +3,7 @@ repos:
         rev: 5.5.2
         hooks:
         - id: isort
+          additional_dependencies: ["toml"]
     -   repo: https://github.com/ambv/black
         rev: stable
         hooks:
