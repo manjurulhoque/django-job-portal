@@ -21,22 +21,22 @@ def custom_exception_handler(exc, context):
             else:
                 errors.append("{}: {}".format(field, value))
 
-        response.data['errors'] = errors
-        response.data['status'] = False
+        response.data["errors"] = errors
+        response.data["status"] = False
 
         if type(exc) is ValidationError:
-            response.data['message'] = ''
+            response.data["message"] = ""
             for field, value in data.items():
-                response.data['message'] += value[0] + ' '
+                response.data["message"] += value[0] + " "
         else:
-            response.data['message'] = str(exc)
+            response.data["message"] = str(exc)
 
     return response
 
 
 """
 # to work with this custom error handler, save this file in your project,
-#add this in settings.py 
+#add this in settings.py
  REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'core.api.custom_exception.custom_exception_handler', #location for your file
 }

@@ -5,9 +5,9 @@ from accounts.models import User
 
 
 class Job(models.Model):
-    JOB_TYPE_FULL_TIME = '1'
-    JOB_TYPE_PART_TIME = '2'
-    JOB_TYPE_INTERNSHIP = '3'
+    JOB_TYPE_FULL_TIME = "1"
+    JOB_TYPE_PART_TIME = "2"
+    JOB_TYPE_INTERNSHIP = "3"
     JOB_TYPES = (
         (JOB_TYPE_FULL_TIME, "Full time"),
         (JOB_TYPE_PART_TIME, "Part time"),
@@ -33,11 +33,11 @@ class Job(models.Model):
 
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applicants")
     created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        unique_together = ('user', 'job')
+        unique_together = ("user", "job")
 
     def __str__(self):
         return self.user.get_full_name()

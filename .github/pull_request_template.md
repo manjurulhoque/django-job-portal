@@ -9,3 +9,8 @@ Explain the details for making this change. What existing problem does the pull 
 ## Code formating
 
 The code has to be well formatted following the formatting rules. For example in Python the code has to follow the PEP8.
+
+Before create your PR, please make sure your code is formatted running:
+```bash
+$ >> black --exclude=venv,__pycache__ ./
+```

@@ -1,5 +1,7 @@
+from rest_framework import decorators, permissions, response, status
+
 from django.contrib.auth import get_user_model
-from rest_framework import response, decorators, permissions, status
+
 from .serializers import UserCreateSerializer
 
 User = get_user_model()
@@ -14,6 +16,6 @@ def registration(request):
     serializer.save()
     res = {
         "status": True,
-        "message": 'Successfully registered',
+        "message": "Successfully registered",
     }
     return response.Response(res, status.HTTP_201_CREATED)

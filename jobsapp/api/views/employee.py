@@ -11,7 +11,7 @@ from jobsapp.models import Applicant, Job
 
 class ApplyJobApiView(CreateAPIView):
     serializer_class = ApplicantSerializer
-    http_method_names = [u'post']
+    http_method_names = [u"post"]
     permission_classes = [IsAuthenticated, IsEmployee]
 
     # def perform_create(self, serializer):
@@ -30,15 +30,15 @@ class AppliedJobsAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployee]
 
     def get_queryset(self):
-        applied_jobs_id = list(Applicant.objects.filter(user=self.request.user).values_list('job_id', flat=True))
+        applied_jobs_id = list(
+            Applicant.objects.filter(user=self.request.user).values_list("job_id", flat=True)
+        )
         return Job.objects.filter(id__in=applied_jobs_id)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated, IsEmployee])
 def already_applied_api_view(request, job_id):
     is_applied = Applicant.objects.filter(user=request.user, job_id=job_id).exists()
-    content = {
-        'is_applied': is_applied
-    }
+    content = {"is_applied": is_applied}
     return Response(content)
