@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from argparse import ArgumentParser
-from typing import List
-from subprocess import check_output, CalledProcessError
 import sys
+from argparse import ArgumentParser
+from subprocess import CalledProcessError, check_output
+from typing import List
 
 IGNORE_PATHS: List[str] = [
     "./*/migrations",
