@@ -194,19 +194,19 @@ SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
 }
 
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 
 
 CONSTANCE_CONFIG = {
-    'SITE_NAME': ('My Title', 'Website title'),
-    'SITE_DESCRIPTION': ('', 'Website description'),
-    'JOBS_URL': ('', 'URL Jobs'),
+    "SITE_NAME": ("My Title", "Website title"),
+    "SITE_DESCRIPTION": ("", "Website description"),
+    "JOBS_URL": ("", "URL Jobs"),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
-    'General Configuration Service': {
-        'fields': ('SITE_NAME', 'SITE_DESCRIPTION'),
+    "General Configuration Service": {
+        "fields": ("SITE_NAME", "SITE_DESCRIPTION"),
     },
-    'Jobs Configuration Service': {
-        'fields': ('JOBS_URL',),
-    }
+    "Jobs Configuration Service": {
+        "fields": ("JOBS_URL",),
+    },
 }
