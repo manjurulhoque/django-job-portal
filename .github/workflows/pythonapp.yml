@@ -1,6 +1,7 @@
-name: job-portal
+# Performs a code validation reviewing format and checking types
+name: code-check
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
