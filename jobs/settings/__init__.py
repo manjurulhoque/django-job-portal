@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 
 import environ
-from collections import OrderedDict
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env()
