@@ -8,11 +8,11 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 1. Fork this very repository (use the `fork` button at the top left).
 
-**Tip**: If you have permission, use the [GeeksCAT fork](https://github.com/GeeksCAT/anem-per-feina) directly instead of create a new fork.
+**Tip for hacktoberfest'20 participants**: If you have doubts or troubles forking and keeping it synchronized, start a new branch from **master** and submit a PR directly in this  [repo](https://github.com/GeeksCAT/anem-per-feina).
 
-2. Clone the newly created fork (use the green `clone` button)
+1. Clone the newly created fork (use the green `clone` button)
    > Remember to [configure your SSH key]()
-3. Add this repository remote and name it `common`, use the follow command:
+2. Add this repository remote and name it `common`, use the follow command:
 
 ```bash
 git remote add common git@github.com:GeeksCAT/anem-per-feina.git
