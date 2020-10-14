@@ -1,4 +1,5 @@
 import pytest
+
 from accounts.forms import EmployeeRegistrationForm
 
 
@@ -8,4 +9,4 @@ class TestEmployeeRegistrationForm:
     def test__clean__ok(self):
         form = EmployeeRegistrationForm()
         form.save()
-        assert form.fields['first_name'].label == 'First Name'
+        assert form.fields["first_name"].label == "First Name"

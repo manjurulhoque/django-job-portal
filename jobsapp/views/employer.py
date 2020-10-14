@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView
+
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant
