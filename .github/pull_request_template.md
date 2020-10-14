@@ -10,7 +10,7 @@ Explain the details for making this change. What existing problem does the pull 
 
 The code has to be well formatted following the formatting rules. For example in Python the code has to follow the PEP8.
 
-Before create your PR, please make sure your code is formatted running:
+Before create your PR, please make sure your code is well formatted and styled doing:
 ```bash
-$ >> black --exclude=venv,__pycache__ ./
+$ >> pre-commit run --all
 ```
