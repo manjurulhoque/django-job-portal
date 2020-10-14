@@ -6,10 +6,13 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 ## How to contribute
 
-1. Fork this very repository (use the `fork` button at the top left)
-2. Clone the newly created fork (use the green `clone` button)
+1. Fork this very repository (use the `fork` button at the top left).
+
+**Tip for hacktoberfest'20 participants**: If you have doubts or troubles forking and keeping it synchronized, start a new branch from **master** and submit a PR directly in this [repo](https://github.com/GeeksCAT/anem-per-feina).
+
+1. Clone the newly created fork (use the green `clone` button)
    > Remember to [configure your SSH key]()
-3. Add this repository remote and name it `common`, use the follow command:
+2. Add this repository remote and name it `common`, use the follow command:
 
 ```bash
 git remote add common git@github.com:GeeksCAT/anem-per-feina.git
@@ -40,10 +43,10 @@ git checkout common/master -b <your_branch_name>
   pre-commit run --all
   ```
 
-> **Tip:** Ensure you have `pre-commit` tool installed by doing `python -m pip -r requirements-test.txt` inside you virtual environment.
+> **Tip:** Ensure you have `pre-commit` tool installed by doing `python -m pip -r requirements-test.txt` inside you virtual environment. (Optional) Doing `pre-commit install` in your local repo will ensure that `pre-commit run --all` command runs automatically on every commit.
 > **Note:** If there is any error or warning, please solve it before continue.
 
-1.  Push the committed changes to your fork (the `origin` remote)
+9.  Push the committed changes to your fork (the `origin` remote)
 
 ```bash
 git push origin HEAD
@@ -128,5 +131,3 @@ please see [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-C
 # Thank You!
 
 Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to contribute.
-
-
