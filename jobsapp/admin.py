@@ -1,7 +1,7 @@
 from django.contrib import admin  # noqa
 
 # Register your models here.
-from jobsapp.models import Job, Applicant
+from jobsapp.models import Applicant, Job
 
 
 class ApplicantInline(admin.TabularInline):
@@ -9,6 +9,7 @@ class ApplicantInline(admin.TabularInline):
     extra = 1
 
 
+@admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
     list_display = [
         "title",
@@ -27,13 +28,8 @@ class JobAdmin(admin.ModelAdmin):
     inlines = [ApplicantInline]
 
 
-admin.site.register(Job, JobAdmin)
-
-
+@admin.register(Applicant)
 class ApplicantAdmin(admin.ModelAdmin):
     list_display = ["user", "job", "created_at"]
     list_filter = ["user", "created_at"]
     date_hierarchy = "created_at"
-
-
-admin.site.register(Applicant, ApplicantAdmin)
