@@ -8,7 +8,7 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 1. Fork this very repository (use the `fork` button at the top left).
 
-**Tip for hacktoberfest'20 participants**: If you have doubts or troubles forking and keeping it synchronized, start a new branch from **master** and submit a PR directly in this  [repo](https://github.com/GeeksCAT/anem-per-feina).
+**Tip for hacktoberfest'20 participants**: If you have doubts or troubles forking and keeping it synchronized, start a new branch from **master** and submit a PR directly in this [repo](https://github.com/GeeksCAT/anem-per-feina).
 
 1. Clone the newly created fork (use the green `clone` button)
    > Remember to [configure your SSH key]()
