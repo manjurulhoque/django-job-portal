@@ -9,4 +9,5 @@ env
 venv
 
 # Development database files
-db.sqlite3
+*.sqlite3
+*.sqlite
