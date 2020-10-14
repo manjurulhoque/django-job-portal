@@ -1,13 +1,13 @@
 from . import *  # noqa
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('POSTGRES_DB', default='anemperfeina'),
-        'USER': env('POSTGRES_USER', default='anemperfeina'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('POSTGRES_HOST', default='db'),
-        'PORT': env('POSTGRES_PORT', default='5432')
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("POSTGRES_DB", default="anemperfeina"),
+        "USER": env("POSTGRES_USER", default="anemperfeina"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST", default="db"),
+        "PORT": env("POSTGRES_PORT", default="5432"),
     }
 }
 
