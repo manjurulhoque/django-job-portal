@@ -1,0 +1,13 @@
+# Standard dockerignores for Python
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+
+# Development database files
+*.sqlite3
+*.sqlite
