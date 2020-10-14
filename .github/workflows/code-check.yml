@@ -25,4 +25,4 @@ jobs:
       - name: Run typing tests //will not raise
         continue-on-error: true
         run: |
-          python checks.py --since origin/master --typing
+          mypy --strict $(find . | grep '.py$' | grep -ve './*/migrations')
