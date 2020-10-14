@@ -109,7 +109,7 @@ USE_TZ = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
-# ALLOWED_HOSTS = ['django-portal.herokuapp.com', .backends.database'localhost', 'jobs.manjurulhoque.com', '127.0.0.1', 'localhost:3000']
+# ALLOWED_HOSTS = ['django-portal.herokuapp.com', 'localhost', 'jobs.manjurulhoque.com', '127.0.0.1', 'localhost:3000']
 # cors config
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ["*"]
