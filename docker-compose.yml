@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   db:
@@ -13,7 +13,7 @@ services:
   app:
     build:
       context: .
-    image: anemperfeina:1.0
+    image: anem-per-feina:local
     user: root
     depends_on:
       - db
@@ -30,6 +30,16 @@ services:
       - migrate
       - runserver
       - --debug
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: anem-per-feina:tests
+    depends_on:
+      - db
+    volumes:
+      - .:/anem-per-feina/
 
 volumes:
   postgres_data:
