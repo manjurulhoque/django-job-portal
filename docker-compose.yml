@@ -2,43 +2,32 @@ version: "3"
 
 services:
   db:
-    image: postgres:13
+    image: postgres:latest
     env_file:
-      # Use template env file ./docker/.env.dev.sample
-      #   and configure your container variables
-      - ./docker/.env
-
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   app:
     build:
       context: .
-      args:
-        # overriding with sample .env development file for container build,
-        # but make sure you have your own .env file for development
-        DOTENV: .env.dev.sample
     image: anemperfeina:1.0
-
+    user: root
     depends_on:
       - db
-
     env_file:
-      # Use template env file ./docker/.env.dev.sample
-      #   and configure your container variables
-      - ./docker/.env
-    environment:
-      # Perform database migrations before running the app
-      - MIGRATE=true
-
+      - .env
     ports:
       - 8000:8000
-
     volumes:
-      - $PWD:/anem-per-feina/
-
-    # Override default command to wait for development database to be online
-    command: ["wait-for-it", "db:5432", "--", "./docker/entrypoint.sh"]
+      - .:/anem-per-feina/
+    entrypoint:
+      - invoke
+      - wait-for
+      - db:5432
+      - migrate
+      - runserver
+      - --debug
 
 volumes:
   postgres_data:
