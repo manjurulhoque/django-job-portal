@@ -28,6 +28,14 @@ def migrate(ctx):
 
 
 @task
+def test(ctx):
+    """
+    Dispatch tests task
+    """
+    ctx.run("python manage.py test")
+
+
+@task
 def uwsgi(
     ctx,
     host="0.0.0.0",
