@@ -15,35 +15,35 @@ Used Tech Stack
 
 1. Create a virtual environment
 
-    `virtualenv venv`
+   `virtualenv venv`
 
-    Or
+   Or
 
-    `python3.8 -m venv venv`
+   `python3.8 -m venv venv`
 
 2. Activate it
 
-    `source venv/bin/activate`
+   `source venv/bin/activate`
 
 3. Install the packages in the virtual env:
 
-    `pip install -r requirements.txt`
+   `pip install -r requirements.txt`
 
 4. Add `.env` file.
 
-    `cp .env.dev.sample .env`
+   `cp .env.dev.sample .env`
 
 ### Run
+
 With the venv activate it, execute:
 
 `python manage.py collectstatic`
 
-*Note* : Collect static is not necessary when debug is True (in dev mode)
+_Note_ : Collect static is not necessary when debug is True (in dev mode)
 
 Create initial database:
 
 `python manage.py migrate`
-
 
 Load demo data (optional):
 
@@ -53,25 +53,29 @@ Run server:
 
 `python manage.py runserver 0.0.0.0:8000`
 
-
 ### Development Environment with Docker
+
 If you wish to use a dockerized development environment, you can easily do so by following these steps:
 
 1. Add `.env` file:
 
-    `cp .env.dev.sample .env`
+   `cp .env.dev.sample .env`
 
-2. Build the development image:
+2. Start local development env:
 
-    `docker-compose build`
+   `make start`
 
-3. Run the development database and server:
+   Or, if you wish to run in detached mode:
 
-    `docker-compose up`
+   `make serve`
 
-    Or, if you wish to run in detached mode:
+3. Execute tests:
 
-    `docker-compose up -d`
+   `make tests`
+
+4. To see all available options:
+
+   `make help`
 
 #### Development with docker dev environment
 
@@ -80,34 +84,42 @@ Django auto-reload will pick up your changes in the container.
 
 To stop the dockerized development environment use:
 
-`CTRL+C` or `docker-compose stop` if you run in detached mode.
+`CTRL+C` or `make stop` if you run in detached mode.
 
 #### Executing database migrations
 
 The app container runs database migrations at every startup, so simply restart the app server with
 
-`docker-compose restart app`
+`make restart c=app`
 
 #### Changing requirements file
 
 If during development you need to change the `requirements.txt` file you'll also have to rebuild the container:
 
-1. Stop and remove your environment with `docker-compose down`. Even though containers are removed, your database volume will be preserved.
+1. Build images again with `make build` or `make build c=app` // or `c=test`
 
-2. Build the container image again with `docker-compose build`
+2. Stop and remove your environment with `make restart`. Even though containers are removed, your database volume will be preserved.
 
-3. Restart development containers with `docker-compose up`
+#### Recreate DB
 
+If you want to recreate the DB just:
+
+1. Delete everything including volumes with `make purge`
+
+2. Restart everything with `make up` (or `make serve` for detached mode)
 
 ### Screenshots
 
 ## Home page
+
 <img src="screenshots/one.png" height="800">
 
 ## Add new position as employer
+
 <img src="screenshots/two.png" height="800">
 
 ## Job details
+
 <img src="screenshots/three.png" height="800">
 
 Show your support by 🌟 the project!!
