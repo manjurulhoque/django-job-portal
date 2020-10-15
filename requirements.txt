@@ -7,6 +7,7 @@ Django==3.0.7
 django-cors-headers==3.2.1
 django-elasticsearch-dsl==7.1.1
 django-environ==0.4.5
+django-extensions==3.0.7
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.4.0
 drf-yasg==1.17.1
@@ -35,3 +36,5 @@ uritemplate==3.0.1
 urllib3==1.25.8
 whitenoise==5.0.1
 django-constance[database]==2.7.0
+invoke==1.4.1
+werkzeug==1.0.1

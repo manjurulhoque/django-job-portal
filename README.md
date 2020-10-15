@@ -61,15 +61,11 @@ If you wish to use a dockerized development environment, you can easily do so by
 
     `cp .env.dev.sample .env`
 
-2. Add `docker/.env` file for env override when running in container
-
-   `cp docker/.env.dev.sample docker/.env`
-
-3. Build the development image:
+2. Build the development image:
 
     `docker-compose build`
 
-4. Run the development database and server:
+3. Run the development database and server:
 
     `docker-compose up`
 

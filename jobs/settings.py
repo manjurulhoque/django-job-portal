@@ -5,11 +5,9 @@ import environ
 
 env = environ.Env()
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-
-SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
+SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env.bool("DEBUG", default=False)
 
@@ -21,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_elasticsearch_dsl",
+    "django_extensions",
     "drf_yasg",
     "corsheaders",
     "rest_framework",
@@ -65,9 +64,15 @@ WSGI_APPLICATION = "jobs.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
-    "default": env.db(),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("POSTGRES_DB", default="anemperfeina"),
+        "USER": env("POSTGRES_USER", default="anemperfeina"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST", default="db"),
+        "PORT": env("POSTGRES_PORT", default="5432"),
+    }
 }
 
 # Password validation
@@ -158,23 +163,41 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+LOG_LEVEL = env.str("LOG_LEVEL", "ERROR")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
         "file": {
-            "level": "INFO",
+            "level": LOG_LEVEL,
             "class": "logging.handlers.TimedRotatingFileHandler",
             "filename": os.path.join(BASE_DIR, "logs/debug.log"),
             "when": "D",  # this specifies the interval
             "interval": 1,  # defaults to 1, only necessary for other values
             "backupCount": 100,  # how many backup file to keep, 10 days
-        }
+        },
+        "console": {"level": LOG_LEVEL, "class": "logging.StreamHandler"},
     },
     "loggers": {
-        "django": {"handlers": ["file"], "level": "INFO", "propagate": True},
-        "project": {"handlers": ["file"], "level": "INFO", "propagate": True},
-        "": {"handlers": ["file"], "level": "INFO", "propagate": True},
+        "django": {
+            "handlers": ["file", "console"],
+            # "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+        },
+        "project": {
+            "handlers": ["file", "console"],
+            # "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+        },
+        "": {
+            "handlers": ["file", "console"],
+            # "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+        },
     },
 }
 
@@ -203,10 +226,6 @@ CONSTANCE_CONFIG = {
     "JOBS_URL": ("", "URL Jobs"),
 }
 CONSTANCE_CONFIG_FIELDSETS = {
-    "General Configuration Service": {
-        "fields": ("SITE_NAME", "SITE_DESCRIPTION"),
-    },
-    "Jobs Configuration Service": {
-        "fields": ("JOBS_URL",),
-    },
+    "General Configuration Service": ("SITE_NAME", "SITE_DESCRIPTION"),
+    "Jobs Configuration Service": ("JOBS_URL",),
 }
