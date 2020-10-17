@@ -1,5 +1,7 @@
-from django.contrib.auth.models import AbstractUser
-from django.db import models
+from typing import List
+
+from django.contrib.auth.models import AbstractUser  # type: ignore
+from django.db import models  # type: ignore
 
 from accounts.managers import UserManager
 
@@ -19,7 +21,7 @@ class User(AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS: List[str] = []
 
     def __unicode__(self):
         return self.email

@@ -1,4 +1,4 @@
-from django.contrib import admin  # noqa
+from django.contrib import admin  # type: ignore
 
 # Register your models here.
 from accounts.models import User
