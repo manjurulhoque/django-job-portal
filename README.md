@@ -51,40 +51,52 @@ If you wish to use a dockerized development environment, you can easily do so by
 
     `cp .env.dev.sample .env`
 
-2. Build the development image:
+2. Start local development environment:
 
-    `docker-compose build`
-
-3. Run the development database and server:
-
-    `docker-compose up`
+    `make start`
 
     Or, if you wish to run in detached mode:
 
-    `docker-compose up -d`
+   `make serve`
+
+3. Execute tests:
+
+  `make tests`
+
+4. To see all available options:
+
+  `make help`
+
+#### Development with docker dev environment
 
 Once the environment is up and running, you can modify the project files and the
 Django auto-reload will pick up your changes in the container.
 
 To stop the dockerized development environment use:
 
-`CTRL+C` or `docker-compose stop` if you run in detached mode.
+`CTRL+C` or `make stop` if you run in detached mode.
 
 #### Executing database migrations
 
 The app container runs database migrations at every startup, so simply restart the app server with
 
-`docker-compose restart app`
+`make restart c=app`
 
 #### Changing requirements file
 
 If during development you need to change the `requirements.txt` file you'll also have to rebuild the container:
 
-1. Stop and remove your environment with `docker-compose down`. Even though containers are removed, your database volume will be preserved.
+1. Build images again with `make build`or `make build c=app`// or `c=test`
 
-2. Build the container image again with `docker-compose build`
+2. Stop and remove your environment with `make restart`. Even though continers are removed, your database volume will be preserved.
 
-3. Restart development containers with `docker-compose up`
+#### Recreate database
+
+If you want to recreate the database:
+
+1. Delete everything including volumes with `make purge`
+
+2. Restart everything with `make up` (or `make server` for detached mode)
 
 <a name="local-venv"></a>
 ### Local environment
