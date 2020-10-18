@@ -26,3 +26,6 @@ jobs:
         continue-on-error: true
         run: |
           mypy --strict $(find . | grep '.py$' | grep -ve './*/migrations')
+        env:
+          SECRET_KEY: mypy
+          POSTGRES_PASSWORD: mypy

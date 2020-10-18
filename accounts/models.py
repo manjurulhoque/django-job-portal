@@ -1,18 +1,19 @@
-from typing import List
+from typing import List, Tuple
 
-from django.contrib.auth.models import AbstractUser  # type: ignore
-from django.db import models  # type: ignore
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.utils.translation import ugettext as _
 
 from accounts.managers import UserManager
 
 GENDER_MALE = "male"
 GENDER_FEMALE = "female"
-GENDER_CHOICES = ((GENDER_MALE, _("Male")), (GENDER_FEMALE, _("Female")))
+GENDER_CHOICES: Tuple[Tuple[str, str], ...]
+GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=64, default=None)
     role = models.CharField(
         max_length=12,
         error_messages={"required": "Role must be provided"},
@@ -43,4 +44,5 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-    objects = UserManager()
+    # TODO: Solve mypy error later:
+    objects = UserManager()  # type: ignore
