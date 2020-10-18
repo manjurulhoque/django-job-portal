@@ -30,7 +30,7 @@ We forked the open source project [django-job-portal](https://github.com/manjuru
 
 **Anem per feina** is a collaborative effort where everybody is more than welcome to contribute, no experience is required!
 
-Have a look at [CONTRIBUTING.md](CONTRIBUTING.md) file that describes the process to submit a contribution, and come say hi 👋👋to [GeeksCat slack](https://geekscat.slack.com) where most contributors hang out.
+Have a look at [CONTRIBUTING.md](CONTRIBUTING.md) file that describes the process to submit a contribution, and come say hi 👋👋 to [GeeksCat slack](https://geekscat.slack.com) where most contributors hang out.
 
 <a name="tech-stack"></a>
 ## Tech stack
@@ -129,7 +129,7 @@ If you want to recreate the database:
 
     `python manage.py collectstatic`
 
-    *Note* : Collect static is not necessary when debug is True (in dev mode)
+*Note* : Collect static is not necessary when debug is True (in dev mode)
 
 2. Create initial database:
 
