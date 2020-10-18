@@ -65,7 +65,7 @@ class Job(models.Model):
         verbose_name = _("Job")
         verbose_name_plural = _("Jobs")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -91,5 +91,5 @@ class Applicant(models.Model):
         verbose_name_plural = _("Applicants")
         unique_together = ("user", "job")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user.get_full_name()

@@ -1,3 +1,5 @@
+from typing import Dict, Optional, Union
+
 from rest_framework import serializers
 
 from ..models import User
@@ -6,7 +8,6 @@ from ..models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # fields = "__all__"
         exclude = (
             "password",
             "user_permissions",
@@ -37,7 +38,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data):
+    def create(self, validated_data: Dict[str, Union[str, bool]]) -> User:
         email = validated_data["email"]
         password = validated_data["password"]
         password2 = validated_data["password2"]
