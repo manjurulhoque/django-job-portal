@@ -1,0 +1,8 @@
+FROM anem-per-feina:local
+LABEL maintainer="GeeksCAT<info@geekscat.org>"
+
+WORKDIR /anem-per-feina/
+
+COPY requirements-test.txt ./
+
+RUN pip install --no-cache-dir -r requirements-test.txt
