@@ -61,11 +61,11 @@ If you wish to use a dockerized development environment, you can easily do so by
 
 3. Execute tests:
 
-  `make tests`
+    `make tests`
 
 4. To see all available options:
 
-  `make help`
+    `make help`
 
 #### Development with docker dev environment
 
@@ -124,24 +124,25 @@ If you want to recreate the database:
     `cp .env.dev.sample .env`
 
 #### Run
-With the venv activate it, execute:
 
-`python manage.py collectstatic`
+1.With the venv activate it, execute:
 
-*Note* : Collect static is not necessary when debug is True (in dev mode)
+    `python manage.py collectstatic`
 
-Create initial database:
+    *Note* : Collect static is not necessary when debug is True (in dev mode)
 
-`python manage.py migrate`
+2. Create initial database:
+
+    `python manage.py migrate`
 
 
-Load demo data (optional):
+3. Load demo data (optional):
 
-`python manage.py loaddata demo`
+    `python manage.py loaddata demo`
 
-Run server:
+4. Run server:
 
-`python manage.py runserver 0.0.0.0:8000`
+    `python manage.py runserver 0.0.0.0:8000`
 
 <a name="screenshots"></a>
 ## Screenshots
