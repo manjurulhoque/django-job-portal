@@ -1,0 +1,116 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$120000$lMGS0X5aMFo3$JgB1wTvD8sw2ewPR+eXj5ulmlKWGZjVws44nba0jQs0=",
+        "last_login": "2019-04-10T13:48:14.243Z",
+        "is_superuser": false,
+        "first_name": "Google",
+        "last_name": "Ltd.",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-04-03T18:24:13.950Z",
+        "role": "employer",
+        "gender": "",
+        "email": "contact@google.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$120000$YvEf7TARwKVv$ncxLBUeiMnfM2rgFvwP2CfWPwPq6SZw4QtzHXKwMEU0=",
+        "last_login": "2019-12-10T06:08:46.324Z",
+        "is_superuser": false,
+        "first_name": "Audacity Ltd",
+        "last_name": "Dhaka",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-04-05T17:45:34.906Z",
+        "role": "employer",
+        "gender": "",
+        "email": "audacity@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$180000$TAnAtvkQPoTu$eucaT9RTbOY772KxyQtQ+3/+dDPiSFqSi3lWU8k4Pv0=",
+        "last_login": "2019-04-10T17:34:02.495Z",
+        "is_superuser": false,
+        "first_name": "Manjurul",
+        "last_name": "Hoque",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-04-06T17:13:25.494Z",
+        "role": "employee",
+        "gender": "male",
+        "email": "rumi@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$120000$1oPPPSsl5L3z$Po2qjbQeM1YRiwXdGHnbgm4Ocf9XIeL0aDqdcdiu8Wc=",
+        "last_login": "2019-04-10T17:07:34.287Z",
+        "is_superuser": false,
+        "first_name": "Sadman",
+        "last_name": "Shamsuddin",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-04-10T17:07:24.608Z",
+        "role": "employee",
+        "gender": "male",
+        "email": "sadman@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$180000$oRp4hGWs2fcI$huokZAAKIhxJ5jP4FE8g3N9qV60P2Ql7e0vHfCZcDdc=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-07-30T18:26:13.419Z",
+        "role": "employee",
+        "gender": "Male",
+        "email": "rumi2@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$180000$DHoxFqmkJCkx$swNxDaGno4fTU+if5ZMYqpT4AbZU3bBF3R0S6N9xMBA=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-07-30T18:27:12.479Z",
+        "role": "employee",
+        "gender": "Male",
+        "email": "rumi22@gmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

@@ -22,4 +22,13 @@ Used Tech Stack
 ## Job details
 <img src="screenshots/three.png" height="800">
 
+#### Run test:
+``python manage.py test``
+
+#### To dump data:
+``python manage.py dumpdata --format=json --indent 4 app_name > app_name/fixtures/app_name_initial_data.json``
+
+#### To load data:
+``python manage.py loaddata fixtures/app_name_initial_data.json --app app.model_name``
+
 Show your support by 🌟 the project!!
