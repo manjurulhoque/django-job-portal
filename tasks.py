@@ -1,17 +1,15 @@
-from typing import Any, Callable, NoReturn, TypeVar
+# type: ignore
 
 from invoke import task
 
-Tasks = TypeVar("Tasks", bound=Callable[[Any], Any])
-
 
 @task
-def wait_for(ctx: Any, host: str, timeout: int = 30) -> None:
+def wait_for(ctx, host, timeout=30):
     ctx.run(f"wait-for-it {host} --timeout={timeout}")
 
 
 @task
-def runserver(ctx: Any, host: str = "0.0.0.0", port: int = 8000, debug: bool = False) -> None:
+def runserver(ctx, host="0.0.0.0", port=8000, debug=False):
     task = "runserver"
     options = []
 
@@ -25,12 +23,12 @@ def runserver(ctx: Any, host: str = "0.0.0.0", port: int = 8000, debug: bool = F
 
 
 @task
-def migrate(ctx: Any) -> None:
+def migrate(ctx):
     ctx.run("python manage.py migrate")
 
 
 @task
-def test(ctx: Any) -> None:
+def test(ctx):
     """
     Dispatch tests task
     """
@@ -39,15 +37,15 @@ def test(ctx: Any) -> None:
 
 @task
 def uwsgi(
-    ctx: Any,
-    host: str = "0.0.0.0",
-    port: int = 8000,
-    workers: int = 6,
-    threads: int = 10,
-    stats: bool = True,
-    extra: str = "",
-    uwsgi_socket: bool = False,
-) -> None:
+    ctx,
+    host="0.0.0.0",
+    port=8000,
+    workers=6,
+    threads=10,
+    stats=True,
+    extra="",
+    uwsgi_socket=False,
+):
     listen = f"--http={host}:{port}"
     if uwsgi_socket:
         listen = f"--socket {host}:{port}"
