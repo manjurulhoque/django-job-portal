@@ -1,10 +1,11 @@
 import factory
 
-from jobsapp.models import Job, User
+from accounts.models import User
+from jobsapp.models import Job
 
 
 # List of factories
-class UserFactory(factory.django.DjangoModelFactory):
+class UserFactory(factory.django.DjangoModelFactory):  # type: ignore
     class Meta:
         model = User
         django_get_or_create = ("first_name", "last_name")
@@ -13,7 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     last_name = "Doe"
 
 
-class JobFactory(factory.django.DjangoModelFactory):
+class JobFactory(factory.django.DjangoModelFactory):  # type: ignore
     class Meta:
         model = Job
         django_get_or_create = "type"

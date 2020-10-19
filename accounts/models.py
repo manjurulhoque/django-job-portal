@@ -44,5 +44,5 @@ class User(AbstractUser):
     def __str__(self) -> str:
         return self.email
 
-    # TODO: Solve mypy error later:
+    # TODO: Solve mypy error
     objects = UserManager()  # type: ignore

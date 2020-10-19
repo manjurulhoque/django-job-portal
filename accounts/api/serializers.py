@@ -1,4 +1,4 @@
-from typing import Dict, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 from rest_framework import serializers
 
@@ -38,13 +38,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data: Dict[str, Union[str, bool]]) -> User:
+    def create(self, validated_data: Dict[str, Any]) -> User:
         email = validated_data["email"]
         password = validated_data["password"]
         password2 = validated_data["password2"]
         gender = validated_data["gender"]
         role = validated_data["role"]
-        if email and User.objects.filter(email=email).exists():
+        if email and User.objects.filter(email=email).exists():  # type: ignore
             raise serializers.ValidationError({"email": "Email addresses must be unique."})
         if password != password2:
             raise serializers.ValidationError({"password": "The two passwords differ."})

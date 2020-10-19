@@ -12,6 +12,7 @@ class UserManager(BaseUserManager):  # type: ignore
         self, email: str, password: Optional[str], **extra_fields: Dict[str, Union[str, bool]]
     ) -> object:
         """Create and save a User with the given email and password."""
+
         if not email:
             raise ValueError("The given email must be set")
         email = self.normalize_email(email)

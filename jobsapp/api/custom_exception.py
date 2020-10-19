@@ -1,8 +1,11 @@
+from typing import Any, Dict, List, Optional, Sequence, Union
+
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
 
-def custom_exception_handler(exc, context):
+def custom_exception_handler(exc: Exception, context: Any) -> Optional[Response]:
     """
     Override drf default validation error message response and sends as a list
     :param exc:
@@ -12,11 +15,12 @@ def custom_exception_handler(exc, context):
 
     response = exception_handler(exc, context)
     if response is not None:
-        data = response.data
+        data: Dict[str, Any]
+        data = response.data  # type: ignore
         response.data = {}
-        errors = []
+        errors: List[str] = []
         for field, value in data.items():
-            if type(value) is list:
+            if isinstance(value, list):
                 errors.append("{}: {}".format(field, value[0]))
             else:
                 errors.append("{}: {}".format(field, value))
@@ -24,13 +28,12 @@ def custom_exception_handler(exc, context):
         response.data["errors"] = errors
         response.data["status"] = False
 
-        if type(exc) is ValidationError:
+        if isinstance(exc, ValidationError):
             response.data["message"] = ""
             for field, value in data.items():
                 response.data["message"] += value[0] + " "
         else:
             response.data["message"] = str(exc)
-
     return response
 
 
