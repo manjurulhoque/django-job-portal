@@ -4,6 +4,7 @@ from typing import Dict, List
 
 import environ
 import sentry_sdk
+from kombu import Exchange, Queue
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -28,10 +29,11 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+    "constance.backends.database",
     "jobsapp",
     "accounts",
     "constance",
-    "constance.backends.database",
+    "notifications",
 ]
 
 MIDDLEWARE = [
@@ -244,3 +246,36 @@ if SENTRY_URL:
         integrations=[DjangoIntegration(), CeleryIntegration()],
         send_default_pii=True,
     )
+
+# Celery settings
+CELERY_HIGH_QUEUE_NAME = "high_priority"
+CELERY_LOW_QUEUE_NAME = "low_priority"
+CELERY_REDIRECT_STDOUTS_LEVEL = env("CELERY_REDIRECT_STDOUTS_LEVEL", default="DEBUG")
+CELERY_BROKER_PROTOCOL = env("CELERY_BROKER_PROTOCOL", default="redis")
+CELERY_BROKER_HOST = env("CELERY_BROKER_HOST", default="redis")
+CELERY_BROKER_PORT = env("CELERY_BROKER_PORT", default=6379)
+CELERY_BROKER_DB = env("CELERY_BROKER_DB", default=0)
+CELERY_BROKER_URL = (
+    f"{CELERY_BROKER_PROTOCOL}://{CELERY_BROKER_HOST}:{CELERY_BROKER_PORT}/{CELERY_BROKER_DB}"
+)
+CELERY_IGNORE_RESULT = True
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_QUEUES = (
+    Queue(
+        CELERY_HIGH_QUEUE_NAME, Exchange(CELERY_HIGH_QUEUE_NAME), routing_key=CELERY_HIGH_QUEUE_NAME
+    ),
+    Queue(
+        CELERY_LOW_QUEUE_NAME, Exchange(CELERY_LOW_QUEUE_NAME), routing_key=CELERY_LOW_QUEUE_NAME
+    ),
+)
+
+CELERY_BEAT_SCHEDULE = {}
+
+# Notifications
+NOTIFICATIONS = {
+    "telegram": {
+        "enabled": env.bool("NOTIF_TELEGRAM_ENABLED", default=False),
+    },
+}
+
+NOTIFICATIONS_ASYNC_QUEUE_NAME = CELERY_LOW_QUEUE_NAME
