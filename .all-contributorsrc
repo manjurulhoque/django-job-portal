@@ -1,0 +1,221 @@
+{
+  "projectName": "anem-per-feina",
+  "projectOwner": "GeeksCat",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 80,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "XaviTorello",
+      "name": "Xavi Torelló",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8709244?v=4",
+      "profile": "http://xaviertorello.cat/",
+      "contributions": [
+        "question",
+        "code",
+        "doc",
+        "eventOrganizing",
+        "ideas",
+        "infra",
+        "mentoring",
+        "projectManagement",
+        "review"
+      ]
+    },
+    {
+      "login": "jbagot",
+      "name": "Jordi Bagot Soler",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/11691527?v=4",
+      "profile": "https://github.com/jbagot",
+      "contributions": [
+        "question",
+        "code",
+        "doc",
+        "eventOrganizing",
+        "ideas",
+        "infra",
+        "mentoring",
+        "projectManagement",
+        "review"
+      ]
+    },
+    {
+      "login": "francescarpi",
+      "name": "Francesc Arpí Roca",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/287872?v=4",
+      "profile": "https://github.com/francescarpi",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "doc",
+        "eventOrganizing",
+        "ideas",
+        "mentoring",
+        "projectManagement",
+        "review"
+      ]
+    },
+    {
+      "login": "d-asensio",
+      "name": "David Asensio Cañas",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/13970905?v=4",
+      "profile": "https://github.com/d-asensio",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "design",
+        "doc",
+        "eventOrganizing",
+        "ideas",
+        "mentoring",
+        "review"
+      ]
+    },
+    {
+      "login": "victormartingarcia",
+      "name": "Victor",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/659832?v=4",
+      "profile": "https://www.victormartingarcia.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "eventOrganizing",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "fullonic",
+      "name": "dbf",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/13336073?v=4",
+      "profile": "https://github.com/fullonic",
+      "contributions": [
+        "code",
+        "review"        
+      ]
+    },
+    {
+      "login": "ytturi",
+      "name": "Ytturi",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8191681?v=4",
+      "profile": "https://github.com/ytturi",
+      "contributions": [
+        "code",
+        "ideas",
+        "infra",
+        "review"
+      ]
+    },    
+    {
+      "login": "dguillen12",
+      "name": "Didac Guillen",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/71018943?v=4",
+      "profile": "https://github.com/dguillen12",
+      "contributions": [
+        "code",
+        "infra"
+      ]
+    },
+    {
+      "login": "xdiume",
+      "name": "xdiume",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/72464185?v=4",
+      "profile": "https://github.com/xdiume",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wolframtheta",
+      "name": "Xavier Marquès",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6842807?v=4",
+      "profile": "https://avatars.githubusercontent.com/u/6842807",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mcastellin",
+      "name": "Manuel Castellin",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2655072?v=4",
+      "profile": "https://www.linkedin.com/in/castellinmanuel/",
+      "contributions": [
+        "code",
+        "infra",
+        "review"        
+      ]
+    },
+    {
+      "login": "oriolpiera",
+      "name": "Oriol Piera",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/26488435?v=4",
+      "profile": "https://github.com/oriolpiera",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "francrodriguez",
+      "name": "Franc Rodriguez",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2232647?v=4",
+      "profile": "http://www.tecob.com/",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "ctrl-alt-d",
+      "name": "dani herrera",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/3105983?v=4",
+      "profile": "https://stackoverflow.com/users/842935/danihp?tab=profile",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mcmontseny",
+      "name": "Marc Casamitjana Montseny",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/72517550?v=4",
+      "profile": "https://github.com/mcmontseny",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "lluisd",
+      "name": "lluisd",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/7629843?v=4",
+      "profile": "https://github.com/lluisd",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "eudago",
+      "name": "Eudald Dachs",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/809916?v=4",
+      "profile": "https://github.com/eudago",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ericmassip",
+      "name": "Eric Massip",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/22151914?v=4",
+      "profile": "https://www.linkedin.com/in/ericmassip/",
+      "contributions": [
+        "code",
+        "infra"        
+      ]
+    }
+  ],
+  "contributorsPerLine": 8,
+  "commitConvention": "none"
+}
