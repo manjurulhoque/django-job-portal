@@ -99,11 +99,13 @@ AUTH_PASSWORD_VALIDATORS: List[Dict[str, str]] = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+LANGUAGES = [("en", "English"), ("ca", "Català"), ("es", "Castellano")]
 
 USE_I18N = True
 
 USE_L10N = True
+
+TIME_ZONE = "UTC"
 
 USE_TZ = True
 
