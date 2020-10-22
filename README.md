@@ -65,7 +65,7 @@ If you wish to use a dockerized development environment, you can easily do so by
 
 3. Execute tests:
 
-    `make tests`
+    `make test`
 
 4. To see all available options:
 
