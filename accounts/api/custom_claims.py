@@ -1,12 +1,15 @@
+from typing import Dict
+
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from ..models import User
 from .serializers import UserSerializer
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):  # type: ignore
     @classmethod
-    def get_token(cls, user):
+    def get_token(cls, user: User) -> Dict[str, str]:
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 
         # Add custom claims
@@ -15,5 +18,5 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-class MyTokenObtainPairView(TokenObtainPairView):
+class MyTokenObtainPairView(TokenObtainPairView):  # type: ignore
     serializer_class = MyTokenObtainPairSerializer

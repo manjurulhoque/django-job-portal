@@ -1,4 +1,4 @@
-import os
+# type: ignore
 
 from invoke import task
 
