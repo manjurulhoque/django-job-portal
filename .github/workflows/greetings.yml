@@ -1,6 +1,6 @@
 name: greetings-on-1st-interaction
 
-on: [pull_request, issues]
+on: [issues]
 
 jobs:
   greeting:
