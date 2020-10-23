@@ -3,7 +3,7 @@
     <img alt="forks" src="https://img.shields.io/github/forks/GeeksCAT/anem-per-feina?label=Forks&style=social"/>
     <img alt="stars" src="https://img.shields.io/github/stars/GeeksCAT/anem-per-feina?style=social"/>
     <img alt="watchers" src="https://img.shields.io/github/watchers/GeeksCAT/anem-per-feina?style=social"/>
-    <img alt="translation" src="https://weblate.geekscat.org/widgets/anem-per-feina/-/svg-badge.svg"/>
+    <a href="https://weblate.geekscat.org/projects/anem-per-feina/" target="_blank"><img alt="translation" src="https://weblate.geekscat.org/widgets/anem-per-feina/-/svg-badge.svg"/></a>
     <a href="#Contributing"><img alt="translation" src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/></a>
 <!-- Update this ^ image with current contributors count //due to centering issues -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
