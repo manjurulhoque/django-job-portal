@@ -264,3 +264,6 @@ logs
 __pycache__/
 .vscode
 *.sqlite
+
+# all-contributors-cli
+node_modules
