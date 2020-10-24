@@ -29,6 +29,7 @@ pytz==2018.9
 requests==2.22.0
 ruamel.yaml==0.16.10
 ruamel.yaml.clib==0.2.0
+sentry-sdk==0.14.4
 simplejson==3.17.0
 six==1.14.0
 sqlparse==0.3.0
