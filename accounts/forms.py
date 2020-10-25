@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext as _
 
 from accounts.models import User
 
@@ -13,36 +14,36 @@ class EmployeeRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(EmployeeRegistrationForm, self).__init__(*args, **kwargs)
         self.fields["gender"].required = True
-        self.fields["first_name"].label = "First Name"
-        self.fields["last_name"].label = "Last Name"
-        self.fields["password1"].label = "Password"
-        self.fields["password2"].label = "Confirm Password"
+        self.fields["first_name"].label = _("First Name")
+        self.fields["last_name"].label = _("Last Name")
+        self.fields["password1"].label = _("Password")
+        self.fields["password2"].label = _("Confirm Password")
 
         # self.fields['gender'].widget = forms.CheckboxInput()
 
         self.fields["first_name"].widget.attrs.update(
             {
-                "placeholder": "Enter First Name",
+                "placeholder": _("Enter First Name"),
             }
         )
         self.fields["last_name"].widget.attrs.update(
             {
-                "placeholder": "Enter Last Name",
+                "placeholder": _("Enter Last Name"),
             }
         )
         self.fields["email"].widget.attrs.update(
             {
-                "placeholder": "Enter Email",
+                "placeholder": _("Enter Email"),
             }
         )
         self.fields["password1"].widget.attrs.update(
             {
-                "placeholder": "Enter Password",
+                "placeholder": _("Enter Password"),
             }
         )
         self.fields["password2"].widget.attrs.update(
             {
-                "placeholder": "Confirm Password",
+                "placeholder": _("Confirm Password"),
             }
         )
 
@@ -58,20 +59,20 @@ class EmployeeRegistrationForm(UserCreationForm):
         ]
         error_messages = {
             "first_name": {
-                "required": "First name is required",
-                "max_length": "Name is too long",
+                "required": _("First name is required"),
+                "max_length": _("Name is too long"),
             },
             "last_name": {
-                "required": "Last name is required",
-                "max_length": "Last Name is too long",
+                "required": _("Last name is required"),
+                "max_length": _("Last Name is too long"),
             },
-            "gender": {"required": "Gender is required"},
+            "gender": {"required": _("Gender is required")},
         }
 
     def clean_gender(self):
         gender = self.cleaned_data.get("gender")
         if not gender:
-            raise forms.ValidationError("Gender is required")
+            raise forms.ValidationError(_("Gender is required"))
         return gender
 
     def save(self, commit=True):
@@ -85,34 +86,34 @@ class EmployeeRegistrationForm(UserCreationForm):
 class EmployerRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields["first_name"].label = "Company Name"
-        self.fields["last_name"].label = "Company Address"
-        self.fields["password1"].label = "Password"
-        self.fields["password2"].label = "Confirm Password"
+        self.fields["first_name"].label = _("Company Name")
+        self.fields["last_name"].label = _("Company Address")
+        self.fields["password1"].label = _("Password")
+        self.fields["password2"].label = _("Confirm Password")
 
         self.fields["first_name"].widget.attrs.update(
             {
-                "placeholder": "Enter Company Name",
+                "placeholder": _("Enter Company Name"),
             }
         )
         self.fields["last_name"].widget.attrs.update(
             {
-                "placeholder": "Enter Company Address",
+                "placeholder": _("Enter Company Address"),
             }
         )
         self.fields["email"].widget.attrs.update(
             {
-                "placeholder": "Enter Email",
+                "placeholder": _("Enter Email"),
             }
         )
         self.fields["password1"].widget.attrs.update(
             {
-                "placeholder": "Enter Password",
+                "placeholder": _("Enter Password"),
             }
         )
         self.fields["password2"].widget.attrs.update(
             {
-                "placeholder": "Confirm Password",
+                "placeholder": _("Confirm Password"),
             }
         )
 
@@ -121,12 +122,12 @@ class EmployerRegistrationForm(UserCreationForm):
         fields = ["first_name", "last_name", "email", "password1", "password2"]
         error_messages = {
             "first_name": {
-                "required": "First name is required",
-                "max_length": "Name is too long",
+                "required": _("First name is required"),
+                "max_length": _("Name is too long"),
             },
             "last_name": {
-                "required": "Last name is required",
-                "max_length": "Last Name is too long",
+                "required": _("Last name is required"),
+                "max_length": _("Last Name is too long"),
             },
         }
 
@@ -149,8 +150,8 @@ class UserLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = None
-        self.fields["email"].widget.attrs.update({"placeholder": "Enter Email"})
-        self.fields["password"].widget.attrs.update({"placeholder": "Enter Password"})
+        self.fields["email"].widget.attrs.update({"placeholder": _("Enter Email")})
+        self.fields["password"].widget.attrs.update({"placeholder": _("Enter Password")})
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
@@ -160,11 +161,11 @@ class UserLoginForm(forms.Form):
             self.user = authenticate(email=email, password=password)
 
             if self.user is None:
-                raise forms.ValidationError("User Does Not Exist.")
+                raise forms.ValidationError(_("User Does Not Exist."))
             if not self.user.check_password(password):
-                raise forms.ValidationError("Password Does not Match.")
+                raise forms.ValidationError(_("Password Does not Match."))
             if not self.user.is_active:
-                raise forms.ValidationError("User is not Active.")
+                raise forms.ValidationError(_("User is not Active."))
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
@@ -177,12 +178,12 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
         super(EmployeeProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["first_name"].widget.attrs.update(
             {
-                "placeholder": "Enter First Name",
+                "placeholder": _("Enter First Name"),
             }
         )
         self.fields["last_name"].widget.attrs.update(
             {
-                "placeholder": "Enter Last Name",
+                "placeholder": _("Enter Last Name"),
             }
         )
 

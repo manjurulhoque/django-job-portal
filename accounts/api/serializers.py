@@ -2,6 +2,8 @@ from typing import Any, Dict, Optional, Union
 
 from rest_framework import serializers
 
+from django.utils.translation import ugettext as _
+
 from ..models import User
 
 
@@ -24,7 +26,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         write_only=True, required=True, style={"input_type": "password"}
     )
     password2 = serializers.CharField(
-        style={"input_type": "password"}, write_only=True, label="Confirm password"
+        style={"input_type": "password"}, write_only=True, label=_("Confirm password")
     )
 
     class Meta:
@@ -45,9 +47,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
         gender = validated_data["gender"]
         role = validated_data["role"]
         if email and User.objects.filter(email=email).exists():  # type: ignore
-            raise serializers.ValidationError({"email": "Email addresses must be unique."})
+            raise serializers.ValidationError({"email": _("Email addresses must be unique.")})
         if password != password2:
-            raise serializers.ValidationError({"password": "The two passwords differ."})
+            raise serializers.ValidationError({"password": _("The two passwords differ.")})
         user = User(email=email, gender=gender, role=role)
         user.set_password(password)
         user.save()

@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext as _
 
 from jobsapp.models import Applicant, Job
 
@@ -11,9 +12,9 @@ class CreateJobForm(forms.ModelForm):
             "created_at",
         )
         labels = {
-            "last_date": "Last Date",
-            "company_name": "Company Name",
-            "company_description": "Company Description",
+            "last_date": _("Last Date"),
+            "company_name": _("Company Name"),
+            "company_description": _("Company Description"),
         }
 
     def is_valid(self):
