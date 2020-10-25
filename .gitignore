@@ -66,7 +66,7 @@ coverage.xml
 .pytest_cache/
 
 # Translations
-*.mo
+# *.mo  # disabled to avoid issues with weblate automatic workflows
 
 # Django stuff:
 
