@@ -241,6 +241,7 @@ logs
 # pyenv
 
 # celery beat schedule file
+celerybeat-schedule.db
 
 # SageMath parsed files
 

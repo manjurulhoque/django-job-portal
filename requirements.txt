@@ -39,3 +39,5 @@ whitenoise==5.0.1
 django-constance[database]==2.7.0
 invoke==1.4.1
 werkzeug==1.0.1
+redis==3.5.3
+celery==5.0.1
