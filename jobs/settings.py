@@ -4,6 +4,7 @@ from typing import Dict, List
 
 import environ
 import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
@@ -234,5 +235,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
 }
 
 # Sentry
-SENTRY_URL = env("SENTRY_URL")
-sentry_sdk.init(dsn=SENTRY_URL, integrations=[DjangoIntegration()], send_default_pii=True)
+SENTRY_URL = env("SENTRY_URL", default=False)
+if SENTRY_URL:
+    sentry_sdk.init(
+        dsn=SENTRY_URL,
+        integrations=[DjangoIntegration(), CeleryIntegration()],
+        send_default_pii=True,
+    )
