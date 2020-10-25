@@ -3,6 +3,9 @@ from datetime import timedelta
 from typing import Dict, List
 
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 
@@ -232,3 +235,12 @@ CONSTANCE_CONFIG_FIELDSETS = {
     "General Configuration Service": ("SITE_NAME", "SITE_DESCRIPTION"),
     "Jobs Configuration Service": ("JOBS_URL",),
 }
+
+# Sentry
+SENTRY_URL = env("SENTRY_URL", default=False)
+if SENTRY_URL:
+    sentry_sdk.init(
+        dsn=SENTRY_URL,
+        integrations=[DjangoIntegration(), CeleryIntegration()],
+        send_default_pii=True,
+    )

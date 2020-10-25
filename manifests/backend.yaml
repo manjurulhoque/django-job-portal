@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: geekscat/anem-per-feina:latest
+        command: ["invoke"]
+        args: [
+          "wait-for",
+          "db:5432",
+          "migrate",
+          "runserver",
+          "--debug",
+        ]
+        envFrom:
+          - configMapRef:
+              name: env-map
+          - secretRef:
+              name: django-secrets
+          - secretRef:
+              name: postgres-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  ports:
+  - name: http
+    targetPort: 8000
+    port: 80
+  selector:
+    app: backend

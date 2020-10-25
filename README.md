@@ -29,6 +29,12 @@ The objective of this _hackathon_ is to launch a **job portal website** where te
 
 We forked the open source project [django-job-portal](https://github.com/manjurulhoque/django-job-portal) (See [demo 1](https://django-portal.herokuapp.com/), [demo 2](http://jobs.manjurulhoque.com/)) and use it as a baseline.
 
+<a name="deployment"></a>
+## Deployment
+
+### Kubernetes deployment
+
+To deploy to a k8s cluster see the [k8s manifests](/manifests/README.md)
 
 <a name="contributing"></a>
 ## Contributing
