@@ -4,6 +4,17 @@ Welcome, and thank you for your interest in contributing to Anem per feina!
 
 There are many ways in which you can contribute, beyond writing code. The goal of this document is to provide a high-level overview of how you can get involved.
 
+## How to translate
+
+We use [Weblate](https://weblate.geekscat.org/projects/anem-per-feina/) as a translation system.
+
+If you want to contribute,
+
+1. Register at https://weblate.geekscat.org/projects/anem-per-feina/
+2. Review or propose changes to any component
+
+At the end of each release cycle we'll raise a PR to merge all reviewed translations.
+
 ## How to contribute
 
 1. Fork this very repository (use the `fork` button at the top left).
