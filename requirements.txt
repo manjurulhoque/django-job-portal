@@ -1,4 +1,6 @@
 asgiref==3.2.3
+# celery may commit on different PR
+celery==5.0.1
 certifi==2019.11.28
 chardet==3.0.4
 coreapi==2.3.3
@@ -32,6 +34,7 @@ ruamel.yaml.clib==0.2.0
 sentry-sdk==0.14.4
 simplejson==3.17.0
 six==1.14.0
+social-auth-app-django==4.0.0
 sqlparse==0.3.0
 uritemplate==3.0.1
 urllib3==1.25.8
