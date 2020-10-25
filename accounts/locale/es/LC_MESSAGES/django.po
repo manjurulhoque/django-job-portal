@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-22 17:31+0200\n"
+"POT-Creation-Date: 2020-10-25 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/api/serializers.py:29
+msgid "Confirm password"
+msgstr ""
+
+#: accounts/api/serializers.py:50
+msgid "Email addresses must be unique."
+msgstr ""
+
+#: accounts/api/serializers.py:52
+msgid "The two passwords differ."
+msgstr ""
+
+#: accounts/api/views.py:21
+msgid "Successfully registered"
+msgstr ""
+
+#: accounts/forms.py:17
+msgid "First Name"
+msgstr ""
+
+#: accounts/forms.py:18
+msgid "Last Name"
+msgstr ""
+
+#: accounts/forms.py:19 accounts/forms.py:91
+msgid "Password"
+msgstr ""
+
+#: accounts/forms.py:20 accounts/forms.py:46 accounts/forms.py:92
+#: accounts/forms.py:116
+msgid "Confirm Password"
+msgstr ""
+
+#: accounts/forms.py:26 accounts/forms.py:181
+msgid "Enter First Name"
+msgstr ""
+
+#: accounts/forms.py:31 accounts/forms.py:186
+msgid "Enter Last Name"
+msgstr ""
+
+#: accounts/forms.py:36 accounts/forms.py:106 accounts/forms.py:153
+msgid "Enter Email"
+msgstr ""
+
+#: accounts/forms.py:41 accounts/forms.py:111 accounts/forms.py:154
+msgid "Enter Password"
+msgstr ""
+
+#: accounts/forms.py:62 accounts/forms.py:125
+msgid "First name is required"
+msgstr ""
+
+#: accounts/forms.py:63 accounts/forms.py:126
+msgid "Name is too long"
+msgstr ""
+
+#: accounts/forms.py:66 accounts/forms.py:129
+msgid "Last name is required"
+msgstr ""
+
+#: accounts/forms.py:67 accounts/forms.py:130
+msgid "Last Name is too long"
+msgstr ""
+
+#: accounts/forms.py:69 accounts/forms.py:75
+msgid "Gender is required"
+msgstr ""
+
+#: accounts/forms.py:89
+msgid "Company Name"
+msgstr ""
+
+#: accounts/forms.py:90
+msgid "Company Address"
+msgstr ""
+
+#: accounts/forms.py:96
+msgid "Enter Company Name"
+msgstr ""
+
+#: accounts/forms.py:101
+msgid "Enter Company Address"
+msgstr ""
+
+#: accounts/forms.py:164
+msgid "User Does Not Exist."
+msgstr ""
+
+#: accounts/forms.py:166
+msgid "Password Does not Match."
+msgstr ""
+
+#: accounts/forms.py:168
+msgid "User is not Active."
+msgstr ""
+
+#: accounts/models.py:19
+msgid "Role must be provided"
+msgstr ""
+
 #: accounts/models.py:20
 msgid "Role"
 msgstr ""
@@ -43,4 +145,8 @@ msgstr ""
 
 #: accounts/models.py:38
 msgid "User email, also used as username."
+msgstr ""
+
+#: accounts/views.py:108
+msgid "You are now logged out"
 msgstr ""

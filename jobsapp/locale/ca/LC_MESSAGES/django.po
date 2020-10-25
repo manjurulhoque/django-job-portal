@@ -161,3 +161,36 @@ msgstr "Candidatura"
 #: jobsapp/models.py:91
 msgid "Applicants"
 msgstr "Candidatures"
+
+#: jobsapp/views/employee.py:29
+msgid "User doesn't exists"
+msgstr ""
+
+#: jobsapp/views/employee.py:37 jobsapp/views/home.py:60
+#: jobsapp/views/home.py:68
+msgid "Job doesn't exists"
+msgstr ""
+
+#: jobsapp/views/employer.py:51
+msgid "Post New Job"
+msgstr ""
+
+#: jobsapp/views/home.py:86
+msgid "Successfully applied for the job!"
+msgstr ""
+
+#: jobsapp/views/home.py:106
+msgid "You already applied for this job"
+msgstr ""
+
+#: jobsapp/forms.py:15
+msgid "Last Date"
+msgstr ""
+
+#: jobsapp/forms.py:16
+msgid "Company Name"
+msgstr ""
+
+#: jobsapp/forms.py:17
+msgid "Company Description"
+msgstr ""

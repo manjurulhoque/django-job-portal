@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-22 17:31+0200\n"
+"POT-Creation-Date: 2020-10-25 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: jobsapp/forms.py:15
+msgid "Last Date"
+msgstr ""
+
+#: jobsapp/forms.py:16
+msgid "Company Name"
+msgstr ""
+
+#: jobsapp/forms.py:17
+msgid "Company Description"
+msgstr ""
+
 #: jobsapp/models.py:17
 msgid "Full time"
 msgstr ""
@@ -159,4 +172,25 @@ msgstr ""
 
 #: jobsapp/models.py:91
 msgid "Applicants"
+msgstr ""
+
+#: jobsapp/views/employee.py:29
+msgid "User doesn't exists"
+msgstr ""
+
+#: jobsapp/views/employee.py:37 jobsapp/views/home.py:60
+#: jobsapp/views/home.py:68
+msgid "Job doesn't exists"
+msgstr ""
+
+#: jobsapp/views/employer.py:51
+msgid "Post New Job"
+msgstr ""
+
+#: jobsapp/views/home.py:86
+msgid "Successfully applied for the job!"
+msgstr ""
+
+#: jobsapp/views/home.py:106
+msgid "You already applied for this job"
 msgstr ""

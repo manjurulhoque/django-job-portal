@@ -2,6 +2,7 @@ from rest_framework import decorators, permissions, response, status
 from rest_framework.request import Request
 
 from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext as _
 
 from .serializers import UserCreateSerializer
 
@@ -17,6 +18,6 @@ def registration(request: Request) -> response.Response:
     serializer.save()
     res = {
         "status": True,
-        "message": "Successfully registered",
+        "message": _("Successfully registered"),
     }
     return response.Response(res, status.HTTP_201_CREATED)
