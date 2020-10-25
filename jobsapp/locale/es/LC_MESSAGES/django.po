@@ -1,196 +1,196 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Xavi Torelló <info@xaviertorello.cat>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-25 18:03+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-10-25 17:57+0000\n"
+"Last-Translator: Xavi Torelló <info@xaviertorello.cat>\n"
+"Language-Team: Spanish <http://weblate.geekscat.org/projects/anem-per-feina/"
+"apf-backend-jobsapp/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.1\n"
 
 #: jobsapp/forms.py:15
 msgid "Last Date"
-msgstr ""
+msgstr "Última fecha"
 
 #: jobsapp/forms.py:16
 msgid "Company Name"
-msgstr ""
+msgstr "Nombre de la empresa"
 
 #: jobsapp/forms.py:17
 msgid "Company Description"
-msgstr ""
+msgstr "Descripción de la empresa"
 
 #: jobsapp/models.py:17
 msgid "Full time"
-msgstr ""
+msgstr "Tiempo completo"
 
 #: jobsapp/models.py:18
 msgid "Part time"
-msgstr ""
+msgstr "Tiempo parcial"
 
 #: jobsapp/models.py:19
 msgid "Internship"
-msgstr ""
+msgstr "Prácticas"
 
 #: jobsapp/models.py:24 jobsapp/models.py:74
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: jobsapp/models.py:25
 msgid "User who creates this job."
-msgstr ""
+msgstr "Usuario que ha creado esta oferta de empleo."
 
 #: jobsapp/models.py:28
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: jobsapp/models.py:28
 msgid "Short job title."
-msgstr ""
+msgstr "Título corto de la oferta."
 
 #: jobsapp/models.py:31
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: jobsapp/models.py:31
 msgid "Long job description."
-msgstr ""
+msgstr "Descripción detallada."
 
 #: jobsapp/models.py:34
 msgid "Location"
-msgstr ""
+msgstr "Localización"
 
 #: jobsapp/models.py:34
 msgid "Location for this job position."
-msgstr ""
+msgstr "Localización de esta oferta de empleo."
 
 #: jobsapp/models.py:37
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: jobsapp/models.py:37
 msgid "Job type."
-msgstr ""
+msgstr "Tipo de oferta."
 
 #: jobsapp/models.py:40
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: jobsapp/models.py:40
 msgid "Category clasification."
-msgstr ""
+msgstr "Clasificación de la categoría."
 
 #: jobsapp/models.py:42
 msgid "Last date"
-msgstr ""
+msgstr "Última fecha"
 
 #: jobsapp/models.py:42
 msgid "Last date."
-msgstr ""
+msgstr "Última fecha."
 
 #: jobsapp/models.py:44
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #: jobsapp/models.py:44
 msgid "Job's Company name."
-msgstr ""
+msgstr "Nombre de la empresa que publica la oferta."
 
 #: jobsapp/models.py:48
 msgid "Company description"
-msgstr ""
+msgstr "Descripción de la empresa"
 
 #: jobsapp/models.py:49
 msgid "Company description, activity,..."
-msgstr ""
+msgstr "Descripción de la empresa, actividades, ..."
 
 #: jobsapp/models.py:52
 msgid "Website"
-msgstr ""
+msgstr "Sitio web"
 
 #: jobsapp/models.py:52
 msgid "Company Website URL."
-msgstr ""
+msgstr "URL del sitio web de la empresa."
 
 #: jobsapp/models.py:55 jobsapp/models.py:85
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: jobsapp/models.py:55
 msgid "Job creation date and time."
-msgstr ""
+msgstr "Fecha de creación."
 
 #: jobsapp/models.py:58
 msgid "Filled"
-msgstr ""
+msgstr "Cubierta"
 
 #: jobsapp/models.py:58
 msgid "Job position is filled."
-msgstr ""
+msgstr "La oferta de trabajo ha sido cubierta."
 
 #: jobsapp/models.py:61
 msgid "Salary"
-msgstr ""
+msgstr "Salario"
 
 #: jobsapp/models.py:61
 msgid "Maximum salary for this job."
-msgstr ""
+msgstr "Salario máximo para esta oferta de empleo."
 
 #: jobsapp/models.py:65 jobsapp/models.py:80
 msgid "Job"
-msgstr ""
+msgstr "Empleo"
 
 #: jobsapp/models.py:66
 msgid "Jobs"
-msgstr ""
+msgstr "Empleos"
 
 #: jobsapp/models.py:74
 msgid "User applicant."
-msgstr ""
+msgstr "Candidato."
 
 #: jobsapp/models.py:81
 msgid "Job in applicant."
-msgstr ""
+msgstr "Candidaturas de la oferta de empleo."
 
 #: jobsapp/models.py:86
 msgid "Applicant creation date and time."
-msgstr ""
+msgstr "Fecha de la candidatura."
 
 #: jobsapp/models.py:90
 msgid "Applicant"
-msgstr ""
+msgstr "Candidatura"
 
 #: jobsapp/models.py:91
 msgid "Applicants"
-msgstr ""
+msgstr "Candidaturas"
 
 #: jobsapp/views/employee.py:29
 msgid "User doesn't exists"
-msgstr ""
+msgstr "El usuario no existe"
 
 #: jobsapp/views/employee.py:37 jobsapp/views/home.py:60
 #: jobsapp/views/home.py:68
 msgid "Job doesn't exists"
-msgstr ""
+msgstr "La oferta de empleo no existe"
 
 #: jobsapp/views/employer.py:51
 msgid "Post New Job"
-msgstr ""
+msgstr "Publica una nueva oferta de empleo"
 
 #: jobsapp/views/home.py:86
 msgid "Successfully applied for the job!"
-msgstr ""
+msgstr "Has solicitado el empleo con éxito!"
 
 #: jobsapp/views/home.py:106
 msgid "You already applied for this job"
-msgstr ""
+msgstr "Ya has solicitado este empleo"
