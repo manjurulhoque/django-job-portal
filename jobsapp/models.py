@@ -5,10 +5,13 @@ from django.utils.translation import ugettext as _
 
 # APP Imports
 from accounts.models import User
+from notifications.decorators import event_dispatcher
+from notifications.events import EVENT_NEW_JOB
 
 # Global Imports
 
 
+@event_dispatcher(EVENT_NEW_JOB)
 class Job(models.Model):
     JOB_TYPE_FULL_TIME = "1"
     JOB_TYPE_PART_TIME = "2"

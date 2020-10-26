@@ -1,6 +1,7 @@
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.utils.translation import ugettext as _
 from django.views.generic import CreateView, FormView, RedirectView
 
 from accounts.forms import EmployeeRegistrationForm, EmployerRegistrationForm, UserLoginForm
@@ -104,5 +105,5 @@ class LogoutView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         auth.logout(request)
-        messages.success(request, "You are now logged out")
+        messages.success(request, _("You are now logged out"))
         return super(LogoutView, self).get(request, *args, **kwargs)

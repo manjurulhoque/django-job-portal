@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Xavi Torelló <info@xaviertorello.cat>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-25 18:03+0100\n"
+"PO-Revision-Date: 2020-10-25 17:57+0000\n"
+"Last-Translator: Xavi Torelló <info@xaviertorello.cat>\n"
+"Language-Team: Spanish <http://weblate.geekscat.org/projects/anem-per-feina/"
+"apf-backend-jobsapp/es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.1\n"
+
+#: jobsapp/forms.py:15
+msgid "Last Date"
+msgstr "Última fecha"
+
+#: jobsapp/forms.py:16
+msgid "Company Name"
+msgstr "Nombre de la empresa"
+
+#: jobsapp/forms.py:17
+msgid "Company Description"
+msgstr "Descripción de la empresa"
+
+#: jobsapp/models.py:17
+msgid "Full time"
+msgstr "Tiempo completo"
+
+#: jobsapp/models.py:18
+msgid "Part time"
+msgstr "Tiempo parcial"
+
+#: jobsapp/models.py:19
+msgid "Internship"
+msgstr "Prácticas"
+
+#: jobsapp/models.py:24 jobsapp/models.py:74
+msgid "User"
+msgstr "Usuario"
+
+#: jobsapp/models.py:25
+msgid "User who creates this job."
+msgstr "Usuario que ha creado esta oferta de empleo."
+
+#: jobsapp/models.py:28
+msgid "Title"
+msgstr "Título"
+
+#: jobsapp/models.py:28
+msgid "Short job title."
+msgstr "Título corto de la oferta."
+
+#: jobsapp/models.py:31
+msgid "Description"
+msgstr "Descripción"
+
+#: jobsapp/models.py:31
+msgid "Long job description."
+msgstr "Descripción detallada."
+
+#: jobsapp/models.py:34
+msgid "Location"
+msgstr "Localización"
+
+#: jobsapp/models.py:34
+msgid "Location for this job position."
+msgstr "Localización de esta oferta de empleo."
+
+#: jobsapp/models.py:37
+msgid "Type"
+msgstr "Tipo"
+
+#: jobsapp/models.py:37
+msgid "Job type."
+msgstr "Tipo de oferta."
+
+#: jobsapp/models.py:40
+msgid "Category"
+msgstr "Categoría"
+
+#: jobsapp/models.py:40
+msgid "Category clasification."
+msgstr "Clasificación de la categoría."
+
+#: jobsapp/models.py:42
+msgid "Last date"
+msgstr "Última fecha"
+
+#: jobsapp/models.py:42
+msgid "Last date."
+msgstr "Última fecha."
+
+#: jobsapp/models.py:44
+msgid "Company"
+msgstr "Empresa"
+
+#: jobsapp/models.py:44
+msgid "Job's Company name."
+msgstr "Nombre de la empresa que publica la oferta."
+
+#: jobsapp/models.py:48
+msgid "Company description"
+msgstr "Descripción de la empresa"
+
+#: jobsapp/models.py:49
+msgid "Company description, activity,..."
+msgstr "Descripción de la empresa, actividades, ..."
+
+#: jobsapp/models.py:52
+msgid "Website"
+msgstr "Sitio web"
+
+#: jobsapp/models.py:52
+msgid "Company Website URL."
+msgstr "URL del sitio web de la empresa."
+
+#: jobsapp/models.py:55 jobsapp/models.py:85
+msgid "Created"
+msgstr "Creado"
+
+#: jobsapp/models.py:55
+msgid "Job creation date and time."
+msgstr "Fecha de creación."
+
+#: jobsapp/models.py:58
+msgid "Filled"
+msgstr "Cubierta"
+
+#: jobsapp/models.py:58
+msgid "Job position is filled."
+msgstr "La oferta de trabajo ha sido cubierta."
+
+#: jobsapp/models.py:61
+msgid "Salary"
+msgstr "Salario"
+
+#: jobsapp/models.py:61
+msgid "Maximum salary for this job."
+msgstr "Salario máximo para esta oferta de empleo."
+
+#: jobsapp/models.py:65 jobsapp/models.py:80
+msgid "Job"
+msgstr "Empleo"
+
+#: jobsapp/models.py:66
+msgid "Jobs"
+msgstr "Empleos"
+
+#: jobsapp/models.py:74
+msgid "User applicant."
+msgstr "Candidato."
+
+#: jobsapp/models.py:81
+msgid "Job in applicant."
+msgstr "Candidaturas de la oferta de empleo."
+
+#: jobsapp/models.py:86
+msgid "Applicant creation date and time."
+msgstr "Fecha de la candidatura."
+
+#: jobsapp/models.py:90
+msgid "Applicant"
+msgstr "Candidatura"
+
+#: jobsapp/models.py:91
+msgid "Applicants"
+msgstr "Candidaturas"
+
+#: jobsapp/views/employee.py:29
+msgid "User doesn't exists"
+msgstr "El usuario no existe"
+
+#: jobsapp/views/employee.py:37 jobsapp/views/home.py:60
+#: jobsapp/views/home.py:68
+msgid "Job doesn't exists"
+msgstr "La oferta de empleo no existe"
+
+#: jobsapp/views/employer.py:51
+msgid "Post New Job"
+msgstr "Publica una nueva oferta de empleo"
+
+#: jobsapp/views/home.py:86
+msgid "Successfully applied for the job!"
+msgstr "Has solicitado el empleo con éxito!"
+
+#: jobsapp/views/home.py:106
+msgid "You already applied for this job"
+msgstr "Ya has solicitado este empleo"

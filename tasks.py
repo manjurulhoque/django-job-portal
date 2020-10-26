@@ -71,3 +71,10 @@ def uwsgi(
     command = " ".join(command_args)
     print(command)
     ctx.run(command)
+
+
+@task
+def celery_queues(ctx, queues="low_priority,high_priority", log_level="INFO"):
+    command = f"celery -A jobs.celery worker -l {log_level} -E -Q {queues}"
+    print(command)
+    ctx.run(command, pty=True)
