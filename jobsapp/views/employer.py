@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
 from django.views.generic import CreateView, DeleteView, ListView
 
 from jobsapp.decorators import user_is_employer
@@ -47,7 +48,7 @@ class ApplicantPerJobView(ListView):
 class JobCreateView(CreateView):
     template_name = "jobs/create.html"
     form_class = CreateJobForm
-    extra_context = {"title": "Post New Job"}
+    extra_context = {"title": _("Post New Job")}
     success_url = reverse_lazy("jobs:employer-dashboard")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))

@@ -1,0 +1,58 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-pv-claim
+  labels:
+    app: db
+spec:
+  storageClassName: local-path
+  capacity:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      volumes:
+        - name: postgres-volume
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+      containers:
+      - name: postgresql
+        image: postgres:latest
+        envFrom:
+          - configMapRef:
+              name: env-map
+          - secretRef:
+              name: django-secrets
+          - secretRef:
+              name: postgres-secrets
+        volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: postgres-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+  - name: http
+    targetPort: 5432
+    port: 5432
+  selector:
+    app: db            

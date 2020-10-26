@@ -1,0 +1,34 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nemperfeina-cat-tls-cert
+spec:
+  secretName: nemperfeina-cat-tls-cert
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  commonName: nemperfeina.cat
+  dnsNames:
+    - nemperfeina.cat
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: nemperfeina-cat
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+spec:
+  backend:
+    serviceName: backend
+    servicePort: 80
+  rules:
+    - host: nemperfeina.cat
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: backend
+              servicePort: 80
+  tls:
+    - secretName: nemperfeina-cat-tls-cert

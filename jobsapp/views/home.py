@@ -4,6 +4,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
 from django.views.generic import CreateView, DetailView, ListView
 
 # from ..documents import JobDocument
@@ -56,7 +57,7 @@ class JobDetailsView(DetailView):
     def get_object(self, queryset=None):
         obj = super(JobDetailsView, self).get_object(queryset=queryset)
         if obj is None:
-            raise Http404("Job doesn't exists")
+            raise Http404(_("Job doesn't exists"))
         return obj
 
     def get(self, request, *args, **kwargs):
@@ -64,7 +65,7 @@ class JobDetailsView(DetailView):
             self.object = self.get_object()
         except Http404:
             # raise error
-            raise Http404("Job doesn't exists")
+            raise Http404(_("Job doesn't exists"))
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
@@ -82,7 +83,7 @@ class ApplyJobView(CreateView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            messages.info(self.request, "Successfully applied for the job!")
+            messages.info(self.request, _("Successfully applied for the job!"))
             return self.form_valid(form)
         else:
             return HttpResponseRedirect(reverse_lazy("jobs:home"))
@@ -102,7 +103,7 @@ class ApplyJobView(CreateView):
             user_id=self.request.user.id, job_id=self.kwargs["job_id"]
         )
         if applicant:
-            messages.info(self.request, "You already applied for this job")
+            messages.info(self.request, _("You already applied for this job"))
             return HttpResponseRedirect(self.get_success_url())
         # save applicant
         form.instance.user = self.request.user

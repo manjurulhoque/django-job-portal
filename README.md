@@ -1,12 +1,13 @@
 <h1 align="center">Anem per feina</h1>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p align="center">
     <img alt="forks" src="https://img.shields.io/github/forks/GeeksCAT/anem-per-feina?label=Forks&style=social"/>
     <img alt="stars" src="https://img.shields.io/github/stars/GeeksCAT/anem-per-feina?style=social"/>
     <img alt="watchers" src="https://img.shields.io/github/watchers/GeeksCAT/anem-per-feina?style=social"/>
+    <a href="https://weblate.geekscat.org/projects/anem-per-feina/" target="_blank"><img alt="translation" src="https://weblate.geekscat.org/widgets/anem-per-feina/-/svg-badge.svg"/></a>
+    <a href="#Contributing"><img alt="translation" src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/></a>
+<!-- Update this ^ image with current contributors count //due to centering issues -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
 **Anem per feina** is an open source project promoted by [GeeksCat](https://geekscat.org/) association for [Hactoberfest 2020](https://hacktoberfest.geekscat.org/) event.
@@ -28,6 +29,12 @@ The objective of this _hackathon_ is to launch a **job portal website** where te
 
 We forked the open source project [django-job-portal](https://github.com/manjurulhoque/django-job-portal) (See [demo 1](https://django-portal.herokuapp.com/), [demo 2](http://jobs.manjurulhoque.com/)) and use it as a baseline.
 
+<a name="deployment"></a>
+## Deployment
+
+### Kubernetes deployment
+
+To deploy to a k8s cluster see the [k8s manifests](/manifests/README.md)
 
 <a name="contributing"></a>
 ## Contributing
