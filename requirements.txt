@@ -1,6 +1,4 @@
 asgiref==3.2.3
-# celery may commit on different PR
-celery==5.0.1
 certifi==2019.11.28
 chardet==3.0.4
 coreapi==2.3.3

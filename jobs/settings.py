@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "accounts",
     "constance",
     "notifications",
-    "constance.backends.database",
     "social_django",
 ]
 
