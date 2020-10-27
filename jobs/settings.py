@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "accounts",
     "constance",
     "notifications",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -246,6 +249,15 @@ if SENTRY_URL:
         integrations=[DjangoIntegration(), CeleryIntegration()],
         send_default_pii=True,
     )
+
+# More third-party logins available
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.github.GithubOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+SOCIAL_AUTH_GITHUB_KEY = env("SOCIAL_AUTH_GITHUB_KEY", default=False)
+SOCIAL_AUTH_GITHUB_SECRET = env("SOCIAL_AUTH_GITHUB_SECRET", default=False)
 
 # Celery settings
 CELERY_HIGH_QUEUE_NAME = "high_priority"
