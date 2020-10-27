@@ -11,9 +11,9 @@ class BaseTest(TestCase):
             email="test@test.com")
 
 
-class LoginViewTest(BaseTest):
+class TestLoginView(BaseTest):
     def setUp(self) -> None:
-        super(LoginViewTest, self).setUp()
+        super(TestLoginView, self).setUp()
         self.response = self.client.get(reverse('accounts:login'))
 
     def test_csrf(self):
@@ -31,9 +31,9 @@ class LoginViewTest(BaseTest):
         self.assertURLEqual(reverse('jobs:home'), response.url)
 
 
-class LogoutViewTest(BaseTest):
+class TestLogoutView(BaseTest):
     def setUp(self) -> None:
-        super(LogoutViewTest, self).setUp()
+        super(TestLogoutView, self).setUp()
         self.client.login(email='test@test.com', password='Abcdefgh.1')
 
     def test_redirect_after_logout(self):
