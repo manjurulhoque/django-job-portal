@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-worker
+  template:
+    metadata:
+      labels:
+        app: backend-worker
+    spec:
+      containers:
+      - name: backend
+        image: geekscat/anem-per-feina:latest
+        command: ["invoke"]
+        args: [
+          "wait-for",
+          "redis:6379",
+          "wait-for",
+          "db:5432",
+          "celery-queues",
+        ]
+        envFrom:
+          - configMapRef:
+              name: env-map
+          - secretRef:
+              name: django-secrets
+          - secretRef:
+              name: postgres-secrets
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broker
+  template:
+    metadata:
+      labels:
+        app: broker
+    spec:
+      containers:
+      - name: redis
+        image: redis:4.0-alpine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - name: http
+    targetPort: 6379
+    port: 6379
+  selector:
+    app: broker
