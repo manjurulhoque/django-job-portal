@@ -52,8 +52,8 @@ def test_obtain_token_bad_password_or_email(client, create_user) -> None:
     assert request_login_bad_password.status_code == status.HTTP_401_UNAUTHORIZED
     assert request_login_bad_email.status_code == status.HTTP_401_UNAUTHORIZED
     assert (
-            request_login_bad_email.json()["message"]
-            == "No active account found with the given credentials"
+        request_login_bad_email.json()["message"]
+        == "No active account found with the given credentials"
     )
 
 
