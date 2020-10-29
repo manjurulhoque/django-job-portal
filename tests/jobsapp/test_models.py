@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 
 from accounts.models import User
-from jobsapp.models import Job
+from jobsapp.models import Job, Applicant
 
 
-class TestJobModel(TestCase):
+class BaseTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.valid_job = {
@@ -33,6 +33,8 @@ class TestJobModel(TestCase):
         cls.job.user = cls.user
         cls.job.save()
 
+
+class TestJobModel(BaseTest):
     def test_get_absolute_url(self):
         self.assertURLEqual(self.job.get_absolute_url(), '/jobs/1')
 
@@ -43,3 +45,13 @@ class TestJobModel(TestCase):
     def test_title_label(self):
         field_label = self.job._meta.get_field('title').verbose_name
         self.assertEqual(field_label, 'title')
+
+
+class TestApplicantModel(BaseTest):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        super(TestApplicantModel, cls).setUpTestData()
+        cls.applicant = Applicant.objects.create(user=cls.user, job=cls.job)
+
+    def test_str(self):
+        self.assertEqual(self.applicant.__str__(), self.user.get_full_name())
