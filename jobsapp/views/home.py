@@ -34,8 +34,8 @@ class SearchView(ListView):
         # q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
         # print(q)
         # return q
-        return self.model.objects.filter(location__contains=self.request.GET['location'],
-                                         title__contains=self.request.GET['position'])
+        return self.model.objects.filter(location__contains=self.request.GET.get('location', ''),
+                                         title__contains=self.request.GET.get('position', ''))
 
 
 class JobListView(ListView):
