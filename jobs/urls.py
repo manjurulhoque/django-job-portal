@@ -26,4 +26,5 @@ urlpatterns = [
         path('', include('accounts.api.urls')),
         path('', include('jobsapp.api.urls')),
     ])),
+    path("social-auth/", include("social_django.urls", namespace="social")),
 ]
