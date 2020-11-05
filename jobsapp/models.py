@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from accounts.models import User
+from .manager import JobManager
 
 JOB_TYPE = (
     ('1', "Full time"),
@@ -25,6 +26,8 @@ class Job(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
     salary = models.IntegerField(default=0, blank=True)
+
+    objects = JobManager()
 
     def get_absolute_url(self):
         return reverse('jobs:jobs-detail', args=[self.id])
