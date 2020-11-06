@@ -7,7 +7,7 @@ from ..serializers import *
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
-    queryset = serializer_class.Meta.model.objects.filter(filled=False)
+    queryset = serializer_class.Meta.model.objects.unfilled()
     permission_classes = [AllowAny]
 
 
@@ -17,7 +17,7 @@ class SearchApiView(ListAPIView):
 
     def get_queryset(self):
         if 'location' in self.request.GET and 'position' in self.request.GET:
-            return self.serializer_class.Meta.model.objects.filter(filled=False, location__contains=self.request.GET['location'],
-                                                                   title__contains=self.request.GET['position'])
+            return self.serializer_class.Meta.model.objects.unfilled(location__contains=self.request.GET['location'],
+                                                                     title__contains=self.request.GET['position'])
         else:
-            return self.serializer_class.Meta.model.objects.filter(filled=False)
+            return self.serializer_class.Meta.model.objects.unfilled()
