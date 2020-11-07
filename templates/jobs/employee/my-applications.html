@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}
+    Applicants
+{% endblock %}
+{% load static %}
+{% load is_favorited %}
+{% load url_replace %}
+
+{% block styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css"
+          rel="stylesheet"/>
+
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
+    <style>
+        .bootstrap-select .dropdown-menu a {
+            color: #000000;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="heading">All jobs you have applied</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="margin-top: 0 !important;">
+        <div class="container">
+            <form id="job-main-form" method="get" action="" class="job-main-form">
+                <div class="controls">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <select id="status" name="status" class="form-control select2">
+                                    <option value="" selected>Select status</option>
+                                    <option value="1" {% if request.GET.status == "1" %} selected {% endif %}>Pending
+                                    </option>
+                                    <option value="2" {% if request.GET.status == "2" %} selected {% endif %}>Accepted
+                                    </option>
+                                    <option value="3" {% if request.GET.status == "3" %} selected {% endif %}>Rejected
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-magic"></i>
+                                    Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% for applicant in applicants %}
+                <div class="job-listing">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="{{ applicant.job.user.profile.image }}"
+                                         alt="" class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <h4 class="job__title">
+                                        <a href="{% url 'jobs:jobs-detail' applicant.job.id %}">{{ applicant.job.title }}</a>
+                                        {% if applicant.job.filled %}
+                                            (Filled)
+                                        {% endif %}
+                                    </h4>
+                                    <p class="job__company">
+                                        <a href="#" style="color: #1b1e21">{{ applicant.job.company_name }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                            <p>Status: <b>{{ applicant.get_status }}</b></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Comment by employer</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="comment"></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.previous_page_number }}"
+                                       class="page-link">&laquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&laquo;</a>
+                                </li>
+                            {% endif %}
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a href="?{% url_replace 'page' i %}" class="page-link">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?{% url_replace 'page' page_obj.next_page_number %}"
+                                       class="page-link">&raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&raquo;</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+
+    <script>
+        $('.js-select2').select2({
+            theme: "bootstrap"
+        });
+
+        $('.view-comment').on('click', function () {
+            $('#myModal').modal('show');
+
+            $('.modal-body .comment').html($(this).data('comment'));
+        })
+    </script>
+
+{% endblock %}

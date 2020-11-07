@@ -17,7 +17,7 @@ class TestHomeView(TestCase):
 
 class TestSearchView(TestCase):
     def setUp(self):
-        self.url = reverse("jobs:searh")
+        self.url = reverse("jobs:search")
         super().setUp()
 
     def test_empty_query(self):

@@ -40,9 +40,31 @@ class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants')
     created_at = models.DateTimeField(default=timezone.now)
+    comment = models.TextField(blank=True, null=True)
+    status = models.SmallIntegerField(default=1)
 
     class Meta:
+        ordering = ['id']
         unique_together = ['user', 'job']
 
     def __str__(self):
         return self.user.get_full_name()
+
+    @property
+    def get_status(self):
+        if self.status == 1:
+            return 'Pending'
+        elif self.status == 2:
+            return 'Accepted'
+        else:
+            return 'Rejected'
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="favorites")
+    created_at = models.DateTimeField(default=timezone.now)
+    soft_deleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.job.title

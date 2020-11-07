@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Favorite List
+{% endblock %}
+
+{% block content %}
+    <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Wish list</h3>
+            {% if favorites.count > 0 %}
+                {% for trending in favorites %}
+                    <div class="job-listing job-listing--last">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{% static 'img/company-1.png' %}"
+                                             alt="ShareBoardd " class="img-fluid">
+                                    </div>
+                                    <div class="col-10">
+                                        <h4 class="job__title">
+                                            <a href="{% url 'jobs:jobs-detail' trending.job.id %}">{{ trending.job.title }}</a>
+                                        </h4>
+                                        <p class="job__company">
+                                            {{ trending.job.company_name }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
+                                {{ trending.job.location }}
+                            </div>
+                            <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                                <p>Posted {{ trending.job.created_at|timesince }}</p>
+                            </div>
+                            <div class="col-sm-12 col-md-2 col-lg-1">
+                                <div class="job__star">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ trending.job.id }}"
+                                       data-placement="top" title="Saved to favourites"
+                                       class="job__star__link favorite">
+                                        <i class="fa fa-star"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="text-center mb-lg-5">Empty favorite list!</h4>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+        let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        function removeFadeOut(el, speed) {
+            var seconds = speed / 1000;
+            el.style.transition = "opacity " + seconds + "s ease";
+
+            el.style.opacity = 0;
+            setTimeout(function () {
+                el.parentNode.removeChild(el);
+            }, speed);
+        }
+
+        $('.job-listing--last .job__star__link').on('click', function (e) {
+            let job_id = $(this).data('id');
+            let that = $(this);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'jobs:favorite' %}",
+                data: {job_id},
+                success: function (res) {
+                    if (res.status === "added") {
+                        that.addClass('favorite');
+                        toastr.success(res.message);
+                    } else if (res.status === "removed") {
+                        document.activeElement.blur();
+                        that.removeClass('favorite');
+                        toastr.warning(res.message);
+                        removeFadeOut(e.target.parentNode.parentNode.parentNode.parentNode.parentNode, 1000);
+                    }
+                }
+            })
+        });
+    </script>
+
+{% endblock %}

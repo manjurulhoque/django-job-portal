@@ -19,15 +19,13 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
     <!-- owl carousel-->
-    <link rel="stylesheet"
-          href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
-    <link rel="stylesheet"
-          href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{% static 'css/style.default.css' %}"
-          id="theme-stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     {% block styles %}{% endblock %}
     <!-- Favicon-->
     <link rel="shortcut icon" href="favicon.png">
@@ -37,6 +35,7 @@
 </head>
 <body>
 <!-- navbar-->
+{% csrf_token %}
 <header class="header">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -86,6 +85,13 @@
                             </div>
                         </li>
                     {% elif request.user.is_authenticated and request.user.role == 'employee' %}
+                        <li class="nav-item">
+                            <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a id="clientZone" href="#" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"
@@ -175,7 +181,7 @@
 <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
 <script src="{% static 'js/front.js' %}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
 {% block javascripts %}{% endblock %}
 
 </body>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load is_favorited %}
 {% block title %}
     All jobs
 {% endblock %}
@@ -61,6 +62,25 @@
                         <div class="col-10 col-md-3 col-lg-3 ml-auto">
                             <p>Posted {{ job.created_at|timesince }}</p>
                         </div>
+                        {% if user.is_authenticated and request.user.role == 'employee' %}
+                            <div class="col-sm-12 col-md-2 col-lg-1">
+                                <div class="job__star">
+                                    {% is_favorited job as is_already_favorited %}
+                                    {% if is_already_favorited %}
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ job.id }}"
+                                           data-placement="top" title="Saved to favourites"
+                                           class="job__star__link favorite">
+                                            <i class="fa fa-star"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ job.id }}"
+                                           data-placement="top" title="Save to favourites" class="job__star__link">
+                                            <i class="fa fa-star"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
@@ -106,5 +126,53 @@
             {% endif %}
         </div>
     </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $('.job__star__link').on('click', function () {
+            let job_id = $(this).data('id');
+            let that = $(this);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'jobs:favorite' %}",
+                data: {job_id},
+                success: function (res, textStatus, xhr) {
+                    if (res.status === "added") {
+                        that.addClass('favorite');
+                        toastr.success(res.message);
+                    } else if (res.status === "removed") {
+                        document.activeElement.blur();
+                        that.removeClass('favorite');
+                        toastr.warning(res.message);
+                    }
+                },
+                error: function (err, textStatus, xhr) {
+                    if (xhr === "Unauthorized") {
+                        toastr.error("Unauthorized");
+                    } else {
+                        toastr.error("Something wrong");
+                    }
+                }
+            })
+        });
+    </script>
 
 {% endblock %}

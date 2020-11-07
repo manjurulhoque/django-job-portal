@@ -1,14 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
+from rest_framework.decorators import api_view
 
 from ..documents import JobDocument
 from ..forms import ApplyJobForm
-from ..models import Job, Applicant
+from ..models import Job, Applicant, Favorite
 
 
 class HomeView(ListView):
@@ -104,3 +105,21 @@ class ApplyJobView(CreateView):
         form.instance.user = self.request.user
         form.save()
         return super().form_valid(form)
+
+
+def favorite(request):
+    if not request.user.is_authenticated:
+        return JsonResponse(data={"auth": False, "status": "error"})
+
+    job_id = request.POST.get('job_id')
+    user_id = request.user.id
+    try:
+        fav = Favorite.objects.get(job_id=job_id, user_id=user_id, soft_deleted=False)
+        if fav:
+            fav.soft_deleted = True
+            fav.save()
+            # fav.delete()
+            return JsonResponse(data={"auth": True, "status": "removed", "message": "Job removed from your favorite list"})
+    except Favorite.DoesNotExist:
+        Favorite.objects.create(job_id=job_id, user_id=user_id)
+        return JsonResponse(data={"auth": True, "status": "added", "message": "Job added to your favorite list"})
