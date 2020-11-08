@@ -29,6 +29,9 @@ class Job(models.Model):
 
     objects = JobManager()
 
+    class Meta:
+        ordering = ['id']
+
     def get_absolute_url(self):
         return reverse('jobs:jobs-detail', args=[self.id])
 
