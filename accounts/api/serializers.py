@@ -4,6 +4,10 @@ from ..models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        kwargs['partial'] = True
+        super(UserSerializer, self).__init__(*args, **kwargs)
+
     class Meta:
         model = User
         # fields = "__all__"
