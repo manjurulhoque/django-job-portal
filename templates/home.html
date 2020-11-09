@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
     Home
 {% endblock %}
 
 {% block content %}
 
-    
     <section class="job-form-section job-form-section--image">
         <div class="container">
             <div class="row">
@@ -20,7 +20,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="profession">Position</label>
+                                            <label for="profession">{% trans 'Position' %}</label>
                                             <input type="text" id="profession" name="position"
                                                    placeholder="Position you are looking for" class="form-control">
                                         </div>

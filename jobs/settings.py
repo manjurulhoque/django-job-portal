@@ -1,5 +1,6 @@
 import os
 from datetime import timedelta
+from django.utils.translation import ugettext_lazy as _
 
 import environ
 
@@ -106,7 +107,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LOCALE_PATHS = (
+   os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGE_CODE = 'bn'
+
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('bn', _('Bengali')),
+)
 
 TIME_ZONE = 'UTC'
 
