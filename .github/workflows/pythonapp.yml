@@ -19,4 +19,5 @@ jobs:
         pip install -r requirements.txt
     - name: Django Testing project
       run: |
-        python3 manage.py test # Don't forget to run tests
+        python manage.py collectstatic
+        python manage.py test # Don't forget to run tests
