@@ -9,7 +9,7 @@
     <img alt="github Actions" src="https://github.com/manjurulhoque/django-job-portal/workflows/job-portal/badge.svg"/>
 </p>
 
-Live: [Demo](https://django-portal.herokuapp.com/) or [Second Demo](http://jobs.manjurulhoque.com/)
+Live: [Demo](https://django-job.herokuapp.com/) or [Second Demo](http://jobs.manjurulhoque.com/)
 
 Used Tech Stack
 
