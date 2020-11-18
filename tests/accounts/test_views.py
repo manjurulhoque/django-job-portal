@@ -1,11 +1,13 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import translation
 
 from accounts.models import User
 
 
 class BaseTest(TestCase):
     def setUp(self) -> None:
+        self.language_code = translation.get_language()
         self.user = User.objects.create_user(
             password='Abcdefgh.1',
             email="test@test.com")
@@ -23,12 +25,12 @@ class TestLoginView(BaseTest):
     def test_redirect_if_authenticated(self):
         self.client.login(email="test@test.com", password='Abcdefgh.1')
         response = self.client.get(reverse('accounts:login'))
-        self.assertURLEqual(reverse('jobs:home'), response.url)
+        self.assertURLEqual(reverse('jobs:home'), '/' + self.language_code + response.url)
         self.client.logout()
 
     def test_submit_form(self):
         response = self.client.post(reverse('accounts:login'), {'email': 'test@test.com', 'password': 'Abcdefgh.1'})
-        self.assertURLEqual(reverse('jobs:home'), response.url)
+        self.assertURLEqual(reverse('jobs:home'), '/' + self.language_code + response.url)
 
 
 class TestLogoutView(BaseTest):

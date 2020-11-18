@@ -1,12 +1,16 @@
 from datetime import datetime, timedelta
 
 from django.test import TestCase
+from django.utils import translation
 
 from accounts.models import User
 from jobsapp.models import Job, Applicant
 
 
 class BaseTest(TestCase):
+    def setUp(self) -> None:
+        self.language_code = translation.get_language()
+
     @classmethod
     def setUpTestData(cls) -> None:
         cls.valid_job = {
@@ -36,7 +40,7 @@ class BaseTest(TestCase):
 
 class TestJobModel(BaseTest):
     def test_get_absolute_url(self):
-        self.assertURLEqual(self.job.get_absolute_url(), '/jobs/1')
+        self.assertURLEqual(self.job.get_absolute_url(),  f'/{self.language_code}/jobs/1')
 
     def test_title_max_length(self):
         max_length = self.job._meta.get_field('title').max_length
