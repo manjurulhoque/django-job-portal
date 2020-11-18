@@ -5,6 +5,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.flatpages import views as flatpages_views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -38,4 +39,5 @@ urlpatterns = lang_patterns + [
         ),
     ),
     path("social-auth/", include("social_django.urls", namespace="social")),
+    url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
 ]

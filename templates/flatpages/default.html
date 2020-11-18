@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+    {% trans flatpage.title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 mb-5">
+        {% trans flatpage.content %}
+    </div>
+{% endblock %}
