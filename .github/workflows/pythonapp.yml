@@ -19,6 +19,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Run black code formatter
+      run: |
+        black --check --force-exclude=./*/migrations/ ./
     - name: Django Testing project
       run: |
         python manage.py collectstatic

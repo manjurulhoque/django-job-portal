@@ -6,9 +6,9 @@ from accounts.models import User
 from .manager import JobManager
 
 JOB_TYPE = (
-    ('1', "Full time"),
-    ('2', "Part time"),
-    ('3', "Internship"),
+    ("1", "Full time"),
+    ("2", "Part time"),
+    ("3", "Internship"),
 )
 
 
@@ -30,10 +30,10 @@ class Job(models.Model):
     objects = JobManager()
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
 
     def get_absolute_url(self):
-        return reverse('jobs:jobs-detail', args=[self.id])
+        return reverse("jobs:jobs-detail", args=[self.id])
 
     def __str__(self):
         return self.title
@@ -41,14 +41,14 @@ class Job(models.Model):
 
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applicants")
     created_at = models.DateTimeField(default=timezone.now)
     comment = models.TextField(blank=True, null=True)
     status = models.SmallIntegerField(default=1)
 
     class Meta:
-        ordering = ['id']
-        unique_together = ['user', 'job']
+        ordering = ["id"]
+        unique_together = ["user", "job"]
 
     def __str__(self):
         return self.user.get_full_name()
@@ -56,11 +56,11 @@ class Applicant(models.Model):
     @property
     def get_status(self):
         if self.status == 1:
-            return 'Pending'
+            return "Pending"
         elif self.status == 2:
-            return 'Accepted'
+            return "Accepted"
         else:
-            return 'Rejected'
+            return "Rejected"
 
 
 class Favorite(models.Model):

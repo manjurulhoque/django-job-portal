@@ -4,7 +4,6 @@ from accounts.models import User
 
 
 class TestUserModel(TestCase):
-
     def setUp(self) -> None:
         self.valid_user = {
             "first_name": "Manjurul",
@@ -27,5 +26,5 @@ class TestUserModel(TestCase):
 
     def test_email_label(self):
         user = User.objects.get(id=1)
-        field_label = user._meta.get_field('email').verbose_name
-        self.assertEqual(field_label, 'email')
+        field_label = user._meta.get_field("email").verbose_name
+        self.assertEqual(field_label, "email")

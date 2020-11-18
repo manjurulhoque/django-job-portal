@@ -19,14 +19,14 @@ def registration(request):
     user = serializer.save()
     res = {
         "status": True,
-        "message": 'Successfully registered',
+        "message": "Successfully registered",
     }
     return response.Response(res, status.HTTP_201_CREATED)
 
 
 class EditEmployeeProfileAPIView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
-    http_method_names = ['get', 'put']
+    http_method_names = ["get", "put"]
     permission_classes = [IsAuthenticated, IsEmployee]
 
     def get_object(self):

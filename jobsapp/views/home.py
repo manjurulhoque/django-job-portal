@@ -14,43 +14,47 @@ from ..models import Job, Applicant, Favorite
 
 class HomeView(ListView):
     model = Job
-    template_name = 'home.html'
-    context_object_name = 'jobs'
+    template_name = "home.html"
+    context_object_name = "jobs"
 
     def get_queryset(self):
         return self.model.objects.unfilled()[:6]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['trendings'] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
+        context["trendings"] = self.model.objects.unfilled(
+            created_at__month=timezone.now().month
+        )[:3]
         return context
 
 
 class SearchView(ListView):
     model = Job
-    template_name = 'jobs/search.html'
-    context_object_name = 'jobs'
+    template_name = "jobs/search.html"
+    context_object_name = "jobs"
 
     def get_queryset(self):
         # q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
         # print(q)
         # return q
-        return self.model.objects.filter(location__contains=self.request.GET.get('location', ''),
-                                         title__contains=self.request.GET.get('position', ''))
+        return self.model.objects.filter(
+            location__contains=self.request.GET.get("location", ""),
+            title__contains=self.request.GET.get("position", ""),
+        )
 
 
 class JobListView(ListView):
     model = Job
-    template_name = 'jobs/jobs.html'
-    context_object_name = 'jobs'
+    template_name = "jobs/jobs.html"
+    context_object_name = "jobs"
     paginate_by = 5
 
 
 class JobDetailsView(DetailView):
     model = Job
-    template_name = 'jobs/details.html'
-    context_object_name = 'job'
-    pk_url_kwarg = 'id'
+    template_name = "jobs/details.html"
+    context_object_name = "job"
+    pk_url_kwarg = "id"
 
     def get_object(self, queryset=None):
         obj = super(JobDetailsView, self).get_object(queryset=queryset)
@@ -71,23 +75,23 @@ class JobDetailsView(DetailView):
 class ApplyJobView(CreateView):
     model = Applicant
     form_class = ApplyJobForm
-    slug_field = 'job_id'
-    slug_url_kwarg = 'job_id'
+    slug_field = "job_id"
+    slug_url_kwarg = "job_id"
 
-    @method_decorator(login_required(login_url=reverse_lazy('accounts:login')))
+    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(self.request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            messages.info(self.request, 'Successfully applied for the job!')
+            messages.info(self.request, "Successfully applied for the job!")
             return self.form_valid(form)
         else:
-            return HttpResponseRedirect(reverse_lazy('jobs:home'))
+            return HttpResponseRedirect(reverse_lazy("jobs:home"))
 
     def get_success_url(self):
-        return reverse_lazy('jobs:jobs-detail', kwargs={'id': self.kwargs['job_id']})
+        return reverse_lazy("jobs:jobs-detail", kwargs={"id": self.kwargs["job_id"]})
 
     # def get_form_kwargs(self):
     #     kwargs = super(ApplyJobView, self).get_form_kwargs()
@@ -97,9 +101,11 @@ class ApplyJobView(CreateView):
 
     def form_valid(self, form):
         # check if user already applied
-        applicant = Applicant.objects.filter(user_id=self.request.user.id, job_id=self.kwargs['job_id'])
+        applicant = Applicant.objects.filter(
+            user_id=self.request.user.id, job_id=self.kwargs["job_id"]
+        )
         if applicant:
-            messages.info(self.request, 'You already applied for this job')
+            messages.info(self.request, "You already applied for this job")
             return HttpResponseRedirect(self.get_success_url())
         # save applicant
         form.instance.user = self.request.user
@@ -111,7 +117,7 @@ def favorite(request):
     if not request.user.is_authenticated:
         return JsonResponse(data={"auth": False, "status": "error"})
 
-    job_id = request.POST.get('job_id')
+    job_id = request.POST.get("job_id")
     user_id = request.user.id
     try:
         fav = Favorite.objects.get(job_id=job_id, user_id=user_id, soft_deleted=False)
@@ -119,7 +125,19 @@ def favorite(request):
             fav.soft_deleted = True
             fav.save()
             # fav.delete()
-            return JsonResponse(data={"auth": True, "status": "removed", "message": "Job removed from your favorite list"})
+            return JsonResponse(
+                data={
+                    "auth": True,
+                    "status": "removed",
+                    "message": "Job removed from your favorite list",
+                }
+            )
     except Favorite.DoesNotExist:
         Favorite.objects.create(job_id=job_id, user_id=user_id)
-        return JsonResponse(data={"auth": True, "status": "added", "message": "Job added to your favorite list"})
+        return JsonResponse(
+            data={
+                "auth": True,
+                "status": "added",
+                "message": "Job added to your favorite list",
+            }
+        )

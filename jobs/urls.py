@@ -9,7 +9,7 @@ from django.conf.urls.i18n import i18n_patterns
 schema_view = get_schema_view(
     openapi.Info(
         title="Jobs Portal API",
-        default_version='v1',
+        default_version="v1",
         description="Jobs Portal Api Description",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
@@ -25,8 +25,8 @@ lang_patterns = i18n_patterns(
 )
 
 urlpatterns = lang_patterns + [
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-    path('admin/', admin.site.urls),
+    url(r"^i18n/", include("django.conf.urls.i18n")),
+    path("admin/", admin.site.urls),
     path(
         "api/",
         include(

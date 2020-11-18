@@ -40,15 +40,17 @@ class BaseTest(TestCase):
 
 class TestJobModel(BaseTest):
     def test_get_absolute_url(self):
-        self.assertURLEqual(self.job.get_absolute_url(),  f'/{self.language_code}/jobs/1')
+        self.assertURLEqual(
+            self.job.get_absolute_url(), f"/{self.language_code}/jobs/1"
+        )
 
     def test_title_max_length(self):
-        max_length = self.job._meta.get_field('title').max_length
+        max_length = self.job._meta.get_field("title").max_length
         self.assertEqual(max_length, 300)
 
     def test_title_label(self):
-        field_label = self.job._meta.get_field('title').verbose_name
-        self.assertEqual(field_label, 'title')
+        field_label = self.job._meta.get_field("title").verbose_name
+        self.assertEqual(field_label, "title")
 
 
 class TestApplicantModel(BaseTest):

@@ -5,7 +5,7 @@ from accounts.models import User
 
 
 class TestEmployeeRegistrationForm(TestCase):
-    fixtures = ['accounts_initial_data.json']
+    fixtures = ["accounts_initial_data.json"]
 
     def setUp(self) -> None:
         self.valid_user = {
@@ -45,19 +45,28 @@ class TestEmployeeRegistrationForm(TestCase):
     def test_meta_data(self):
         self.assertEqual(EmployeeRegistrationForm._meta.model, User)
 
-        expected_fields = ['first_name', 'last_name', 'email', 'password1', 'password2', 'gender']
+        expected_fields = [
+            "first_name",
+            "last_name",
+            "email",
+            "password1",
+            "password2",
+            "gender",
+        ]
         for field in expected_fields:
             self.assertIn(field, EmployeeRegistrationForm._meta.fields)
 
     def test_password_mismatch(self):
         # Set confirm password field to a different value
         data = self.valid_user
-        data['password2'] = '54321'
+        data["password2"] = "54321"
 
         form = EmployeeRegistrationForm(data)
 
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors['password2'][0], 'The two password fields didn’t match.')
+        self.assertEqual(
+            form.errors["password2"][0], "The two password fields didn’t match."
+        )
 
     def test_valid_and_save_form(self):
         form = EmployeeRegistrationForm(data=self.valid_user)
@@ -67,7 +76,7 @@ class TestEmployeeRegistrationForm(TestCase):
 
 
 class TestEmployerRegistrationForm(TestCase):
-    fixtures = ['accounts_initial_data.json']
+    fixtures = ["accounts_initial_data.json"]
 
     def setUp(self) -> None:
         self.valid_user = {
@@ -104,19 +113,21 @@ class TestEmployerRegistrationForm(TestCase):
     def test_meta_data(self):
         self.assertEqual(EmployerRegistrationForm._meta.model, User)
 
-        expected_fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
+        expected_fields = ["first_name", "last_name", "email", "password1", "password2"]
         for field in expected_fields:
             self.assertIn(field, EmployeeRegistrationForm._meta.fields)
 
     def test_password_mismatch(self):
         # Set confirm password field to a different value
         data = self.valid_user
-        data['password2'] = '54321'
+        data["password2"] = "54321"
 
         form = EmployerRegistrationForm(data)
 
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors['password2'][0], 'The two password fields didn’t match.')
+        self.assertEqual(
+            form.errors["password2"][0], "The two password fields didn’t match."
+        )
 
     def test_valid_and_save_form(self):
         form = EmployerRegistrationForm(data=self.valid_user)
