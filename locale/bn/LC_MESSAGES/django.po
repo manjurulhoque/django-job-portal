@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 23:49+0600\n"
+"POT-Creation-Date: 2020-11-18 20:15+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,16 @@ msgstr ""
 
 #: jobs/settings.py:118
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: jobs/settings.py:119
 msgid "Bengali"
-msgstr ""
+msgstr "বাংলা"
 
 #: templates/home.html:23
 msgid "Position"
-msgstr "test"
+msgstr "অবস্থান"
+
+#: templates/lang_selector.html:9
+msgid "Language"
+msgstr "ভাষা"
