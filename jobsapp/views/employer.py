@@ -62,7 +62,7 @@ class JobCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
+        context["tags"] = Tag.objects.all()
         return context
 
     def form_valid(self, form):
@@ -78,18 +78,16 @@ class JobCreateView(CreateView):
             return self.form_invalid(form)
 
 
-@method_decorator(login_required(login_url=reverse_lazy('accounts:login')), name='dispatch')
-@method_decorator(user_is_employer, name='dispatch')
+@method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
+@method_decorator(user_is_employer, name="dispatch")
 class JobUpdateView(UpdateView):
-    template_name = 'jobs/update.html'
+    template_name = "jobs/update.html"
     form_class = CreateJobForm
-    extra_context = {
-        'title': 'Edit Job'
-    }
-    slug_field = 'id'
-    slug_url_kwarg = 'id'
-    success_url = reverse_lazy('jobs:employer-dashboard')
-    context_object_name = 'job'
+    extra_context = {"title": "Edit Job"}
+    slug_field = "id"
+    slug_url_kwarg = "id"
+    success_url = reverse_lazy("jobs:employer-dashboard")
+    context_object_name = "job"
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(self.request, *args, **kwargs)
@@ -99,7 +97,7 @@ class JobUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
+        context["tags"] = Tag.objects.all()
         return context
 
     def form_valid(self, form):

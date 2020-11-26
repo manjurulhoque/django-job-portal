@@ -25,7 +25,7 @@ urlpatterns = [
                 ),
                 path("mark-filled/<int:job_id>", filled, name="job-mark-filled"),
                 path("jobs/create", JobCreateView.as_view(), name="employer-jobs-create"),
-                path('jobs/<int:id>/edit', JobUpdateView.as_view(), name='employer-jobs-edit'),
+                path("jobs/<int:id>/edit", JobUpdateView.as_view(), name="employer-jobs-edit"),
             ]
         ),
     ),
@@ -38,9 +38,7 @@ urlpatterns = [
                     EmployeeMyJobsListView.as_view(),
                     name="employee-my-applications",
                 ),
-                path(
-                    "favorites", FavoriteListView.as_view(), name="employee-favorites"
-                ),
+                path("favorites", FavoriteListView.as_view(), name="employee-favorites"),
             ]
         ),
     ),

@@ -10,9 +10,7 @@ from jobsapp.decorators import user_is_employee
 from jobsapp.models import Favorite, Applicant
 
 
-@method_decorator(
-    login_required(login_url=reverse_lazy("accounts:login")), name="dispatch"
-)
+@method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
 @method_decorator(user_is_employee, name="dispatch")
 class EmployeeMyJobsListView(ListView):
     model = Applicant
@@ -22,18 +20,14 @@ class EmployeeMyJobsListView(ListView):
 
     def get_queryset(self):
         self.queryset = (
-            self.model.objects.select_related("job")
-            .filter(user_id=self.request.user.id)
-            .order_by("-created_at")
+            self.model.objects.select_related("job").filter(user_id=self.request.user.id).order_by("-created_at")
         )
         if (
             "status" in self.request.GET
             and len(self.request.GET.get("status")) > 0
             and int(self.request.GET.get("status")) > 0
         ):
-            self.queryset = self.queryset.filter(
-                status=int(self.request.GET.get("status"))
-            )
+            self.queryset = self.queryset.filter(status=int(self.request.GET.get("status")))
         return self.queryset
 
 
@@ -65,9 +59,7 @@ class EditProfileView(UpdateView):
         return obj
 
 
-@method_decorator(
-    login_required(login_url=reverse_lazy("accounts:login")), name="dispatch"
-)
+@method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
 @method_decorator(user_is_employee, name="dispatch")
 class FavoriteListView(ListView):
     model = Favorite

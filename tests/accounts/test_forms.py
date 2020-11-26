@@ -64,9 +64,7 @@ class TestEmployeeRegistrationForm(TestCase):
         form = EmployeeRegistrationForm(data)
 
         self.assertFalse(form.is_valid())
-        self.assertEqual(
-            form.errors["password2"][0], "The two password fields didn’t match."
-        )
+        self.assertEqual(form.errors["password2"][0], "The two password fields didn’t match.")
 
     def test_valid_and_save_form(self):
         form = EmployeeRegistrationForm(data=self.valid_user)
@@ -125,9 +123,7 @@ class TestEmployerRegistrationForm(TestCase):
         form = EmployerRegistrationForm(data)
 
         self.assertFalse(form.is_valid())
-        self.assertEqual(
-            form.errors["password2"][0], "The two password fields didn’t match."
-        )
+        self.assertEqual(form.errors["password2"][0], "The two password fields didn’t match.")
 
     def test_valid_and_save_form(self):
         form = EmployerRegistrationForm(data=self.valid_user)

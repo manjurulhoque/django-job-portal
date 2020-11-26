@@ -22,9 +22,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["trendings"] = self.model.objects.unfilled(
-            created_at__month=timezone.now().month
-        )[:3]
+        context["trendings"] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
         return context
 
 
@@ -101,9 +99,7 @@ class ApplyJobView(CreateView):
 
     def form_valid(self, form):
         # check if user already applied
-        applicant = Applicant.objects.filter(
-            user_id=self.request.user.id, job_id=self.kwargs["job_id"]
-        )
+        applicant = Applicant.objects.filter(user_id=self.request.user.id, job_id=self.kwargs["job_id"])
         if applicant:
             messages.info(self.request, "You already applied for this job")
             return HttpResponseRedirect(self.get_success_url())

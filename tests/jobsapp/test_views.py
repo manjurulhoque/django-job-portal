@@ -23,9 +23,7 @@ class TestSearchView(TestCase):
     def test_empty_query(self):
         jobs = Job.objects.filter(title__contains="software")
         response = self.client.get(self.url + "?position=software")
-        self.assertFalse(
-            b"We have found %a jobs" % str(jobs.count()) in response.content.lower()
-        )
+        self.assertFalse(b"We have found %a jobs" % str(jobs.count()) in response.content.lower())
 
 
 class TestJobDetailsView(TestCase):
