@@ -1,13 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant
+from tags.models import Tag
 
 
 class DashboardView(ListView):
@@ -58,12 +60,55 @@ class JobCreateView(CreateView):
             return reverse_lazy("accounts:login")
         return super().dispatch(self.request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(JobCreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
         self.object = None
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+@method_decorator(login_required(login_url=reverse_lazy('accounts:login')), name='dispatch')
+@method_decorator(user_is_employer, name='dispatch')
+class JobUpdateView(UpdateView):
+    template_name = 'jobs/update.html'
+    form_class = CreateJobForm
+    extra_context = {
+        'title': 'Edit Job'
+    }
+    slug_field = 'id'
+    slug_url_kwarg = 'id'
+    success_url = reverse_lazy('jobs:employer-dashboard')
+    context_object_name = 'job'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Job.objects.filter(user_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "Job updated successfully")
+        return super(JobUpdateView, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)

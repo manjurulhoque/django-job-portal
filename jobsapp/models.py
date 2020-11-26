@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from accounts.models import User
+from tags.models import Tag
 from .manager import JobManager
 
 JOB_TYPE = (
@@ -26,6 +27,7 @@ class Job(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
     salary = models.IntegerField(default=0, blank=True)
+    tags = models.ManyToManyField(Tag)
 
     objects = JobManager()
 
