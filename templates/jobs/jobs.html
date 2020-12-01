@@ -52,6 +52,9 @@
                                     <p class="job__company">
                                         {{ job.company_name }}
                                     </p>
+                                    {% for tag in job.tags.all %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

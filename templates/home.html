@@ -76,6 +76,10 @@
                                         <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
                                     {% endif %}
                                 </p>
+                                {% for tag in job.tags.all %}
+                                    <span style="color: #ffffff;"
+                                          class="badge featured-badge badge-secondary">{{ tag.name }}</span>
+                                {% endfor %}
                                 <p>{{ job.description }}</p>
                             </div>
                         </div>

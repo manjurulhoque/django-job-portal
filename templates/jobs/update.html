@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tag_exists %}
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -72,7 +73,8 @@
                                 <label for="tags">Required skills</label>
                                 <select class="js-select2 form-control" name="tags" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
                                     {% for tag in tags %}
-                                        <option value="{{ tag.id }}" {% if tag in job.tags.all %} selected {% endif %}>{{ tag.name }}</option>
+                                        {% tag_exists tag.id form.tags.value as tag_already_exists %}
+                                        <option value="{{ tag.id }}" {% if tag in job.tags.all or tag_already_exists %} selected {% endif %}>{{ tag.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -114,7 +116,7 @@
                             </div>
                             <div class="col-xl-6 form-group">
                                 <label for="validity">Validity of the post</label>
-                                <input id="validity" name="last_date" type="date" class="form-control" value="{{ form.last_date.value|default_if_none:job.last_date|date:"Y-m-d" }}">
+                                <input id="validity" name="last_date" type="date" class="form-control" value="{{ form.last_date.value|default:job.last_date|date:"Y-m-d" }}">
                             </div>
                         </div>
                         <div class="row">

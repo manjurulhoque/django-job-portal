@@ -31,6 +31,10 @@
                     <h3>Category: {{ job.category }}</h3>
                     <h5>Last date: {{ job.last_date|date }}</h5>
                     <h5 class="text-info">Salary: {% if job.salary > 0 %} {{ job.salary }}/Monthly {% else %} Negotiable {% endif %} </h5>
+                    Tags:
+                    {% for tag in job.tags.all %}
+                        <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
+                    {% endfor %}
                     <blockquote class="blockquote">
                         <p>{{ job.description }}</p>
                     </blockquote>
