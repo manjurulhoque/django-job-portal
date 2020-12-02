@@ -39,5 +39,5 @@ urlpatterns = lang_patterns + [
         ),
     ),
     path("social-auth/", include("social_django.urls", namespace="social")),
-    url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
+    # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
 ]
