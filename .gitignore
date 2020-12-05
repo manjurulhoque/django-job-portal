@@ -262,4 +262,5 @@ fabric.properties
 __pycache__/
 
 jobs/staticfiles
-logs/*.log
+logs/*.log.*
+logs/*

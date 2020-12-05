@@ -17,4 +17,17 @@ class ApplicantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Applicant
-        fields = ("job_id", "user")
+        fields = ("job_id", "user", "status")
+
+
+class AppliedJobSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    applicant = serializers.SerializerMethodField('_applicant')
+
+    class Meta:
+        model = Job
+        fields = "__all__"
+
+    def _applicant(self, obj):
+        user = self.context.get('request', None).user
+        return ApplicantSerializer(Applicant.objects.get(user=user, job=obj)).data
