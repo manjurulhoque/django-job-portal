@@ -22,10 +22,10 @@ jobs:
     - name: Run black code formatter
       run: |
         black --check --force-exclude=./*/migrations/ ./
-    - name: Django Testing project
-      run: |
-        python manage.py collectstatic
-        python manage.py test # Don't forget to run tests
+#    - name: Django Testing project
+#      run: |
+#        python manage.py collectstatic
+#        python manage.py test # Don't forget to run tests
     - name: Deploy to Heroku
       env:
         HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
