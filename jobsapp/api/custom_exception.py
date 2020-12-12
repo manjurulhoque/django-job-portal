@@ -17,9 +17,12 @@ def custom_exception_handler(exc, context):
         errors = []
         for field, value in data.items():
             if type(value) is list:
-                errors.append("{}: {}".format(field, value[0]))
+                my_dict = {field: value[0]}
+                # errors.append("{}: {}".format(field, value[0]))
+                errors.append(my_dict)
             else:
-                errors.append("{}: {}".format(field, value))
+                errors.append({field: value})
+                # errors.append("{}: {}".format(field, value))
 
         response.data["errors"] = errors
         response.data["status"] = False

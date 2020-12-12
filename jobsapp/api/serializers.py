@@ -12,6 +12,14 @@ class JobSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class NewJobSerializer(serializers.ModelSerializer):
+    user = UserSerializer(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Job
+        fields = "__all__"
+
+
 class ApplicantSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
