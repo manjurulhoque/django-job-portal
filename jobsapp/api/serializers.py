@@ -20,6 +20,25 @@ class JobSerializer(serializers.ModelSerializer):
             return None
 
 
+class DashboardJobSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    job_tags = serializers.SerializerMethodField()
+    total_candidates = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Job
+        fields = "__all__"
+
+    def get_job_tags(self, obj):
+        if obj.tags:
+            return TagSerializer(obj.tags.all(), many=True).data
+        else:
+            return None
+
+    def get_total_candidates(self, obj):
+        return obj.applicants.count()
+
+
 class NewJobSerializer(serializers.ModelSerializer):
     user = UserSerializer(default=serializers.CurrentUserDefault())
 

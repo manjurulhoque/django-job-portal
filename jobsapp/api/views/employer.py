@@ -2,12 +2,12 @@ from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from jobsapp.api.permissions import IsEmployer
-from jobsapp.api.serializers import ApplicantSerializer, NewJobSerializer, JobSerializer
+from jobsapp.api.serializers import ApplicantSerializer, NewJobSerializer, JobSerializer, DashboardJobSerializer
 from jobsapp.models import Applicant
 
 
 class DashboardAPIView(ListAPIView):
-    serializer_class = JobSerializer
+    serializer_class = DashboardJobSerializer
     permission_classes = [IsAuthenticated, IsEmployer]
 
     def get_queryset(self):
