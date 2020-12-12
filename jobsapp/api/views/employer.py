@@ -2,8 +2,16 @@ from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from jobsapp.api.permissions import IsEmployer
-from jobsapp.api.serializers import ApplicantSerializer, NewJobSerializer
+from jobsapp.api.serializers import ApplicantSerializer, NewJobSerializer, JobSerializer
 from jobsapp.models import Applicant
+
+
+class DashboardAPIView(ListAPIView):
+    serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated, IsEmployer]
+
+    def get_queryset(self):
+        return self.serializer_class.Meta.model.objects.filter(user_id=self.request.user.id)
 
 
 class JobCreateAPIView(CreateAPIView):
