@@ -1,15 +1,23 @@
 from rest_framework import serializers
 
 from accounts.api.serializers import UserSerializer
+from tags.api.serializers import TagSerializer
 from ..models import *
 
 
 class JobSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    job_tags = serializers.SerializerMethodField()
 
     class Meta:
         model = Job
         fields = "__all__"
+
+    def get_job_tags(self, obj):
+        if obj.tags:
+            return TagSerializer(obj.tags.all(), many=True).data
+        else:
+            return None
 
 
 class NewJobSerializer(serializers.ModelSerializer):
