@@ -24,7 +24,8 @@ urlpatterns = [
             [
                 path("jobs/create/", JobCreateAPIView.as_view()),
             ]
-        ))
+        ),
+    ),
 ]
 
 urlpatterns += router.urls
