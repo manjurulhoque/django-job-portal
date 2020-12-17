@@ -9,6 +9,7 @@ from .views import (
     already_applied_api_view,
     DashboardAPIView,
     JobCreateAPIView,
+    ApplicantsListAPIView,
 )
 
 router = DefaultRouter()
@@ -25,6 +26,7 @@ urlpatterns = [
             [
                 path("dashboard/", DashboardAPIView.as_view()),
                 path("jobs/create/", JobCreateAPIView.as_view()),
+                path("applicants/", ApplicantsListAPIView.as_view()),
             ]
         ),
     ),

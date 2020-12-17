@@ -48,11 +48,22 @@ class NewJobSerializer(serializers.ModelSerializer):
 
 
 class ApplicantSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    applied_user = serializers.SerializerMethodField()
+    job = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
 
     class Meta:
         model = Applicant
-        fields = ("job_id", "user", "status")
+        fields = ("job_id", "applied_user", "job", "status")
+
+    def get_status(self, obj):
+        return obj.get_status
+
+    def get_job(self, obj):
+        return JobSerializer(obj.job).data
+
+    def get_applied_user(self, obj):
+        return UserSerializer(obj.user).data
 
 
 class AppliedJobSerializer(serializers.ModelSerializer):
