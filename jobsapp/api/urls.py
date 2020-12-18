@@ -10,7 +10,7 @@ from .views import (
     DashboardAPIView,
     JobCreateAPIView,
     ApplicantsListAPIView,
-    categories_list_api_view
+    categories_list_api_view,
 )
 
 router = DefaultRouter()

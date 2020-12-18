@@ -29,40 +29,16 @@ class SearchApiView(ListAPIView):
             return self.serializer_class.Meta.model.objects.unfilled()
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def categories_list_api_view(request):
     categories = [
-        {
-            "name": "Web design",
-            "slug": "web-design",
-            "icon": "lni-brush"
-        },
-        {
-            "name": "Graphic design",
-            "slug": "graphic-design",
-            "icon": "lni-heart"
-        },
-        {
-            "name": "Web development",
-            "slug": "web-development",
-            "icon": "lni-funnel"
-        },
-        {
-            "name": "Human Resource",
-            "slug": "human-resource",
-            "icon": "lni-cup"
-        },
-        {
-            "name": "Support",
-            "slug": "support",
-            "icon": "lni-home"
-        },
-        {
-            "name": "Android Development",
-            "slug": "android",
-            "icon": "lni-world"
-        }
+        {"name": "Web design", "slug": "web-design", "icon": "lni-brush"},
+        {"name": "Graphic design", "slug": "graphic-design", "icon": "lni-heart"},
+        {"name": "Web development", "slug": "web-development", "icon": "lni-funnel"},
+        {"name": "Human Resource", "slug": "human-resource", "icon": "lni-cup"},
+        {"name": "Support", "slug": "support", "icon": "lni-home"},
+        {"name": "Android Development", "slug": "android", "icon": "lni-world"},
     ]
 
     for category in categories:
