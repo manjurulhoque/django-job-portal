@@ -27,6 +27,9 @@ Used Tech Stack
 ## Job details
 <img src="screenshots/three.png" height="800">
 
+## Swagger API
+<img src="screenshots/four.png" height="800">
+
 <a name="local-venv"></a>
 ### Local environment
 
