@@ -119,12 +119,18 @@ class ApplicantsListView(ListView):
     template_name = "jobs/employer/all-applicants.html"
     context_object_name = "applicants"
 
+    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    @method_decorator(user_is_employer)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
     def get_queryset(self):
         # jobs = Job.objects.filter(user_id=self.request.user.id)
         return self.model.objects.filter(job__user_id=self.request.user.id)
 
 
 @login_required(login_url=reverse_lazy("accounts:login"))
+@user_is_employer
 def filled(request, job_id=None):
     try:
         job = Job.objects.get(user_id=request.user.id, id=job_id)
