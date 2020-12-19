@@ -17,28 +17,79 @@
     </section>
     <section>
         <div class="container">
+            <form id="job-main-form" method="get" action="" class="job-main-form">
+                <div class="controls">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select id="status" name="status" class="form-control">
+                                    <option value="" selected>Select status</option>
+                                    <option value="1" {% if request.GET.status == "1" %} selected {% endif %}>Pending</option>
+                                    <option value="2" {% if request.GET.status == "2" %} selected {% endif %}>Accepted</option>
+                                    <option value="3" {% if request.GET.status == "3" %} selected {% endif %}>Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-magic"></i>
+                                    Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="row">
                 {% for applicant in applicants %}
                     <div class="col-lg-6">
                         <div class="box applicant">
-                            <h4>{{ applicant.user.get_full_name }}</h4>
-                            <p><strong>Applied position: {{ applicant.job.title }}</strong></p>
-                            <a href="#" data-toggle="modal" data-target="#contact-modal"
-                               class="btn btn-outline-white-secondary btn-sm">
-                                <i class="fa fa-envelope"></i>Contact
-                            </a>
-                            <p>
-                                <span class="badge badge-info">Applied {{ applicant.created_at.astimezone }}</span>
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                <p class="intro"></p>
-                                <div class="image">
-                                    <img src="{% static 'img/avatar.png' %}" alt=""
-                                         class="img-fluid rounded-circle">
+                            <div class="row">
+                                <div class="col-md-3 mr-4">
+                                    <p class="intro"></p>
+                                    <div class="image">
+                                        <img src="{% static 'img/avatar.png' %}" alt=""
+                                             class="img-fluid rounded-circle">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h4><a href="{% url 'jobs:applied-applicant-view' applicant.job.id applicant.id %}">{{ applicant.user.get_full_name }}</a><small>({{ applicant.get_status }})</small></h4>
+                                    <h6>Skills:
+                                        {% for tag in applicant.user.profile.tags.all %}
+                                            <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
+                                        {% endfor %}
+                                    </h6>
+                                    <a href="mailto:{{ applicant.user.email }}?Subject=Interested"
+                                       class="btn btn-outline-white-secondary btn-sm">
+                                        <i class="fa fa-envelope"></i>Contact
+                                    </a>
+                                    <p>
+                                        <span class="badge badge-info">Applied {{ applicant.created_at.astimezone }}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {#                    <div class="col-lg-6">#}
+                    {#                        <div class="box applicant">#}
+                    {#                            <h4>{{ applicant.user.get_full_name }}</h4>#}
+                    {#                            <p><strong>Applied position: {{ applicant.job.title }}</strong></p>#}
+                    {#                            <a href="#" data-toggle="modal" data-target="#contact-modal"#}
+                    {#                               class="btn btn-outline-white-secondary btn-sm">#}
+                    {#                                <i class="fa fa-envelope"></i>Contact#}
+                    {#                            </a>#}
+                    {#                            <p>#}
+                    {#                                <span class="badge badge-info">Applied {{ applicant.created_at.astimezone }}</span>#}
+                    {#                            </p>#}
+                    {#                            <div class="d-flex justify-content-between">#}
+                    {#                                <p class="intro"></p>#}
+                    {#                                <div class="image">#}
+                    {#                                    <img src="{% static 'img/avatar.png' %}" alt=""#}
+                    {#                                         class="img-fluid rounded-circle">#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                 {% endfor %}
                 {% if is_paginated %}
                     <div class="row">

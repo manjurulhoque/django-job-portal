@@ -23,7 +23,13 @@ urlpatterns = [
                     ApplicantPerJobView.as_view(),
                     name="employer-dashboard-applicants",
                 ),
+                path(
+                    "applied-applicant/<int:job_id>/view/<int:applicant_id>",
+                    AppliedApplicantView.as_view(),
+                    name="applied-applicant-view",
+                ),
                 path("mark-filled/<int:job_id>/", filled, name="job-mark-filled"),
+                path("send-response/<int:applicant_id>", SendResponseView.as_view(), name="applicant-send-response"),
                 path("jobs/create/", JobCreateView.as_view(), name="employer-jobs-create"),
                 path("jobs/<int:id>/edit/", JobUpdateView.as_view(), name="employer-jobs-edit"),
             ]
