@@ -17,7 +17,7 @@ class IsJobCreator(BasePermission):
     # message = 'Permission denied'
 
     def has_permission(self, request, view):
-        job_id = view.kwargs.get('job_id')
+        job_id = view.kwargs.get("job_id")
         if job_id:
             if Job.objects.filter(id=job_id, user=request.user).exists():
                 return True
