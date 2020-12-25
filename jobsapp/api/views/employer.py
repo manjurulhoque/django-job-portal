@@ -42,28 +42,22 @@ class UpdateApplicantStatusAPIView(APIView):
     permission_classes = [IsAuthenticated, IsEmployer]
 
     def post(self, request, *args, **kwargs):
-        applicant_id = kwargs.get('applicant_id')
-        status_code = kwargs.get('status_code')
+        applicant_id = kwargs.get("applicant_id")
+        status_code = kwargs.get("status_code")
         try:
             applicant = Applicant.objects.select_related("job__user").get(id=applicant_id)
         except Applicant.DoesNotExist:
-            data = {
-                'message': 'Applicant not found'
-            }
+            data = {"message": "Applicant not found"}
             return JsonResponse(data, status=404)
 
         if applicant.job.user != request.user:
-            data = {
-                'errors': 'You are not authorized'
-            }
+            data = {"errors": "You are not authorized"}
             return JsonResponse(data, status=403)
         if status_code not in [1, 2]:
             status_code = 3
 
         applicant.status = status_code
-        applicant.comment = request.data.get('comment', '')
+        applicant.comment = request.data.get("comment", "")
         applicant.save()
-        data = {
-            'message': 'Applicant status updated'
-        }
+        data = {"message": "Applicant status updated"}
         return JsonResponse(data, status=200)
