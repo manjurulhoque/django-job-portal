@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     "accounts",
     "tags",
     "social_django",
-    "django.contrib.humanize"
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

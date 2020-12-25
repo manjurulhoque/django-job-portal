@@ -54,7 +54,7 @@ class ApplicantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Applicant
-        fields = ("id", "job_id", "applied_user", "job", "status", "created_at")
+        fields = ("id", "job_id", "applied_user", "job", "status", "created_at", "comment")
 
     def get_status(self, obj):
         return obj.get_status
