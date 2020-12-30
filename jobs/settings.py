@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "django_elasticsearch_dsl",
     "drf_yasg",
     "corsheaders",
