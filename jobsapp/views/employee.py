@@ -67,6 +67,4 @@ class FavoriteListView(ListView):
     context_object_name = "favorites"
 
     def get_queryset(self):
-        return self.model.objects.select_related("job__user").filter(
-            job__filled=False, soft_deleted=False, user=self.request.user
-        )
+        return self.model.objects.select_related("job__user").filter(soft_deleted=False, user=self.request.user)
