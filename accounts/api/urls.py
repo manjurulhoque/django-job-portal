@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from .custom_claims import MyTokenObtainPairView
-from .views import registration, EditEmployeeProfileAPIView
+from .views import registration, EditEmployeeProfileAPIView, SocialLoginAPIView
 
 urlpatterns = [
     # path('login/', TokenObtainPairView.as_view()),
@@ -24,4 +24,5 @@ urlpatterns = [
             ]
         ),
     ),
+    path("oauth/login/", SocialLoginAPIView.as_view()),
 ]
