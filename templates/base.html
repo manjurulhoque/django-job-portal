@@ -50,11 +50,12 @@
                     class="navbar-toggler navbar-toggler-right">Menu<i class="fa fa-bars"></i>
             </button>
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                {% with request.resolver_match.url_name as url_name %}
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item {% if url_name == 'home' %}active{% endif %}">
                         <a href="{% url 'jobs:home' %}" class="nav-link">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
                         <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
                     </li>
                     <li class="nav-item">
@@ -79,10 +80,24 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a href="{% url 'jobs:employer-dashboard' %}" class="dropdown-item">Dashboard</a>
-                                <a href="{% url 'jobs:employer-all-applicants' %}" class="dropdown-item">Applicants </a>
-                                <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new
-                                    job </a>
+                                <a 
+                                    href="{% url 'jobs:employer-dashboard' %}" 
+                                    class="dropdown-item {% if url_name == 'employer-dashboard' %}active{% endif %}"
+                                >
+                                    Dashboard
+                                </a>
+                                <a 
+                                    href="{% url 'jobs:employer-all-applicants' %}" 
+                                    class="dropdown-item {% if url_name == 'employer-all-applicants' %}active{% endif %}"
+                                >
+                                    Applicants 
+                                </a>
+                                <a 
+                                    href="{% url 'jobs:employer-jobs-create' %}" 
+                                    class="dropdown-item {% if url_name == 'employer-jobs-create' %}active{% endif %}"
+                                >
+                                    Post a new job 
+                                </a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -134,6 +149,7 @@
                     {% endif %}
                     {% include "lang_selector.html" %}
                 </ul>
+                {% endwith %}
             </div>
         </div>
     </nav>
