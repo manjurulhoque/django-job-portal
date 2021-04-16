@@ -102,10 +102,10 @@
                             </div>
                         </li>
                     {% elif request.user.is_authenticated and request.user.role == 'employee' %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if url_name == 'employee-favorites' %}active{% endif %}">
                             <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {% if url_name == 'employee-my-applications' %}active{% endif %}">
                             <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
                         </li>
 
@@ -127,23 +127,42 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a href="{% url 'accounts:employer-profile-update' %}" class="dropdown-item">Edit Profile</a>
+                                <a 
+                                    href="{% url 'accounts:employee-profile-update' %}" 
+                                    class="dropdown-item {% if url_name == 'employee-profile-update' %}active{% endif %}"
+                                >
+                                    Edit Profile
+                                </a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     {% else %}
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {% if url_name == 'employee-register' or url_name == 'employer-register' %}active{% endif %}">
                             <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                               class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register
+                               class="nav-link dropdown-toggle "><i class="fa fa-signing"></i>Register
                             </a>
                             <div aria-labelledby="pages" class="dropdown-menu">
-                                <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
-                                <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Employers</a>
+                                <a 
+                                    href="{% url 'accounts:employee-register' %}" 
+                                    class="dropdown-item {% if url_name == 'employee-register' %}active{% endif %}"
+                                >
+                                    Employee
+                                </a>
+                                <a 
+                                    href="{% url 'accounts:employer-register' %}" 
+                                    class="dropdown-item {% if url_name == 'employer-register' %}active{% endif %}"
+                                >
+                                    Employers
+                                </a>
                             </div>
                         </li>
                         <li class="nav-item" style="color: #fff">
-                            <a href="{% url 'accounts:login' %}" class="btn navbar-btn btn-outline-light mb-5 mb-lg-0">
-                                <i class="fa fa-sign-in"></i>Login
+                            <a 
+                                href="{% url 'accounts:login' %}" 
+                                class="btn navbar-btn btn-outline-light mb-5 mb-lg-0 {% if url_name == 'login' %}active text-primary{% endif %}"
+                            >
+                                <i class="fa fa-sign-in"></i>
+                                Login
                             </a>
                         </li>
                     {% endif %}
