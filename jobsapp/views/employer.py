@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
+from accounts.forms import EmployerProfileUpdateForm
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant
@@ -203,6 +204,31 @@ class SendResponseView(UpdateView):
             obj = queryset.get()
         except queryset.model.DoesNotExist:
             raise Http404(
-                _("No %(verbose_name)s found matching the query") % {"verbose_name": queryset.model._meta.verbose_name}
+                "No %(verbose_name)s found matching the query" % {"verbose_name": queryset.model._meta.verbose_name}
             )
+        return obj
+
+
+class EmployerProfileEditView(UpdateView):
+    form_class = EmployerProfileUpdateForm
+    context_object_name = "employer"
+    template_name = "jobs/employer/edit-profile.html"
+    success_url = reverse_lazy("accounts:employer-profile-update")
+
+    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    @method_decorator(user_is_employer)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            raise Http404("User doesn't exists")
+        return self.render_to_response(self.get_context_data())
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        if obj is None:
+            raise Http404("Job doesn't exists")
         return obj

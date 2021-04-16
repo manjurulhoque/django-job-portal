@@ -83,6 +83,7 @@
                                 <a href="{% url 'jobs:employer-all-applicants' %}" class="dropdown-item">Applicants </a>
                                 <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new
                                     job </a>
+                                <a href="{% url 'accounts:employer-profile-update' %}" class="dropdown-item">Edit Profile</a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -112,7 +113,7 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a href="{% url 'accounts:employer-profile-update' %}" class="dropdown-item">Edit Profile</a>
+                                <a href="{% url 'accounts:employee-profile-update' %}" class="dropdown-item">Edit Profile</a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
