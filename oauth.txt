@@ -1,0 +1,3 @@
+https://django-oauth-toolkit.readthedocs.io/en/latest/getting_started.html#client-credential
+
+https://stackoverflow.com/q/58010166/5559590

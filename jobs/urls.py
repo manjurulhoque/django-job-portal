@@ -50,4 +50,5 @@ urlpatterns = lang_patterns + [
     path("social-auth/", include("social_django.urls", namespace="social")),
     # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
     path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"),
+    path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]

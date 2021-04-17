@@ -1,10 +1,11 @@
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from jobsapp.api.permissions import IsEmployee
+from jobsapp.api.permissions import IsEmployee, IsAuthenticatedOrClientCredentialPermission
 from jobsapp.api.serializers import ApplicantSerializer, JobSerializer, AppliedJobSerializer
 from jobsapp.models import Applicant, Job
 
@@ -27,7 +28,8 @@ class ApplyJobApiView(CreateAPIView):
 
 class AppliedJobsAPIView(ListAPIView):
     serializer_class = AppliedJobSerializer
-    permission_classes = [IsAuthenticated, IsEmployee]
+    # permission_classes = [IsAuthenticated, IsEmployee]
+    permission_classes = [IsAuthenticatedOrClientCredentialPermission, TokenHasReadWriteScope, IsEmployee]
 
     def get_queryset(self):
         applied_jobs_id = list(Applicant.objects.filter(user=self.request.user).values_list("job_id", flat=True))

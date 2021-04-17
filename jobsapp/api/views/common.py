@@ -1,10 +1,12 @@
 from django.http import JsonResponse
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
+from ..permissions import ClientCredentialPermission
 from ..serializers import JobSerializer
 from ...models import Job
 
@@ -12,6 +14,7 @@ from ...models import Job
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
     queryset = serializer_class.Meta.model.objects.unfilled()
+    # permission_classes = [ClientCredentialPermission, TokenHasReadWriteScope]
     permission_classes = [AllowAny]
 
 

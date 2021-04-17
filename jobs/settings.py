@@ -1,5 +1,7 @@
 import os
 from datetime import timedelta
+
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 import environ
@@ -177,10 +179,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = "accounts.user"
 
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 360000,
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'},
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 3600
+    # 'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # 'rest_framework.authentication.TokenAuthentication',
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "EXCEPTION_HANDLER": "jobsapp.api.custom_exception.custom_exception_handler",
@@ -244,6 +255,7 @@ DEBUG = True
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = reverse_lazy("accounts:login")
 
 AUTHENTICATION_BACKENDS = (
     "social_core.backends.github.GithubOAuth2",
@@ -251,6 +263,7 @@ AUTHENTICATION_BACKENDS = (
     "social_core.backends.facebook.FacebookOAuth2",
     "social_core.backends.linkedin.LinkedinOAuth2",
     "social_core.backends.google.GoogleOAuth2",
+    "oauth2_provider.backends.OAuth2Backend",
     "django.contrib.auth.backends.ModelBackend",
 )
 
