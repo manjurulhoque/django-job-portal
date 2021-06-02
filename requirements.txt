@@ -69,6 +69,6 @@ toml==0.10.2
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
 uritemplate==3.0.1
-urllib3==1.25.8
+urllib3==1.26.5
 webencodings==0.5.1
 whitenoise==5.0.1
