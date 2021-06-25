@@ -3,4 +3,4 @@ repos:
     rev: stable
     hooks:
       - id: black
-        exclude: ^.*\b(migrations)\b.*$
+        exclude: ^migrations/

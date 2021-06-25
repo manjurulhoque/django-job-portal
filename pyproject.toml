@@ -17,3 +17,5 @@ force-exclude = '''
 )/
 | ./*/migrations
 '''
+
+force_exclude = "migrations/"
