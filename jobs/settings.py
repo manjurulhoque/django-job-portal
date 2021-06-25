@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import timedelta
 from django.utils.translation import ugettext_lazy as _
 
@@ -193,24 +194,70 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": True,
 }
 
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.TimedRotatingFileHandler",
+#             "filename": os.path.join(BASE_DIR, "logs/debug.log"),
+#             "when": "D",  # this specifies the interval
+#             "interval": 1,  # defaults to 1, only necessary for other values
+#             "backupCount": 100,  # how many backup file to keep, 10 days
+#         }
+#     },
+#     "loggers": {
+#         "django": {"handlers": ["file"], "level": "INFO", "propagate": True},
+#         "project": {"handlers": ["file"], "level": "INFO", "propagate": True},
+#         "": {"handlers": ["file"], "level": "INFO", "propagate": True},
+#     },
+# }
+
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.handlers.TimedRotatingFileHandler",
-            "filename": os.path.join(BASE_DIR, "logs/debug.log"),
-            "when": "D",  # this specifies the interval
-            "interval": 1,  # defaults to 1, only necessary for other values
-            "backupCount": 100,  # how many backup file to keep, 10 days
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
         }
     },
-    "loggers": {
-        "django": {"handlers": ["file"], "level": "INFO", "propagate": True},
-        "project": {"handlers": ["file"], "level": "INFO", "propagate": True},
-        "": {"handlers": ["file"], "level": "INFO", "propagate": True},
-    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'py.warnings': {
+            'handlers': ['console'],
+        },
+    }
 }
 
 ELASTIC_HOST_NAME = os.environ.get("ELASTIC_HOST_NAME", "localhost")
