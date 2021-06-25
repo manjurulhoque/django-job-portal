@@ -8,18 +8,19 @@ from jobsapp.api.permissions import IsEmployee
 from jobsapp.api.serializers import (
     ApplicantSerializer,
     AppliedJobSerializer,
+    ApplyJobSerializer,
     JobSerializer,
 )
 from jobsapp.models import Applicant, Job
 
 
 class ApplyJobApiView(CreateAPIView):
-    serializer_class = ApplicantSerializer
+    serializer_class = ApplyJobSerializer
     http_method_names = [u"post"]
     permission_classes = [IsAuthenticated, IsEmployee]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

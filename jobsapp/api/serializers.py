@@ -48,6 +48,12 @@ class NewJobSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ApplyJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Applicant
+        fields = ("job",)
+
+
 class ApplicantSerializer(serializers.ModelSerializer):
     applied_user = serializers.SerializerMethodField()
     job = serializers.SerializerMethodField()
