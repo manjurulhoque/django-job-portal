@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 
-
 # Register your models here.
 from jobsapp.models import Job
 

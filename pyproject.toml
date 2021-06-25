@@ -18,4 +18,8 @@ force-exclude = '''
 | ./*/migrations
 '''
 
-force_exclude = "migrations/"
+[tool.isort]
+profile="black"
+atomic=true
+extend_skip_glob="*/migrations/*.py"
+line_length=88

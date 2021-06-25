@@ -1,11 +1,8 @@
-from django.urls import path, include
-
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-)
+from django.urls import include, path
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from .custom_claims import MyTokenObtainPairView
-from .views import registration, EditEmployeeProfileAPIView, SocialLoginAPIView
+from .views import EditEmployeeProfileAPIView, SocialLoginAPIView, registration
 
 urlpatterns = [
     # path('login/', TokenObtainPairView.as_view()),

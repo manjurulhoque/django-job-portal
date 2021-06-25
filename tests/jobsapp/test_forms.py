@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
+from http import HTTPStatus
 
 from django.test import TestCase
-from http import HTTPStatus
 
 from accounts.models import User
 from jobsapp.forms import CreateJobForm

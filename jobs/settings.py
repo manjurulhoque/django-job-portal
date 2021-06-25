@@ -1,9 +1,9 @@
 import os
 import sys
 from datetime import timedelta
-from django.utils.translation import ugettext_lazy as _
 
 import environ
+from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -242,10 +242,10 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ["console"],
+            "handlers": ['console'],
         },
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ['mail_admins'],
             "level": "ERROR",
             "propagate": False,
         },

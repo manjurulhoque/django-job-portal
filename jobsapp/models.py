@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from accounts.models import User
 from tags.models import Tag
+
 from .manager import JobManager
 
 JOB_TYPE = (

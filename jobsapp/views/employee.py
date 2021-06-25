@@ -2,12 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import UpdateView, ListView
+from django.views.generic import ListView, UpdateView
 
 from accounts.forms import EmployeeProfileUpdateForm
 from accounts.models import User
 from jobsapp.decorators import user_is_employee
-from jobsapp.models import Favorite, Applicant
+from jobsapp.models import Applicant, Favorite
 
 
 @method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")

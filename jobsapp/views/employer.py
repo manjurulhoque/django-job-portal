@@ -1,15 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect, Http404
+from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView, UpdateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from accounts.forms import EmployerProfileUpdateForm
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Job, Applicant
+from jobsapp.models import Applicant, Job
 from tags.models import Tag
 
 

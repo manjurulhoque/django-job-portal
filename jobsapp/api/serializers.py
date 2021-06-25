@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from accounts.api.serializers import UserSerializer
 from tags.api.serializers import TagSerializer
+
 from ..models import *
 
 

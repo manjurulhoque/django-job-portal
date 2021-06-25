@@ -1,21 +1,21 @@
-from django.urls import path, include
-from rest_framework import permissions
-from rest_framework.routers import DefaultRouter
+from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from rest_framework.routers import DefaultRouter
 
 from .views import (
-    JobViewSet,
-    ApplyJobApiView,
-    SearchApiView,
+    ApplicantsListAPIView,
+    ApplicantsPerJobListAPIView,
     AppliedJobsAPIView,
-    already_applied_api_view,
+    ApplyJobApiView,
     DashboardAPIView,
     JobCreateAPIView,
-    ApplicantsListAPIView,
-    categories_list_api_view,
-    ApplicantsPerJobListAPIView,
+    JobViewSet,
+    SearchApiView,
     UpdateApplicantStatusAPIView,
+    already_applied_api_view,
+    categories_list_api_view,
 )
 
 router = DefaultRouter()

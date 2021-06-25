@@ -1,19 +1,19 @@
 from django.contrib.auth import get_user_model, login
 from requests.exceptions import HTTPError
-from rest_framework import permissions, status
-from rest_framework import response, decorators
-from rest_framework.generics import RetrieveUpdateAPIView, GenericAPIView
+from rest_framework import decorators, permissions, response, status
+from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 from social_core.backends.oauth import BaseOAuth2
-from social_core.exceptions import MissingBackend, AuthTokenError, AuthForbidden
-from social_django.utils import load_strategy, load_backend
-from rest_framework_jwt.settings import api_settings
+from social_core.exceptions import AuthForbidden, AuthTokenError, MissingBackend
+from social_django.utils import load_backend, load_strategy
 
 from jobsapp.api.permissions import IsEmployee
+
 from .custom_claims import MyTokenObtainPairSerializer
-from .serializers import UserCreateSerializer, UserSerializer, SocialSerializer
+from .serializers import SocialSerializer, UserCreateSerializer, UserSerializer
 
 User = get_user_model()
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER

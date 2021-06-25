@@ -1,7 +1,8 @@
-from django.contrib import messages, auth
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, FormView, RedirectView
+
 from accounts.forms import *
 from accounts.models import User
 
