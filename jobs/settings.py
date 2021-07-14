@@ -80,9 +80,16 @@ WSGI_APPLICATION = "jobs.wsgi.application"
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jobdb',
+        'HOST': 'mysql_database', #docker db service container
+        'USER': 'jobs_user',
+        'PASSWORD': 'jobs@123'
     },
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
