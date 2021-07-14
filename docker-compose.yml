@@ -1,24 +1,29 @@
-version: "2.0"
+version: "2.1"
 services:
   mysql_database:
     image: mysql:5.7
     ports:
-        - "33061:3306"
+      - "33061:3306"
     command: --init-file /data/application/init.sql
     volumes:
       - ./docker/init.sql:/data/application/init.sql
     environment:
-        MYSQL_ROOT_USER: root
-        MYSQL_ROOT_PASSWORD: toor
-        MYSQL_DATABASE: jobs_db
-        MYSQL_USER: jobs_user
-        MYSQL_PASSWORD: jobs@123
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: jobdb
+      MYSQL_USER: jobs_user
+      MYSQL_PASSWORD: jobs@123
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost"]
+      timeout: 20s
+      retries: 10
   portal:
     build: .
     ports:
       - 8000:8000
     depends_on:
-      - mysql_database
+      mysql_database:
+        condition: service_healthy      
     links:
       - mysql_database
   
