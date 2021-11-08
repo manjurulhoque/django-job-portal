@@ -333,3 +333,5 @@ SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.user.user_details",
     "accounts.pipeline.update_user",
 )
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
