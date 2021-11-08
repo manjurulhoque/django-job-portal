@@ -1,3 +1,4 @@
+aniso8601==7.0.0
 appdirs==1.4.3
 asgiref==3.4.1
 black==20.8b1
@@ -29,6 +30,11 @@ drf-yasg==1.17.1
 elasticsearch==7.5.1
 elasticsearch-dsl==7.1.0
 filelock==3.0.12
+graphene==2.1.9
+graphene-django==2.15.0
+graphene-file-upload==1.3.0
+graphql-core==2.3.2
+graphql-relay==2.0.1
 gunicorn==20.0.4
 html5lib==1.0.1
 identify==2.2.10
@@ -51,6 +57,7 @@ pep517==0.8.2
 Pillow==8.4.0
 pre-commit==2.13.0
 progress==1.5
+promise==2.3
 psycopg2-binary==2.8.6
 pycparser==2.20
 Pygments==2.7.1
@@ -67,11 +74,14 @@ requests-oauthlib==1.3.0
 retrying==1.3.3
 ruamel.yaml==0.16.10
 ruamel.yaml.clib==0.2.0
+Rx==1.6.1
 simplejson==3.17.0
+singledispatch==3.7.0
 six==1.14.0
 social-auth-app-django==4.0.0
 social-auth-core==3.3.3
 sqlparse==0.3.0
+text-unidecode==1.3
 toml==0.10.2
 typed-ast==1.4.1
 typing-extensions==3.7.4.3

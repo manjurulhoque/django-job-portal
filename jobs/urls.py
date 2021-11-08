@@ -7,6 +7,8 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from django.views.decorators.csrf import csrf_exempt
+from graphene_file_upload.django import FileUploadGraphQLView
 
 from jobs.sitemaps import Sitemaps, StaticViewSitemap
 
@@ -50,4 +52,5 @@ urlpatterns = lang_patterns + [
     path("social-auth/", include("social_django.urls", namespace="social")),
     # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
     path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"),
+    path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
 ]

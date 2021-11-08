@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "social_django",
     "rest_framework_social_oauth2",
     "django.contrib.humanize",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -335,3 +336,13 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+GRAPHENE = {
+    # package path to schema file
+    'SCHEMA': 'jobs.schema.schema',
+    # https://docs.graphene-python.org/projects/django/en/latest/introspection/
+    'SCHEMA_INDENT': 4,  # Defaults to None (displays all data on a single line)
+    'MIDDLEWARE': [
+        'graphene_django.debug.DjangoDebugMiddleware',
+    ]
+}
