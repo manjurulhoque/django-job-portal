@@ -299,6 +299,7 @@ AUTHENTICATION_BACKENDS = (
     "social_core.backends.facebook.FacebookOAuth2",
     "social_core.backends.linkedin.LinkedinOAuth2",
     "social_core.backends.google.GoogleOAuth2",
+    "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -344,5 +345,6 @@ GRAPHENE = {
     'SCHEMA_INDENT': 4,  # Defaults to None (displays all data on a single line)
     'MIDDLEWARE': [
         'graphene_django.debug.DjangoDebugMiddleware',
+        "graphql_jwt.middleware.JSONWebTokenMiddleware"
     ]
 }
