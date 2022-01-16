@@ -4,7 +4,6 @@ from rest_framework import decorators, permissions, response, status
 from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework_jwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 from social_core.backends.oauth import BaseOAuth2
 from social_core.exceptions import AuthForbidden, AuthTokenError, MissingBackend
@@ -16,8 +15,6 @@ from .custom_claims import MyTokenObtainPairSerializer
 from .serializers import SocialSerializer, UserCreateSerializer, UserSerializer
 
 User = get_user_model()
-jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 @decorators.api_view(["POST"])
