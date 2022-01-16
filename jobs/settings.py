@@ -348,3 +348,9 @@ GRAPHENE = {
         "graphql_jwt.middleware.JSONWebTokenMiddleware"
     ]
 }
+
+GRAPHQL_JWT = {
+    'JWT_PAYLOAD_HANDLER': 'jobs.schema.jwt_payload',
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_EXPIRATION_DELTA": timedelta(minutes=60),
+}
