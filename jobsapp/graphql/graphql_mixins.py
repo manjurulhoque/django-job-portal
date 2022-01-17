@@ -3,9 +3,12 @@ import logging
 from django.shortcuts import get_object_or_404
 from graphene_django.types import DjangoObjectType
 from typing import Optional
+from django.db import transaction
 
 from accounts.graphql.constants import Messages
 from .exceptions import PermissionDeniedError
+from .graphql_base import Output
+from ..forms import CreateJobForm
 
 logger = logging.getLogger(__name__)
 
@@ -320,3 +323,18 @@ class RemovePropertiesMixin:
 class BaseQueryChecker(PermissionMixin, SingleObjectMixin):
     lookup_url_kwarg: Optional[str] = None
     lookup_field: str = 'pk'
+
+
+class CreateNewJobMixin(Output):
+    form = CreateJobForm
+
+    @classmethod
+    def resolve_mutation(cls, root, info, **kwargs):
+        with transaction.atomic():
+            f = cls.form(kwargs)
+
+            if f.is_valid():
+                user = f.save()
+                return cls(success=True)
+            else:
+                return cls(success=False, errors=f.errors.get_json_data())
