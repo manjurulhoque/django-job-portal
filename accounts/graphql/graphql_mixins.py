@@ -17,6 +17,10 @@ class EmployeeRegisterMixin(Output):
 
             if f.is_valid():
                 user = f.save()
+                user = f.save(commit=False)
+                password = f.cleaned_data.get("password1")
+                user.set_password(password)
+                user.save()
                 return cls(success=True)
             else:
                 return cls(success=False, errors=f.errors.get_json_data())
@@ -35,6 +39,10 @@ class EmployerRegisterMixin(Output):
 
             if f.is_valid():
                 user = f.save()
+                user = f.save(commit=False)
+                password = f.cleaned_data.get("password1")
+                user.set_password(password)
+                user.save()
                 return cls(success=True)
             else:
                 return cls(success=False, errors=f.errors.get_json_data())

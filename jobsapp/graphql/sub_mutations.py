@@ -4,10 +4,14 @@ from jobsapp.graphql.graphql_mixins import DynamicArgsMixin, MutationMixin, Crea
 from jobsapp.graphql.permissions import IsAuthenticated, IsEmployer
 
 
-class CreateNewJob(MutationMixin, DynamicArgsMixin, CreateNewJobMixin, graphene.Mutation):
+class CreateNewJob(
+    MutationMixin,
+    DynamicArgsMixin,
+    CreateNewJobMixin,
+    graphene.Mutation
+):
     __doc__ = CreateNewJobMixin.__doc__
-
-    __required_args = {
+    _required_args = {
         'title': 'String',
         'description': 'String',
         'location': 'String',

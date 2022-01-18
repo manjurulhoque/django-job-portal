@@ -8,6 +8,7 @@ from graphene_django.debug import DjangoDebug
 from jobs.settings import GRAPHQL_JWT
 from jobsapp.graphql import queries as jobs_queries
 from accounts.graphql import mutations as auth_mutations
+from jobsapp.graphql import mutations as job_mutation
 from graphql_jwt.settings import jwt_settings
 
 
@@ -40,7 +41,11 @@ class Query(
     debug = graphene.Field(DjangoDebug, name='_debug')
 
 
-class Mutation(auth_mutations.AuthMutation, graphene.ObjectType):
+class Mutation(
+    auth_mutations.AuthMutation,
+    job_mutation.JobMutation,
+    graphene.ObjectType
+):
     pass
 
 
