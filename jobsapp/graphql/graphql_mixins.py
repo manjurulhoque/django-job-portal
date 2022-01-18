@@ -330,11 +330,14 @@ class CreateNewJobMixin(Output):
 
     @classmethod
     def resolve_mutation(cls, root, info, **kwargs):
+        user = info.context.user
         with transaction.atomic():
             f = cls.form(kwargs)
 
             if f.is_valid():
-                user = f.save()
+                job = f.save(commit=False)
+                job.user = user
+                job.save()
                 return cls(success=True)
             else:
                 return cls(success=False, errors=f.errors.get_json_data())
