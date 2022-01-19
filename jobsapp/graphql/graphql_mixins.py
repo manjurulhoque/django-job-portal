@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from graphene_django.types import DjangoObjectType
 from typing import Optional
 from django.db import transaction
+from django.forms.models import model_to_dict
 
 from accounts.graphql.constants import Messages
 from .exceptions import PermissionDeniedError
@@ -280,7 +281,7 @@ class SingleObjectMixin:
             'You must define `model` as class attribute in order to use '
             '`SingleObjectParentMixin`'
         )
-        queryset = cls.model.active_objects.all()
+        queryset = cls.model.objects.all()
         if cls.select_related_properties:
             assert isinstance(cls.select_related_properties, (tuple, list)), (
                 '`select_related_properties` must be tuple or list'
@@ -339,5 +340,22 @@ class CreateNewJobMixin(Output):
                 job.user = user
                 job.save()
                 return cls(success=True)
+            else:
+                return cls(success=False, errors=f.errors.get_json_data())
+
+
+class UpdateJobMixin(Output):
+    form = CreateJobForm
+
+    @classmethod
+    def resolve_mutation(cls, root, info, **kwargs):
+        user = info.context.user
+        job = cls.get_object(info, **kwargs)
+        with transaction.atomic():
+            f = cls.form(kwargs, instance=job, initial=model_to_dict(job))
+
+            if f.is_valid():
+                job = f.save()
+                return cls(success=True, job=job)
             else:
                 return cls(success=False, errors=f.errors.get_json_data())
