@@ -25,10 +25,7 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-lang_patterns = i18n_patterns(
-    path("", include("jobsapp.urls")),
-    path("", include("accounts.urls")),
-)
+lang_patterns = i18n_patterns(path("", include("jobsapp.urls")), path("", include("accounts.urls")))
 
 # sitemaps = {
 #     '': JobViewSitemap

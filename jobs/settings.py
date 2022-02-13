@@ -70,9 +70,9 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "social_django.context_processors.backends",
                 "social_django.context_processors.login_redirect",
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = "jobs.wsgi.application"
@@ -81,10 +81,7 @@ WSGI_APPLICATION = "jobs.wsgi.application"
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    },
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": os.path.join(BASE_DIR, "db.sqlite3")},
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'ghuyhfun',
@@ -102,12 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # {
     #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     # },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        "OPTIONS": {
-            "min_length": 5,
-        },
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", "OPTIONS": {"min_length": 5}},
     # {
     #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     # },
@@ -123,10 +115,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 LANGUAGE_CODE = "en"
 
-LANGUAGES = (
-    ("en", _("English")),
-    ("bn", _("Bengali")),
-)
+LANGUAGES = (("en", _("English")), ("bn", _("Bengali")))
 
 TIME_ZONE = "UTC"
 
@@ -147,14 +136,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOW_METHODS = (
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-)
+CORS_ALLOW_METHODS = ("DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT")
 
 CORS_ALLOW_HEADERS = (
     "accept",
@@ -169,9 +151,7 @@ CORS_ALLOW_HEADERS = (
 )
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
@@ -219,22 +199,12 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "filters": {
-        "require_debug_false": {
-            "()": "django.utils.log.RequireDebugFalse",
-        },
-        "require_debug_true": {
-            "()": "django.utils.log.RequireDebugTrue",
-        },
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
     },
     "handlers": {
-        "console": {
-            "level": "INFO",
-            "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
-        },
-        "null": {
-            "class": "logging.NullHandler",
-        },
+        "console": {"level": "INFO", "filters": ["require_debug_true"], "class": "logging.StreamHandler"},
+        "null": {"class": "logging.NullHandler"},
         "mail_admins": {
             "level": "ERROR",
             "filters": ["require_debug_false"],
@@ -242,22 +212,10 @@ LOGGING = {
         },
     },
     "loggers": {
-        "django": {
-            "handlers": ["console"],
-        },
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": False,
-        },
-        "django.security": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": False,
-        },
-        "py.warnings": {
-            "handlers": ["console"],
-        },
+        "django": {"handlers": ["console"]},
+        "django.request": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": False},
+        "django.security": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": False},
+        "py.warnings": {"handlers": ["console"]},
     },
 }
 
@@ -266,11 +224,7 @@ ELASTIC_HOST_PORT = os.environ.get("ELASTIC_HOST_PORT", "9200")
 # ELASTIC_URL = os.environ.get('ELASTIC_URL', 'http://localhost:9200')
 
 
-ELASTICSEARCH_DSL = {
-    "default": {
-        "hosts": ELASTIC_HOST_NAME + ":" + ELASTIC_HOST_PORT,
-    },
-}
+ELASTICSEARCH_DSL = {"default": {"hosts": ELASTIC_HOST_NAME + ":" + ELASTIC_HOST_PORT}}
 
 # Documentation
 SWAGGER_SETTINGS = {
@@ -310,9 +264,7 @@ SOCIAL_AUTH_FACEBOOK_KEY = env("SOCIAL_AUTH_FACEBOOK_KEY", default="")
 SOCIAL_AUTH_FACEBOOK_SECRET = env("SOCIAL_AUTH_FACEBOOK_SECRET", default="")
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    "fields": "id, name, email, age_range",
-}
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {"fields": "id, name, email, age_range"}
 
 SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = env("SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY", default="")
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = env("SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET", default="")
@@ -336,17 +288,14 @@ SOCIAL_AUTH_PIPELINE = (
     "accounts.pipeline.update_user",
 )
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 GRAPHENE = {
     # package path to schema file
-    'SCHEMA': 'jobs.schema.schema',
+    "SCHEMA": "jobs.schema.schema",
     # https://docs.graphene-python.org/projects/django/en/latest/introspection/
-    'SCHEMA_INDENT': 4,  # Defaults to None (displays all data on a single line)
-    'MIDDLEWARE': [
-        'graphene_django.debug.DjangoDebugMiddleware',
-        "graphql_jwt.middleware.JSONWebTokenMiddleware"
-    ]
+    "SCHEMA_INDENT": 4,  # Defaults to None (displays all data on a single line)
+    "MIDDLEWARE": ["graphene_django.debug.DjangoDebugMiddleware", "graphql_jwt.middleware.JSONWebTokenMiddleware"],
 }
 
 GRAPHQL_JWT = {

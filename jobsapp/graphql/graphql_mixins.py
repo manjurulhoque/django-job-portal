@@ -23,13 +23,11 @@ class PermissionMixin:
         for permission in cls.get_permissions():
             if not permission.has_permission(request, **kwargs):
                 logger.debug(
-                    'Permission denied for Permission class: {}, user: {}, message: {}'.format(
-                        permission.__class__.__name__,
-                        str(request.user),
-                        str(getattr(permission, 'message', None))
+                    "Permission denied for Permission class: {}, user: {}, message: {}".format(
+                        permission.__class__.__name__, str(request.user), str(getattr(permission, "message", None))
                     )
                 )
-                raise PermissionDeniedError(getattr(permission, 'message', None))
+                raise PermissionDeniedError(getattr(permission, "message", None))
 
     @classmethod
     def check_object_permissions(cls, info, obj, **kwargs):
@@ -37,14 +35,14 @@ class PermissionMixin:
         for permission in cls.get_permissions():
             if not permission.has_object_permission(request, obj, **kwargs):
                 logger.debug(
-                    'Permission denied for Permission class: {}, user: {}, object: {}, message: {}'.format(
+                    "Permission denied for Permission class: {}, user: {}, object: {}, message: {}".format(
                         permission.__class__.__name__,
                         str(request.user),
                         str(obj),
-                        str(getattr(permission, 'message', None))
+                        str(getattr(permission, "message", None)),
                     )
                 )
-                raise PermissionDeniedError(getattr(permission, 'message', None))
+                raise PermissionDeniedError(getattr(permission, "message", None))
 
     @classmethod
     def get_permissions(cls):
@@ -52,7 +50,7 @@ class PermissionMixin:
 
 
 def get_permission_denied_message(cls, e: Exception):
-    Messages.PERMISSION_DENIED_ERROR[0]['message'] = str(e)
+    Messages.PERMISSION_DENIED_ERROR[0]["message"] = str(e)
     return cls(success=False, errors=Messages.PERMISSION_DENIED_ERROR)
 
 
@@ -110,9 +108,7 @@ class DynamicArgsMixin:
     def Field(cls, *args, **kwargs):
         if isinstance(cls._args, dict):
             for key in cls._args:
-                cls._meta.arguments.update(
-                    {key: graphene.Argument(getattr(graphene, cls._args[key]))}
-                )
+                cls._meta.arguments.update({key: graphene.Argument(getattr(graphene, cls._args[key]))})
         elif isinstance(cls._args, list):
             for key in cls._args:
                 cls._meta.arguments.update({key: graphene.String()})
@@ -120,11 +116,7 @@ class DynamicArgsMixin:
         if isinstance(cls._required_args, dict):
             for key in cls._required_args:
                 cls._meta.arguments.update(
-                    {
-                        key: graphene.Argument(
-                            getattr(graphene, cls._required_args[key]), required=True
-                        )
-                    }
+                    {key: graphene.Argument(getattr(graphene, cls._required_args[key]), required=True)}
                 )
         elif isinstance(cls._required_args, list):
             for key in cls._required_args:
@@ -155,18 +147,12 @@ class DynamicInputMixin:
                 )
         elif isinstance(cls._inputs, list):
             for key in cls._inputs:
-                cls._meta.arguments["input"]._meta.fields.update(
-                    {key: graphene.InputField(graphene.String)}
-                )
+                cls._meta.arguments["input"]._meta.fields.update({key: graphene.InputField(graphene.String)})
 
         if isinstance(cls._required_inputs, dict):
             for key in cls._required_inputs:
                 cls._meta.arguments["input"]._meta.fields.update(
-                    {
-                        key: graphene.InputField(
-                            getattr(graphene, cls._required_inputs[key]), required=True
-                        )
-                    }
+                    {key: graphene.InputField(getattr(graphene, cls._required_inputs[key]), required=True)}
                 )
         elif isinstance(cls._required_inputs, list):
             for key in cls._required_inputs:
@@ -197,16 +183,11 @@ class RelayPermissionDjangoObjectType(DjangoObjectType, PermissionMixin):
         return True
 
     def resolve_global_privacy(self, info):
-        return self.privacy.get('global')
+        return self.privacy.get("global")
 
     @classmethod
-    def __init_subclass_with_meta__(
-            cls,
-            **kwargs
-    ):
-        super().__init_subclass_with_meta__(
-            **kwargs
-        )
+    def __init_subclass_with_meta__(cls, **kwargs):
+        super().__init_subclass_with_meta__(**kwargs)
 
     @classmethod
     def get_queryset(cls, queryset, info):
@@ -221,7 +202,7 @@ class RelayPermissionDjangoObjectType(DjangoObjectType, PermissionMixin):
 
 
 class SingleObjectParentMixin:
-    parent_lookup_field: str = 'pk'
+    parent_lookup_field: str = "pk"
     parent_lookup_url_kwarg = None
     check_parent_object_level_permission: bool = True
     parent_model = None
@@ -230,14 +211,13 @@ class SingleObjectParentMixin:
     @classmethod
     def get_parent_queryset(cls):
         assert cls.parent_model is not None, (
-            'You must define `parent_model` as class attribute in order to use '
-            '`SingleObjectParentMixin`'
+            "You must define `parent_model` as class attribute in order to use " "`SingleObjectParentMixin`"
         )
         queryset = cls.parent_model.active_objects.all()
         if cls.parent_select_related_properties:
-            assert isinstance(cls.parent_select_related_properties, (tuple, list)), (
-                '`parent_select_related_properties` must be tuple or list'
-            )
+            assert isinstance(
+                cls.parent_select_related_properties, (tuple, list)
+            ), "`parent_select_related_properties` must be tuple or list"
             queryset = queryset.select_related(*cls.parent_select_related_properties)
         return queryset
 
@@ -249,17 +229,13 @@ class SingleObjectParentMixin:
 
         parent_lookup_url_kwarg = cls.parent_lookup_url_kwarg or cls.parent_lookup_field
         assert parent_lookup_url_kwarg in kwargs, (
-                'Expected mutation %s to be called with an object keyword argument '
-                'named "%s". Fix your argument conf, or set the `.parent_lookup_field` '
-                'attribute on the mixin correctly.' %
-                (cls.__name__, parent_lookup_url_kwarg)
+            "Expected mutation %s to be called with an object keyword argument "
+            'named "%s". Fix your argument conf, or set the `.parent_lookup_field` '
+            "attribute on the mixin correctly." % (cls.__name__, parent_lookup_url_kwarg)
         )
 
         filter_kwargs = {cls.parent_lookup_field: kwargs.get(parent_lookup_url_kwarg, None)}
-        parent_obj = get_object_or_404(
-            cls.get_parent_queryset(),
-            **filter_kwargs
-        )
+        parent_obj = get_object_or_404(cls.get_parent_queryset(), **filter_kwargs)
 
         # May raise a permission denied
         if cls.check_parent_object_level_permission:
@@ -269,7 +245,7 @@ class SingleObjectParentMixin:
 
 
 class SingleObjectMixin:
-    lookup_field: str = 'pk'
+    lookup_field: str = "pk"
     lookup_url_kwarg = None
     check_object_level_permission: bool = True
     model = None
@@ -278,14 +254,13 @@ class SingleObjectMixin:
     @classmethod
     def get_queryset(cls):
         assert cls.model is not None, (
-            'You must define `model` as class attribute in order to use '
-            '`SingleObjectParentMixin`'
+            "You must define `model` as class attribute in order to use " "`SingleObjectParentMixin`"
         )
         queryset = cls.model.objects.all()
         if cls.select_related_properties:
-            assert isinstance(cls.select_related_properties, (tuple, list)), (
-                '`select_related_properties` must be tuple or list'
-            )
+            assert isinstance(
+                cls.select_related_properties, (tuple, list)
+            ), "`select_related_properties` must be tuple or list"
             queryset = queryset.select_related(*cls.select_related_properties)
         return queryset
 
@@ -297,10 +272,9 @@ class SingleObjectMixin:
 
         lookup_url_kwarg = cls.lookup_url_kwarg or cls.lookup_field
         assert lookup_url_kwarg in kwargs, (
-                'Expected mutation %s to be called with an object keyword argument '
-                'named "%s". Fix your argument conf, or set the `.lookup_field` '
-                'attribute on the mixin correctly.' %
-                (cls.__name__, lookup_url_kwarg)
+            "Expected mutation %s to be called with an object keyword argument "
+            'named "%s". Fix your argument conf, or set the `.lookup_field` '
+            "attribute on the mixin correctly." % (cls.__name__, lookup_url_kwarg)
         )
 
         filter_kwargs = {cls.lookup_field: kwargs.get(lookup_url_kwarg, None)}
@@ -323,7 +297,7 @@ class RemovePropertiesMixin:
 
 class BaseQueryChecker(PermissionMixin, SingleObjectMixin):
     lookup_url_kwarg: Optional[str] = None
-    lookup_field: str = 'pk'
+    lookup_field: str = "pk"
 
 
 class CreateNewJobMixin(Output):

@@ -17,10 +17,10 @@ def jwt_payload(user, context=None):
 
     exp = datetime.utcnow() + jwt_settings.JWT_EXPIRATION_DELTA
     payload = {
-        'user_id': user.id,
-        'email': user.email,
+        "user_id": user.id,
+        "email": user.email,
         # 'exp': datetime.utcnow() + GRAPHQL_JWT['JWT_EXPIRATION_DELTA'],
-        'exp': timegm(exp.utctimetuple()),
+        "exp": timegm(exp.utctimetuple()),
     }
 
     if jwt_settings.JWT_ALLOW_REFRESH:
@@ -34,18 +34,11 @@ def jwt_payload(user, context=None):
     return payload
 
 
-class Query(
-    jobs_queries.JobQuery,
-    graphene.ObjectType
-):
-    debug = graphene.Field(DjangoDebug, name='_debug')
+class Query(jobs_queries.JobQuery, graphene.ObjectType):
+    debug = graphene.Field(DjangoDebug, name="_debug")
 
 
-class Mutation(
-    auth_mutations.AuthMutation,
-    job_mutation.JobMutation,
-    graphene.ObjectType
-):
+class Mutation(auth_mutations.AuthMutation, job_mutation.JobMutation, graphene.ObjectType):
     pass
 
 

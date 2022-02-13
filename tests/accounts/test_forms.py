@@ -45,14 +45,7 @@ class TestEmployeeRegistrationForm(TestCase):
     def test_meta_data(self):
         self.assertEqual(EmployeeRegistrationForm._meta.model, User)
 
-        expected_fields = [
-            "first_name",
-            "last_name",
-            "email",
-            "password1",
-            "password2",
-            "gender",
-        ]
+        expected_fields = ["first_name", "last_name", "email", "password1", "password2", "gender"]
         for field in expected_fields:
             self.assertIn(field, EmployeeRegistrationForm._meta.fields)
 

@@ -13,16 +13,8 @@ urlpatterns = [
         include(
             [
                 path("", DashboardView.as_view(), name="employer-dashboard"),
-                path(
-                    "all-applicants/",
-                    ApplicantsListView.as_view(),
-                    name="employer-all-applicants",
-                ),
-                path(
-                    "applicants/<int:job_id>/",
-                    ApplicantPerJobView.as_view(),
-                    name="employer-dashboard-applicants",
-                ),
+                path("all-applicants/", ApplicantsListView.as_view(), name="employer-all-applicants"),
+                path("applicants/<int:job_id>/", ApplicantPerJobView.as_view(), name="employer-dashboard-applicants"),
                 path(
                     "applied-applicant/<int:job_id>/view/<int:applicant_id>",
                     AppliedApplicantView.as_view(),
@@ -39,11 +31,7 @@ urlpatterns = [
         "employee/",
         include(
             [
-                path(
-                    "my-applications",
-                    EmployeeMyJobsListView.as_view(),
-                    name="employee-my-applications",
-                ),
+                path("my-applications", EmployeeMyJobsListView.as_view(), name="employee-my-applications"),
                 path("favorites", FavoriteListView.as_view(), name="employee-favorites"),
             ]
         ),

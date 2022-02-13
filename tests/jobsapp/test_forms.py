@@ -21,7 +21,7 @@ class TestCreateJobForm(TestCase):
             "company_name": "Dev Soft",
             "company_description": "A foreign country",
             "website": "www.devsoft.com",
-            "tags": [Tag.objects.create(name="Development").id]
+            "tags": [Tag.objects.create(name="Development").id],
         }
         self.employer = {
             "first_name": "John",

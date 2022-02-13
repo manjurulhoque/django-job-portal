@@ -11,11 +11,7 @@ class User(AbstractUser):
     role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"})
     gender = models.CharField(max_length=10, blank=True, null=True, default="")
     email = models.EmailField(
-        unique=True,
-        blank=False,
-        error_messages={
-            "unique": "A user with that email already exists.",
-        },
+        unique=True, blank=False, error_messages={"unique": "A user with that email already exists."}
     )
 
     USERNAME_FIELD = "email"

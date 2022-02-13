@@ -22,51 +22,18 @@ class EmployeeRegistrationForm(UserCreationForm):
 
         # self.fields['gender'].widget = forms.CheckboxInput()
 
-        self.fields["first_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter First Name",
-            }
-        )
-        self.fields["last_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Last Name",
-            }
-        )
-        self.fields["email"].widget.attrs.update(
-            {
-                "placeholder": "Enter Email",
-            }
-        )
-        self.fields["password1"].widget.attrs.update(
-            {
-                "placeholder": "Enter Password",
-            }
-        )
-        self.fields["password2"].widget.attrs.update(
-            {
-                "placeholder": "Confirm Password",
-            }
-        )
+        self.fields["first_name"].widget.attrs.update({"placeholder": "Enter First Name"})
+        self.fields["last_name"].widget.attrs.update({"placeholder": "Enter Last Name"})
+        self.fields["email"].widget.attrs.update({"placeholder": "Enter Email"})
+        self.fields["password1"].widget.attrs.update({"placeholder": "Enter Password"})
+        self.fields["password2"].widget.attrs.update({"placeholder": "Confirm Password"})
 
     class Meta:
         model = User
-        fields = [
-            "first_name",
-            "last_name",
-            "email",
-            "password1",
-            "password2",
-            "gender",
-        ]
+        fields = ["first_name", "last_name", "email", "password1", "password2", "gender"]
         error_messages = {
-            "first_name": {
-                "required": "First name is required",
-                "max_length": "Name is too long",
-            },
-            "last_name": {
-                "required": "Last name is required",
-                "max_length": "Last Name is too long",
-            },
+            "first_name": {"required": "First name is required", "max_length": "Name is too long"},
+            "last_name": {"required": "Last name is required", "max_length": "Last Name is too long"},
             "gender": {"required": "Gender is required"},
         }
 
@@ -95,44 +62,18 @@ class EmployerRegistrationForm(UserCreationForm):
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
 
-        self.fields["first_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Name",
-            }
-        )
-        self.fields["last_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Address",
-            }
-        )
-        self.fields["email"].widget.attrs.update(
-            {
-                "placeholder": "Enter Email",
-            }
-        )
-        self.fields["password1"].widget.attrs.update(
-            {
-                "placeholder": "Enter Password",
-            }
-        )
-        self.fields["password2"].widget.attrs.update(
-            {
-                "placeholder": "Confirm Password",
-            }
-        )
+        self.fields["first_name"].widget.attrs.update({"placeholder": "Enter Company Name"})
+        self.fields["last_name"].widget.attrs.update({"placeholder": "Enter Company Address"})
+        self.fields["email"].widget.attrs.update({"placeholder": "Enter Email"})
+        self.fields["password1"].widget.attrs.update({"placeholder": "Enter Password"})
+        self.fields["password2"].widget.attrs.update({"placeholder": "Confirm Password"})
 
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email", "password1", "password2"]
         error_messages = {
-            "first_name": {
-                "required": "First name is required",
-                "max_length": "Name is too long",
-            },
-            "last_name": {
-                "required": "Last name is required",
-                "max_length": "Last Name is too long",
-            },
+            "first_name": {"required": "First name is required", "max_length": "Name is too long"},
+            "last_name": {"required": "Last name is required", "max_length": "Last Name is too long"},
         }
 
     def save(self, commit=True):
@@ -145,11 +86,7 @@ class EmployerRegistrationForm(UserCreationForm):
 
 class UserLoginForm(forms.Form):
     email = forms.EmailField()
-    password = forms.CharField(
-        label="Password",
-        strip=False,
-        widget=forms.PasswordInput,
-    )
+    password = forms.CharField(label="Password", strip=False, widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -180,16 +117,8 @@ class UserLoginForm(forms.Form):
 class EmployeeProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployeeProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter First Name",
-            }
-        )
-        self.fields["last_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Last Name",
-            }
-        )
+        self.fields["first_name"].widget.attrs.update({"placeholder": "Enter First Name"})
+        self.fields["last_name"].widget.attrs.update({"placeholder": "Enter Last Name"})
 
     class Meta:
         model = User

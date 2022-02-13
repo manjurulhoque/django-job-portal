@@ -19,10 +19,7 @@ class JobDocument(Document):
         model = Job  # The model associated with this Document
 
         # The fields of the model you want to be indexed in Elasticsearch
-        fields = [
-            "title",
-            "location",
-        ]
+        fields = ["title", "location"]
 
         # Ignore auto updating of Elasticsearch when a model is saved
         # or deleted:

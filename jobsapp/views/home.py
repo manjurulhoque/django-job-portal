@@ -124,18 +124,8 @@ def favorite(request):
             fav.soft_deleted = True
             fav.save()
             return JsonResponse(
-                data={
-                    "auth": True,
-                    "status": "removed",
-                    "message": "Job removed from your favorite list",
-                }
+                data={"auth": True, "status": "removed", "message": "Job removed from your favorite list"}
             )
     except Favorite.DoesNotExist:
         Favorite.objects.create(job_id=job_id, user_id=user_id)
-        return JsonResponse(
-            data={
-                "auth": True,
-                "status": "added",
-                "message": "Job added to your favorite list",
-            }
-        )
+        return JsonResponse(data={"auth": True, "status": "added", "message": "Job added to your favorite list"})

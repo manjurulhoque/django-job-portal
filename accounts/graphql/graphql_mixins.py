@@ -32,8 +32,8 @@ class EmployerRegisterMixin(Output):
     @classmethod
     def resolve_mutation(cls, root, info, **kwargs):
         with transaction.atomic():
-            first_name = kwargs.pop('company_name')
-            last_name = kwargs.pop('company_address')
+            first_name = kwargs.pop("company_name")
+            last_name = kwargs.pop("company_address")
             kwargs.update(first_name=first_name, last_name=last_name)
             f = cls.form(kwargs)
 

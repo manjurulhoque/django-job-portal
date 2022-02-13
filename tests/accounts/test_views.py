@@ -27,10 +27,7 @@ class TestLoginView(BaseTest):
         self.client.logout()
 
     def test_submit_form(self):
-        response = self.client.post(
-            reverse("accounts:login"),
-            {"email": "test@test.com", "password": "Abcdefgh.1"},
-        )
+        response = self.client.post(reverse("accounts:login"), {"email": "test@test.com", "password": "Abcdefgh.1"})
         self.assertURLEqual(reverse("jobs:home"), "/" + self.language_code + response.url)
 
 

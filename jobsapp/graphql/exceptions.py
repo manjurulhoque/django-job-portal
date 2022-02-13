@@ -20,8 +20,9 @@ class WrongUsage(GraphQLError):
     """
         Internal exception
     """
+
     default_message = _("Wrong usage, check your code!.")
 
 
 class PermissionDeniedError(GraphQLError):
-    default_message = _("You don't have permission to access this resource."),
+    default_message = (_("You don't have permission to access this resource."),)

@@ -11,15 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         # fields = "__all__"
-        exclude = (
-            "password",
-            "user_permissions",
-            "groups",
-            "is_staff",
-            "is_active",
-            "is_superuser",
-            "last_login",
-        )
+        exclude = ("password", "user_permissions", "groups", "is_staff", "is_active", "is_superuser", "last_login")
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -28,13 +20,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = [
-            "email",
-            "password",
-            "password2",
-            "gender",
-            "role",
-        ]
+        fields = ["email", "password", "password2", "gender", "role"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):

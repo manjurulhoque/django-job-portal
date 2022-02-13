@@ -4,11 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from jobsapp.api.permissions import IsEmployer, IsJobCreator
-from jobsapp.api.serializers import (
-    ApplicantSerializer,
-    DashboardJobSerializer,
-    NewJobSerializer,
-)
+from jobsapp.api.serializers import ApplicantSerializer, DashboardJobSerializer, NewJobSerializer
 from jobsapp.models import Applicant
 
 

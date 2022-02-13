@@ -24,10 +24,7 @@ def registration(request):
     if not serializer.is_valid(raise_exception=True):
         return response.Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
     user = serializer.save()
-    res = {
-        "status": True,
-        "message": "Successfully registered",
-    }
+    res = {"status": True, "message": "Successfully registered"}
     return response.Response(res, status.HTTP_201_CREATED)
 
 
