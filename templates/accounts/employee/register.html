@@ -7,19 +7,11 @@
 
     <div class="col-lg-6 offset-3 mt-3">
         <div class="box">
-            <h3 class="heading">New account</h3>
+            <h3 class="heading">New account for employee</h3>
             <p class="lead">Not our registered yet?</p>
             <p class="text-muted">If you have any questions, please feel free to <a href="#">contact us</a>,
                 our customer service center is working for you 24/7.</p>
             {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
                 {% for error in form.non_field_errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -46,6 +38,12 @@
                                 <label class="form-check-label" for="female">Female</label>
                             </div>
                         </div>
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
 
                     {% else %}
 
@@ -56,6 +54,12 @@
                                    name="{{ field.name }}"
                                    id="id_{{ field.name }}"
                                    placeholder="{{ field.field.widget.attrs.placeholder }}">
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
                         </div>
 
                     {% endif %}

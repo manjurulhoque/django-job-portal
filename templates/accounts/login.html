@@ -10,14 +10,6 @@
             <h3 class="heading">Login</h3>
             <p class="lead">Already our have account?</p>
             {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
                 {% for error in form.non_field_errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -35,22 +27,33 @@
                                name="{{ field.name }}"
                                id="id_{{ field.name }}"
                                placeholder="{{ field.field.widget.attrs.placeholder }}">
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
                     </div>
                 {% endfor %}
                 <div class="text-center">
-                    <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                    <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i> Log in
+                    </button>
                     <br>
                     <div class="btn btn-outline-white-primary btn-sm" style="border-color:black">
-                        <a href="{% url "social:begin" "facebook" %}" style="color:black"><i class="fa fa-facebook-square"></i>Login with Facebook </a>
+                        <a href="{% url "social:begin" "facebook" %}" style="color:black"><i
+                                class="fa fa-facebook-square"></i>Login with Facebook </a>
                     </div>
                     <div class="btn btn-outline-white-primary btn-sm" style="border-color:black">
-                        <a href="{% url "social:begin" "google-oauth2" %}" style="color:black"><i class="fa fa-google-plus-square"></i>Login with Google </a>
+                        <a href="{% url "social:begin" "google-oauth2" %}" style="color:black"><i
+                                class="fa fa-google-plus-square"></i>Login with Google </a>
                     </div>
                     <div class="btn btn-outline-white-primary btn-sm" style="border-color:black">
-                        <a href="{% url "social:begin" "linkedin-oauth2" %}" style="color:black"><i class="fa fa-linkedin-square"></i>Login with Linkedin </a>
+                        <a href="{% url "social:begin" "linkedin-oauth2" %}" style="color:black"><i
+                                class="fa fa-linkedin-square"></i>Login with Linkedin </a>
                     </div>
                     <div class="btn btn-outline-white-primary btn-sm" style="border-color:black">
-                        <a href="{% url "social:begin" "github" %}" style="color:black"><i class="fa fa-github-square"></i>Login with Github </a>
+                        <a href="{% url "social:begin" "github" %}" style="color:black"><i
+                                class="fa fa-github-square"></i>Login with Github </a>
                     </div>
                 </div>
             </form>

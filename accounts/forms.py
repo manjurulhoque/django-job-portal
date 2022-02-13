@@ -47,11 +47,6 @@ class EmployeeRegistrationForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
-        for field in self.fields.values():
-            field.error_messages = {
-                'required': 'The field {} is required'.format(field.label.lower()),
-                'invalid': 'The field {} is invalid'.format(field.label.lower())
-            }
 
     class Meta:
         model = User
@@ -125,11 +120,6 @@ class EmployerRegistrationForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
-        for field in self.fields.values():
-            field.error_messages = {
-                'required': 'The field {} is required'.format(field.label.lower()),
-                'invalid': 'The field {} is invalid'.format(field.label.lower())
-            }
 
     class Meta:
         model = User
