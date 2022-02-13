@@ -1,13 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponseNotAllowed
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, ListView
-from rest_framework.decorators import api_view
 
-from ..documents import JobDocument
+from ..decorators import user_is_employee
 from ..forms import ApplyJobForm
 from ..models import Applicant, Favorite, Job
 
@@ -77,8 +76,12 @@ class ApplyJobView(CreateView):
     slug_url_kwarg = "job_id"
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    @method_decorator(user_is_employee)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(self.request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseNotAllowed(self._allowed_methods())
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -120,7 +123,6 @@ def favorite(request):
         if fav:
             fav.soft_deleted = True
             fav.save()
-            # fav.delete()
             return JsonResponse(
                 data={
                     "auth": True,

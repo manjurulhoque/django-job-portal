@@ -54,6 +54,7 @@ class JobCreateView(CreateView):
     success_url = reverse_lazy("jobs:employer-dashboard")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    @method_decorator(user_is_employer)
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
             return reverse_lazy("accounts:login")
@@ -190,7 +191,8 @@ class SendResponseView(UpdateView):
             else:
                 status = "Rejected"
             messages.success(self.request, "Response was successfully sent")
-            # notify_candidate_about_job_status_change.delay(self.object.user.get_full_name(), self.object.user.email, self.object.job.id, self.object.job.title, status)
+            # notify_candidate_about_job_status_change.delay(self.object.user.get_full_name(),
+            # self.object.user.email, self.object.job.id, self.object.job.title, status)
         else:
             messages.warning(self.request, "Response already sent")
         return super().post(request, *args, **kwargs)
