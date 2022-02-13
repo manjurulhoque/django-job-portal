@@ -9,6 +9,8 @@ GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 
 class EmployeeRegistrationForm(UserCreationForm):
     # gender = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=GENDER_CHOICES)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(EmployeeRegistrationForm, self).__init__(*args, **kwargs)
@@ -45,6 +47,11 @@ class EmployeeRegistrationForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
+        for field in self.fields.values():
+            field.error_messages = {
+                'required': 'The field {} is required'.format(field.label.lower()),
+                'invalid': 'The field {} is invalid'.format(field.label.lower())
+            }
 
     class Meta:
         model = User
@@ -83,6 +90,9 @@ class EmployeeRegistrationForm(UserCreationForm):
 
 
 class EmployerRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
     def __init__(self, *args, **kwargs):
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
         self.fields["first_name"].label = "Company Name"
@@ -115,6 +125,11 @@ class EmployerRegistrationForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
+        for field in self.fields.values():
+            field.error_messages = {
+                'required': 'The field {} is required'.format(field.label.lower()),
+                'invalid': 'The field {} is invalid'.format(field.label.lower())
+            }
 
     class Meta:
         model = User
