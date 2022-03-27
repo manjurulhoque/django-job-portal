@@ -51,123 +51,126 @@
             </button>
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 {% with request.resolver_match.url_name as url_name %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if url_name == 'home' %}active{% endif %}">
-                        <a href="{% url 'jobs:home' %}" class="nav-link">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
-                        <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/{{ LANGUAGE_CODE }}/about-us/" class="nav-link">About Us</a>
-                    </li>
-                    {% if request.user.is_authenticated and request.user.role == 'employer' %}
-                        <li class="nav-item dropdown">
-                            <a id="clientZone" href="#" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"
-                               class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
-                                <div class="client-menu-image">
-                                    <div class="inner">
-                                        <img src="{% static 'img/company-1.png' %}"
-                                             alt="company image"
-                                             class="img-fluid">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item {% if url_name == 'home' %}active{% endif %}">
+                            <a href="{% url 'jobs:home' %}" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
+                            <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
+                        </li>
+                        <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
+                            <a href="{% url 'jobs:jobs' %}" class="nav-link">Create ResumeCV</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/{{ LANGUAGE_CODE }}/about-us/" class="nav-link">About Us</a>
+                        </li>
+                        {% if request.user.is_authenticated and request.user.role == 'employer' %}
+                            <li class="nav-item dropdown">
+                                <a id="clientZone" href="#" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false"
+                                   class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
+                                    <div class="client-menu-image">
+                                        <div class="inner">
+                                            <img src="{% static 'img/company-1.png' %}"
+                                                 alt="company image"
+                                                 class="img-fluid">
+                                        </div>
                                     </div>
+                                    {% if request.user.role == 'employee' %}
+                                        {{ request.user.first_name }} {{ request.user.last_name }}
+                                    {% else %}
+                                        {{ request.user.first_name }}
+                                    {% endif %}
+                                </a>
+                                <div aria-labelledby="clientZone" class="dropdown-menu">
+                                    <a
+                                            href="{% url 'jobs:employer-dashboard' %}"
+                                            class="dropdown-item {% if url_name == 'employer-dashboard' %}active{% endif %}"
+                                    >
+                                        Dashboard
+                                    </a>
+                                    <a
+                                            href="{% url 'jobs:employer-all-applicants' %}"
+                                            class="dropdown-item {% if url_name == 'employer-all-applicants' %}active{% endif %}"
+                                    >
+                                        Applicants
+                                    </a>
+                                    <a
+                                            href="{% url 'jobs:employer-jobs-create' %}"
+                                            class="dropdown-item {% if url_name == 'employer-jobs-create' %}active{% endif %}"
+                                    >
+                                        Post a new job
+                                    </a>
+                                    <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                                 </div>
-                                {% if request.user.role == 'employee' %}
-                                    {{ request.user.first_name }} {{ request.user.last_name }}
-                                {% else %}
-                                    {{ request.user.first_name }}
-                                {% endif %}
-                            </a>
-                            <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a 
-                                    href="{% url 'jobs:employer-dashboard' %}" 
-                                    class="dropdown-item {% if url_name == 'employer-dashboard' %}active{% endif %}"
-                                >
-                                    Dashboard
-                                </a>
-                                <a 
-                                    href="{% url 'jobs:employer-all-applicants' %}" 
-                                    class="dropdown-item {% if url_name == 'employer-all-applicants' %}active{% endif %}"
-                                >
-                                    Applicants 
-                                </a>
-                                <a 
-                                    href="{% url 'jobs:employer-jobs-create' %}" 
-                                    class="dropdown-item {% if url_name == 'employer-jobs-create' %}active{% endif %}"
-                                >
-                                    Post a new job 
-                                </a>
-                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
-                            </div>
-                        </li>
-                    {% elif request.user.is_authenticated and request.user.role == 'employee' %}
-                        <li class="nav-item {% if url_name == 'employee-favorites' %}active{% endif %}">
-                            <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
-                        </li>
-                        <li class="nav-item {% if url_name == 'employee-my-applications' %}active{% endif %}">
-                            <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
-                        </li>
+                            </li>
+                        {% elif request.user.is_authenticated and request.user.role == 'employee' %}
+                            <li class="nav-item {% if url_name == 'employee-favorites' %}active{% endif %}">
+                                <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
+                            </li>
+                            <li class="nav-item {% if url_name == 'employee-my-applications' %}active{% endif %}">
+                                <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a id="clientZone" href="#" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"
-                               class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
-                                <div class="client-menu-image">
-                                    <div class="inner">
-                                        <img src="{% static 'img/company-1.png' %}"
-                                             alt="company image"
-                                             class="img-fluid">
+                            <li class="nav-item dropdown">
+                                <a id="clientZone" href="#" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false"
+                                   class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
+                                    <div class="client-menu-image">
+                                        <div class="inner">
+                                            <img src="{% static 'img/company-1.png' %}"
+                                                 alt="company image"
+                                                 class="img-fluid">
+                                        </div>
                                     </div>
+                                    {% if request.user.role == 'employee' %}
+                                        {{ request.user.first_name }} {{ request.user.last_name }}
+                                    {% else %}
+                                        {{ request.user.first_name }}
+                                    {% endif %}
+                                </a>
+                                <div aria-labelledby="clientZone" class="dropdown-menu">
+                                    <a
+                                            href="{% url 'accounts:employee-profile-update' %}"
+                                            class="dropdown-item {% if url_name == 'employee-profile-update' %}active{% endif %}"
+                                    >
+                                        Edit Profile
+                                    </a>
+                                    <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                                 </div>
-                                {% if request.user.role == 'employee' %}
-                                    {{ request.user.first_name }} {{ request.user.last_name }}
-                                {% else %}
-                                    {{ request.user.first_name }}
-                                {% endif %}
-                            </a>
-                            <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a 
-                                    href="{% url 'accounts:employee-profile-update' %}" 
-                                    class="dropdown-item {% if url_name == 'employee-profile-update' %}active{% endif %}"
-                                >
-                                    Edit Profile
+                            </li>
+                        {% else %}
+                            <li class="nav-item dropdown {% if url_name == 'employee-register' or url_name == 'employer-register' %}active{% endif %}">
+                                <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                   class="nav-link dropdown-toggle "><i class="fa fa-signing"></i>Register
                                 </a>
-                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item dropdown {% if url_name == 'employee-register' or url_name == 'employer-register' %}active{% endif %}">
-                            <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                               class="nav-link dropdown-toggle "><i class="fa fa-signing"></i>Register
-                            </a>
-                            <div aria-labelledby="pages" class="dropdown-menu">
-                                <a 
-                                    href="{% url 'accounts:employee-register' %}" 
-                                    class="dropdown-item {% if url_name == 'employee-register' %}active{% endif %}"
+                                <div aria-labelledby="pages" class="dropdown-menu">
+                                    <a
+                                            href="{% url 'accounts:employee-register' %}"
+                                            class="dropdown-item {% if url_name == 'employee-register' %}active{% endif %}"
+                                    >
+                                        Employee
+                                    </a>
+                                    <a
+                                            href="{% url 'accounts:employer-register' %}"
+                                            class="dropdown-item {% if url_name == 'employer-register' %}active{% endif %}"
+                                    >
+                                        Employers
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item" style="color: #fff">
+                                <a
+                                        href="{% url 'accounts:login' %}"
+                                        class="btn navbar-btn btn-outline-light mb-5 mb-lg-0 {% if url_name == 'login' %}active text-primary{% endif %}"
                                 >
-                                    Employee
+                                    <i class="fa fa-sign-in"></i>
+                                    Login
                                 </a>
-                                <a 
-                                    href="{% url 'accounts:employer-register' %}" 
-                                    class="dropdown-item {% if url_name == 'employer-register' %}active{% endif %}"
-                                >
-                                    Employers
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item" style="color: #fff">
-                            <a 
-                                href="{% url 'accounts:login' %}" 
-                                class="btn navbar-btn btn-outline-light mb-5 mb-lg-0 {% if url_name == 'login' %}active text-primary{% endif %}"
-                            >
-                                <i class="fa fa-sign-in"></i>
-                                Login
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% include "lang_selector.html" %}
-                </ul>
+                            </li>
+                        {% endif %}
+                        {% include "lang_selector.html" %}
+                    </ul>
                 {% endwith %}
             </div>
         </div>
@@ -209,16 +212,21 @@
                 </div>
                 <div class="col-md-8 text-center text-md-right github-buttons">
                     <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener">
-                        <img alt="stars" src="https://img.shields.io/github/stars/manjurulhoque/django-job-portal?style=social"/>
+                        <img alt="stars"
+                             src="https://img.shields.io/github/stars/manjurulhoque/django-job-portal?style=social"/>
                     </a>
                     <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener">
-                        <img alt="forks" src="https://img.shields.io/github/forks/manjurulhoque/django-job-portal?style=social"/>
+                        <img alt="forks"
+                             src="https://img.shields.io/github/forks/manjurulhoque/django-job-portal?style=social"/>
                     </a>
                     <a href="https://github.com/manjurulhoque/django-job-portal/issues" target="_blank" rel="noopener">
-                        <img alt="issues" src="https://img.shields.io/github/issues/manjurulhoque/django-job-portal?style=social"/>
+                        <img alt="issues"
+                             src="https://img.shields.io/github/issues/manjurulhoque/django-job-portal?style=social"/>
                     </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal/#contributors-" target="_blank" rel="noopener">
-                        <img alt="translation" src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/>
+                    <a href="https://github.com/manjurulhoque/django-job-portal/#contributors-" target="_blank"
+                       rel="noopener">
+                        <img alt="translation"
+                             src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/>
                     </a>
                 </div>
             </div>
