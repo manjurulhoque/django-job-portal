@@ -1,9 +1,11 @@
 from django.urls import include, path
 
-from .views import *
+from .views import (
+    TemplateListView,
+)
 
-app_name = "resume_cv::"
+app_name = "resume_cv"
 
 urlpatterns = [
-    path("", HomeView.as_view(), name="home"),
+    path("", TemplateListView.as_view(), name="templates"),
 ]

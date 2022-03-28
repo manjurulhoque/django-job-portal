@@ -15,6 +15,7 @@ class ResumeCv(models.Model):
     style = models.TextField(null=True, blank=True)
     is_published = models.BooleanField(default=True)
     view_count = models.IntegerField(default=0)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,6 +28,19 @@ class ResumeCvCategory(models.Model):
     name = models.CharField(max_length=255)
     thumbnail = models.ImageField(upload_to=resume_cv_directory_path)
     color = models.CharField(max_length=20)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class ResumeCvTemplate(models.Model):
+    category = models.ForeignKey(ResumeCvCategory, on_delete=models.CASCADE, related_name="templates")
+    name = models.CharField(max_length=255)
+    thumbnail = models.ImageField(upload_to=resume_cv_directory_path, blank=True, null=True)
+    content = models.TextField(null=True, blank=True)
+    style = models.TextField(null=True, blank=True)
+    active = models.BooleanField(default=False)
+    is_premium = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
