@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    All templates
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/templates.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    <section class="mt-4">
+        <div class="container">
+            <h2 class="text-center">Choose a template for your Resume/CV</h2>
+            <a href="{% url 'resume_cv:templates' %}" class="btn btn-sm btn-danger">All Templates</a>
+            {% for category in categories %}
+                <a href="{% url 'resume_cv:templates' %}" class="btn btn-sm btn-success">{{ category.name }}</a>
+            {% endfor %}
+
+            <div class="row mt-2">
+                {% for template in templates %}
+                    <div class="col-md-4">
+                        <div class="clearfix blog-bottom blog blogitemlarge">
+                            <a href="#" data-id="9" data-toggle="modal" data-target="#createModal" title="Resume 8"
+                               class="btn_builder_template image-blog date clearfix">
+                                <img src="{{ template.thumbnail.url }}"
+                                     alt="{{ template.name }}"
+                                     data-was-processed="true" class="">
+                                <span class="post-date badge badge-success"> Free</span>
+                            </a>
+                            <div class="content_blog clearfix flex flex-column flex-lg-row">
+                                <div class="p-1">
+                                    {{ template.name }}
+                                </div>
+                                <div class="d-flex pt-1">
+                                    <a href="#" class="btn btn-sm btn-primary mr-2 btn_builder_template" data-id="9"
+                                       data-toggle="modal" data-target="#createModal">Builder</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

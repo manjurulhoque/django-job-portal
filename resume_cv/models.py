@@ -19,18 +19,24 @@ class ResumeCv(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 def resume_cv_directory_path(instance, filename):
-    return 'songs/{0}/{1}'.format(strftime('%Y/%m/%d'), generate_file_name() + '.' + filename.split('.')[-1])
+    return 'resumes/{0}/{1}'.format(strftime('%Y/%m/%d'), generate_file_name() + '.' + filename.split('.')[-1])
 
 
 class ResumeCvCategory(models.Model):
     name = models.CharField(max_length=255)
-    thumbnail = models.ImageField(upload_to=resume_cv_directory_path)
+    thumbnail = models.ImageField(upload_to=resume_cv_directory_path, blank=True, null=True)
     color = models.CharField(max_length=20)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class ResumeCvTemplate(models.Model):
@@ -44,3 +50,6 @@ class ResumeCvTemplate(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

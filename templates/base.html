@@ -58,8 +58,8 @@
                         <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
                             <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
                         </li>
-                        <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
-                            <a href="{% url 'jobs:jobs' %}" class="nav-link">Create ResumeCV</a>
+                        <li class="nav-item {% if url_name == 'templates' %}active{% endif %}">
+                            <a href="{% url 'resume_cv:templates' %}" class="nav-link">Create ResumeCV</a>
                         </li>
                         <li class="nav-item">
                             <a href="/{{ LANGUAGE_CODE }}/about-us/" class="nav-link">About Us</a>

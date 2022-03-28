@@ -8,7 +8,6 @@
 *.pyc
 __pycache__/
 local_settings.py
-media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.

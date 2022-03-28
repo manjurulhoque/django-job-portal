@@ -7,5 +7,5 @@ from .views import (
 app_name = "resume_cv"
 
 urlpatterns = [
-    path("", TemplateListView.as_view(), name="templates"),
+    path("templates", TemplateListView.as_view(), name="templates"),
 ]
