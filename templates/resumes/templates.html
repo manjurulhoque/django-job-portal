@@ -34,13 +34,43 @@
                                     {{ template.name }}
                                 </div>
                                 <div class="d-flex pt-1">
-                                    <a href="#" class="btn btn-sm btn-primary mr-2 btn_builder_template" data-id="9"
+                                    <a href="#" class="btn btn-sm btn-primary mr-2 btn_builder_template" data-id="{{ template.id }}"
                                        data-toggle="modal" data-target="#createModal">Builder</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+        </div>
+
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Resumecv</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="" action="{% url 'resume_cv:resume-cv.create' %}" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="template_id" hidden="" required=""
+                                       id="template_id_builder">
+                                <label for="name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" name="name" required="" id="page-name">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm" id="saveandbuilder">Save & Builder
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
