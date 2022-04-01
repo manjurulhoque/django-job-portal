@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView
@@ -41,4 +41,29 @@ class ResumeCVCreateView(LoginRequiredMixin, EmployeeRequiredMixin, View):
             f.save()
         else:
             print(f.errors)
-        return HttpResponse('This is a post only view')
+        return redirect(reverse_lazy("resume_cv:resume-cv.builder"))
+
+
+def resume_builder(request, code):
+    """
+    Resume builder
+    """
+    resume = ResumeCv.objects.get(code=code)
+    templates = ResumeCvTemplate.objects.all()
+    return render(request, "resumes/builder.html", {"resume": resume, "templates": templates})
+
+
+def load_builder(request, id):
+    """
+    Load builder
+    """
+    resume = ResumeCvTemplate.objects.get(id=id)
+    if resume:
+        return JsonResponse({
+            'gjs-html': resume.content,
+            'gjs-css': resume.style
+        }, safe=True)
+    else:
+        return JsonResponse({
+            'error': "No template found",
+        }, safe=True)

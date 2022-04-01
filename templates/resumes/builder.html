@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <title>{{ resume.name }}</title>
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <link rel="stylesheet" href="{% static 'css/builder.css' %}">
+</head>
+
+<body>
+<div id="mobileAlert">
+    <div class="message">
+        <h3>Builder not work on mobile</h3>
+        <a href="#">Back</a>
+    </div>
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Select a template</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="row">
+            {% for template in templates %}
+                <div class="column">
+                    <div class="card card-template" data-templateid="{{ template.id }}">
+                        <img src="{{ template.thumbnail.url }}" alt="{{ template.name }}"
+                             data-was-processed="true" class=""/>
+                        <div class="container">
+                            <h4><b>{{ template.name }}</b></h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="loadingMessage">
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div id="gjs"></div>
+
+<script type="text/javascript">
+    var _token = '';
+    var upload_Image = 'uploadimage_url';
+    var url_load_template = "";
+    var url_default_css_template = '';
+    var urlStore = 'update-builder';
+    var urlLoad = '{% url 'resume-cv.load.builder' resume.id %}';
+    var back_button_url = "{% url 'resume_cv:templates' %}";
+    var exportPDF_url = "";
+
+    var images_url = ['https://oneresumecv.zillapage.com/storage/user_storage/4/1875187.jpg',
+        'https://oneresumecv.zillapage.com/storage/user_storage/4/1a256919-946f-458d-a784-59d5af835322.jpg',
+        'https://oneresumecv.zillapage.com/storage/user_storage/4/2020-01-24 12.33.55-1.jpg'];
+    var all_fonts = ['Arial', 'Verdana', 'Helvetica', 'Tahoma', 'Trebuchet MS', 'Times New Roman', 'Georgia', 'Garamond', 'Courier New', 'Brush Script MT'];
+    var langs = {
+        "fontFamily": "FONT FAMILY",
+        "changeTemplates": "Change Templates",
+        "exportPdf": "Download PDF",
+    };
+    var config = {
+        all_icons: ["fab fa-500px", "fab fa-accessible-icon", "fab fa-accusoft", "fab fa-acquisitions-incorporated", "fas fa-ad", "fas fa-address-book", "far fa-address-book", "fas fa-address-card"],
+    };
+</script>
+<script src="{% static 'js/builder.js' %}"></script>
+<script src="{% static 'js/preset.js' %}"></script>
+<script src="{% static 'js/custom-builder.js' %}"></script>
+</body>
+
+</html>

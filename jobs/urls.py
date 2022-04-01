@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
 
 from jobs.sitemaps import Sitemaps, StaticViewSitemap
+from resume_cv.views import load_builder
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,6 +38,7 @@ lang_patterns = i18n_patterns(path("", include("jobsapp.urls")),
 urlpatterns = lang_patterns + [
     re_path(r"^i18n/", include("django.conf.urls.i18n")),
     path("admin/", admin.site.urls),
+    path("templates/load-builder/<id>", load_builder, name="resume-cv.load.builder"),
     path(
         "api/",
         include(
