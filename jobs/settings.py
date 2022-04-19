@@ -3,6 +3,7 @@ import sys
 from datetime import timedelta
 
 import environ
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -245,6 +246,7 @@ SWAGGER_SETTINGS = {
 
 DEBUG = True
 
+LOGIN_URL = reverse_lazy("accounts:login")
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 

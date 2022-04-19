@@ -38,10 +38,11 @@ class ResumeCVCreateView(LoginRequiredMixin, EmployeeRequiredMixin, View):
         f = ResumeCvForm(request.POST)
         if f.is_valid():
             f.instance.user = request.user
-            f.save()
+            r = f.save()
+            return redirect(reverse_lazy("resume_cv:builder", kwargs={"code": r.code}))
         else:
             print(f.errors)
-        return redirect(reverse_lazy("resume_cv:resume-cv.builder"))
+            return redirect(reverse_lazy("resume_cv:templates"))
 
 
 def resume_builder(request, code):

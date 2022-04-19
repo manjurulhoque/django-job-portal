@@ -54,7 +54,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="" action="{% url 'resume_cv:resume-cv.create' %}" method="post">
+                    <form id="" action="{% url 'resume_cv:create' %}" method="post">
                         {% csrf_token %}
                         <div class="modal-body">
                             <div class="form-group">
