@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     "use strict"; // Start of use strict
 
     // Init editor
@@ -15,6 +15,23 @@
             urlLoad: urlLoad,
             params: {
                 "_token": _token
+            },
+            onComplete: (jqXHR, status) => {
+                // this.style = jqXHR['gjs-css'];
+                // $('iframe').load(function () {
+                //     $('iframe').contents().find("head")
+                //         .append($(`<style type='text/css'>${jqXHR['gjs-css']}</style>`));
+                // });
+                // let head = document.head;
+                // let style = document.createElement('style');
+                // head.appendChild(style);
+                // style.type = 'text/css';
+                // if (style.styleSheet) {
+                //     // This is required for IE8 and below.
+                //     style.styleSheet.cssText = jqXHR['gjs-css'];
+                // } else {
+                //     style.appendChild(document.createTextNode(jqXHR['gjs-css']));
+                // }
             },
         },
         assetManager: {
@@ -39,9 +56,9 @@
     // End Init editor
 
     // Editor load
-    editor.on('load', function() {
+    editor.on('load', function () {
         // Customize builder interface
-        // remove classs state-hover,click...
+        // remove class's state-hover,click...
         var classs_state = document.getElementById("gjs-clm-up");
         if (classs_state) classs_state.remove();
         // add default css on template font-awesome
@@ -67,7 +84,7 @@
             bodyFont = bodyCSSRule.attributes.style['font-family'];
 
         var option_fonts = "";
-        all_fonts.forEach(function(item) {
+        all_fonts.forEach(function (item) {
             if (bodyFont) {
                 if (bodyFont.includes(item))
                     option_fonts += `<option value="${item}" selected>${item}</option>`;
@@ -92,7 +109,7 @@
                 </div>`
         });
 
-        $('#font-family').on('change', function() {
+        $('#font-family').on('change', function () {
             var font = $(this).val();
             var string_font = "'" + font + "'";
             editor.CssComposer.setRule('#resumecv-layout', {
@@ -102,8 +119,8 @@
         // End Font family setup
 
         // All Button panel
-        $("#save-builder").on("click", function(e) {
-            editor.store(function(res) {
+        $("#save-builder").on("click", function (e) {
+            editor.store(function (res) {
                 var html = "";
                 if ($.isEmptyObject(res.error)) {
                     html = '<i class="fa fa-check-circle text-success"></i><small> ' + res.success + '</smal>';
@@ -120,20 +137,20 @@
             });
         });
 
-        $("#back-button").on("click", function(e) {
+        $("#back-button").on("click", function (e) {
             window.location.href = back_button_url;
         });
-        $("#exportPDF").on("click", function(e) {
+        $("#exportPDF").on("click", function (e) {
             window.location.href = exportPDF_url;
         });
 
         // End all button panel event
 
         //Change templates event
-        $('#change_templates').on('click', function() {
+        $('#change_templates').on('click', function () {
             modal.style.display = "block";
         });
-        $('.card-template').on('click', function() {
+        $('.card-template').on('click', function () {
             var templateid = $(this).attr("data-templateid");
             if (templateid) {
                 $.ajax({
@@ -143,11 +160,11 @@
                         templateid: templateid,
                         "_token": _token
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('#loadingMessage').css('display', 'block');
 
                     },
-                    success: function(response) {
+                    success: function (response) {
                         editor.setComponents(response.content);
                         editor.setStyle(response.style);
                         $('#loadingMessage').css('display', 'none');
@@ -195,11 +212,11 @@
 
     // Change template event
     var modal = document.getElementById("myModal");
-    $('span.close').on('click', function() {
+    $('span.close').on('click', function () {
         modal.style.display = "none";
     });
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal)
             modal.style.display = "none";
     }
@@ -208,7 +225,6 @@
         $('#mobileAlert').css('display', 'block');
     }
     // End Change template
-
 
 
 })(jQuery); // End of use strict

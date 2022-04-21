@@ -1,5 +1,8 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
+from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -51,18 +54,37 @@ def resume_builder(request, code):
     """
     resume = ResumeCv.objects.get(code=code)
     templates = ResumeCvTemplate.objects.all()
-    return render(request, "resumes/builder.html", {"resume": resume, "templates": templates})
+    token = get_token(request)
+    return render(request, "resumes/builder.html", {"resume": resume, "templates": templates, "token": token})
+
+
+def update_builder(request, id):
+    """
+    Resume builder
+    """
+    resume = ResumeCv.objects.get(id=id)
+    if resume:
+        data = json.loads(request.body)
+        resume.content = data.get('gjs-html')
+        resume.style = data.get('gjs-css')
+        resume.save()
+        return JsonResponse({
+            'success': "Updated successfully",
+        }, safe=True)
+    return JsonResponse({
+        'error': "No resume found",
+    }, safe=True)
 
 
 def load_builder(request, id):
     """
     Load builder
     """
-    resume = ResumeCvTemplate.objects.get(id=id)
+    resume = ResumeCv.objects.get(id=id)
     if resume:
         return JsonResponse({
-            'gjs-html': resume.content,
-            'gjs-css': resume.style
+            'gjs-html': resume.content if resume.content else resume.template.content,
+            'gjs-css': resume.style if resume.style else resume.template.style
         }, safe=True)
     else:
         return JsonResponse({

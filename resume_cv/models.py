@@ -7,22 +7,6 @@ from accounts.models import User
 from utils.filename import generate_file_name
 
 
-class ResumeCv(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="resume_cvs")
-    code = models.UUIDField(default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255)
-    content = models.TextField(null=True, blank=True)
-    style = models.TextField(null=True, blank=True)
-    is_published = models.BooleanField(default=True)
-    view_count = models.IntegerField(default=0)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
 def resume_cv_directory_path(instance, filename):
     return 'resumes/{0}/{1}'.format(strftime('%Y/%m/%d'), generate_file_name() + '.' + filename.split('.')[-1])
 
@@ -47,6 +31,23 @@ class ResumeCvTemplate(models.Model):
     style = models.TextField(null=True, blank=True)
     active = models.BooleanField(default=False)
     is_premium = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ResumeCv(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="resume_cvs")
+    template = models.ForeignKey(ResumeCvTemplate, on_delete=models.CASCADE, related_name="resume_cvs")
+    code = models.UUIDField(default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
+    content = models.TextField(null=True, blank=True)
+    style = models.TextField(null=True, blank=True)
+    is_published = models.BooleanField(default=True)
+    view_count = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
