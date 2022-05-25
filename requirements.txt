@@ -62,7 +62,7 @@ promise==2.3
 psycopg2-binary==2.8.6
 pycparser==2.20
 Pygments==2.7.1
-PyJWT==2.3.0
+PyJWT==2.4.0
 pyparsing==2.4.6
 python-dateutil==2.8.1
 python3-openid==3.2.0
