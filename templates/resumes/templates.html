@@ -22,7 +22,7 @@
                 {% for template in templates %}
                     <div class="col-md-4">
                         <div class="clearfix blog-bottom blog blogitemlarge">
-                            <a href="#" data-id="9" data-toggle="modal" data-target="#createModal" title="Resume 8"
+                            <a href="#" data-id="{{ template.id }}" data-toggle="modal" data-target="#createModal" title="Resume 8"
                                class="btn_builder_template image-blog date clearfix">
                                 <img src="{{ template.thumbnail.url }}"
                                      alt="{{ template.name }}"
