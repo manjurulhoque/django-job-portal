@@ -1,4 +1,5 @@
 from django.urls import re_path
+from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.flatpages import views as flatpages_views
@@ -56,5 +57,7 @@ urlpatterns = lang_patterns + [
     # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
     path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
-    path("", include('django_prometheus.urls')),
 ]
+
+if settings.ENABLE_PROMETHEUS:
+    urlpatterns.append(path("", include('django_prometheus.urls')))

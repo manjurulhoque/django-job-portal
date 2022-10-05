@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "rest_framework_social_oauth2",
     "django.contrib.humanize",
     "graphene_django",
-    "django_prometheus",
 ]
 
 MIDDLEWARE = [
@@ -309,3 +308,10 @@ GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_EXPIRATION_DELTA": timedelta(minutes=60),
 }
+
+ENABLE_PROMETHEUS = int(os.environ.get("ENABLE_PROMETHEUS", "0"))
+
+if ENABLE_PROMETHEUS:
+    INSTALLED_APPS += ["django_prometheus"]
+    MIDDLEWARE = ['django_prometheus.middleware.PrometheusBeforeMiddleware'] + MIDDLEWARE + \
+        ['django_prometheus.middleware.PrometheusAfterMiddleware']
