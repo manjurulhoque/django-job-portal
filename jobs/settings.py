@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     "rest_framework_social_oauth2",
     "django.contrib.humanize",
     "graphene_django",
+    "django_prometheus",
 ]
 
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware"
 ]
 
 ROOT_URLCONF = "jobs.urls"
