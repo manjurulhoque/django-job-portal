@@ -14,7 +14,7 @@
                 <small>at <a href="#"> {{ job.company_name }}</a></small>
             </h1>
             <div class="job-detail-description"><i class="fa fa-map-marker job__location"> </i>
-                {{ job.location }} | Posted {{ job.created_at|timesince }} |
+		    {{ job.location }} | Posted {{ job.created_at|timesince }} ({{ job.created_at }}) |
                 {% if job.type == '1' %}
                     <span class="badge featured-badge badge-success">Full time</span>
                 {% elif job.type == '2' %}
