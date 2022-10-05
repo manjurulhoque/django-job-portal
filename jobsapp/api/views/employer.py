@@ -1,10 +1,14 @@
 from django.http import JsonResponse
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from jobsapp.api.permissions import IsEmployer, IsJobCreator
-from jobsapp.api.serializers import ApplicantSerializer, DashboardJobSerializer, NewJobSerializer
+from jobsapp.api.permissions import IsEmployer
+from jobsapp.api.permissions import IsJobCreator
+from jobsapp.api.serializers import ApplicantSerializer
+from jobsapp.api.serializers import DashboardJobSerializer
+from jobsapp.api.serializers import NewJobSerializer
 from jobsapp.models import Applicant
 
 

@@ -3,7 +3,8 @@ from datetime import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Applicant
+from jobsapp.models import Job
 
 
 class CreateJobForm(forms.ModelForm):

@@ -1,18 +1,28 @@
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login
 from requests.exceptions import HTTPError
-from rest_framework import decorators, permissions, response, status
-from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
+from rest_framework import decorators
+from rest_framework import permissions
+from rest_framework import response
+from rest_framework import status
+from rest_framework.generics import GenericAPIView
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from social_core.backends.oauth import BaseOAuth2
-from social_core.exceptions import AuthForbidden, AuthTokenError, MissingBackend
-from social_django.utils import load_backend, load_strategy
+from social_core.exceptions import AuthForbidden
+from social_core.exceptions import AuthTokenError
+from social_core.exceptions import MissingBackend
+from social_django.utils import load_backend
+from social_django.utils import load_strategy
 
 from jobsapp.api.permissions import IsEmployee
 
 from .custom_claims import MyTokenObtainPairSerializer
-from .serializers import SocialSerializer, UserCreateSerializer, UserSerializer
+from .serializers import SocialSerializer
+from .serializers import UserCreateSerializer
+from .serializers import UserSerializer
 
 User = get_user_model()
 

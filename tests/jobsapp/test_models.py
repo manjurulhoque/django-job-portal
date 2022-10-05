@@ -1,10 +1,12 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 
 from django.test import TestCase
 from django.utils import translation
 
 from accounts.models import User
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Applicant
+from jobsapp.models import Job
 
 
 class BaseTest(TestCase):

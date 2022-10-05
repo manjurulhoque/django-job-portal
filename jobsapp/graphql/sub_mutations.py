@@ -1,16 +1,14 @@
 import graphene
-
-from jobsapp.graphql.graphql_mixins import (
-    DynamicArgsMixin,
-    MutationMixin,
-    CreateNewJobMixin,
-    UpdateJobMixin,
-    SingleObjectMixin,
-)
-from jobsapp.graphql.input_types import TagInput
-from jobsapp.graphql.permissions import IsAuthenticated, IsEmployer
 from graphene.types import Int
 
+from jobsapp.graphql.graphql_mixins import CreateNewJobMixin
+from jobsapp.graphql.graphql_mixins import DynamicArgsMixin
+from jobsapp.graphql.graphql_mixins import MutationMixin
+from jobsapp.graphql.graphql_mixins import SingleObjectMixin
+from jobsapp.graphql.graphql_mixins import UpdateJobMixin
+from jobsapp.graphql.input_types import TagInput
+from jobsapp.graphql.permissions import IsAuthenticated
+from jobsapp.graphql.permissions import IsEmployer
 from jobsapp.graphql.types import JobGQLType
 from jobsapp.models import Job
 

@@ -1,5 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 from http import HTTPStatus
+
 from django.test import TestCase
 
 from accounts.models import User

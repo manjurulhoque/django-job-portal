@@ -1,4 +1,5 @@
-from typing import NamedTuple, Optional
+from typing import NamedTuple
+from typing import Optional
 
 
 class Checking(NamedTuple):

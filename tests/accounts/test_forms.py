@@ -1,6 +1,7 @@
 from django.test import TestCase
 
-from accounts.forms import EmployeeRegistrationForm, EmployerRegistrationForm
+from accounts.forms import EmployeeRegistrationForm
+from accounts.forms import EmployerRegistrationForm
 from accounts.models import User
 
 

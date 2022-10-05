@@ -1,14 +1,14 @@
+import uuid
 from time import strftime
 
 from django.db import models
-import uuid
 
 from accounts.models import User
 from utils.filename import generate_file_name
 
 
 def resume_cv_directory_path(instance, filename):
-    return 'resumes/{0}/{1}'.format(strftime('%Y/%m/%d'), generate_file_name() + '.' + filename.split('.')[-1])
+    return "resumes/{0}/{1}".format(strftime("%Y/%m/%d"), generate_file_name() + "." + filename.split(".")[-1])
 
 
 class ResumeCvCategory(models.Model):

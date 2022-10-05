@@ -1,14 +1,21 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponseNotAllowed
+from django.http import Http404
+from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView
+from django.views.generic import DetailView
+from django.views.generic import ListView
 
 from ..decorators import user_is_employee
 from ..forms import ApplyJobForm
-from ..models import Applicant, Favorite, Job
+from ..models import Applicant
+from ..models import Favorite
+from ..models import Job
 
 
 class HomeView(ListView):

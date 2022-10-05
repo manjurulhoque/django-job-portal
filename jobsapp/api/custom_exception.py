@@ -37,12 +37,10 @@ def custom_exception_handler(exc, context):
     return response
 
 
-"""
 # to work with this custom error handler, save this file in your project,
-#add this in settings.py 
- REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'core.api.custom_exception.custom_exception_handler', #location for your file
-}
+# add this in settings.py
+# REST_FRAMEWORK = {
+#    'EXCEPTION_HANDLER': 'core.api.custom_exception.custom_exception_handler', #location for your file
+# }
 # and add raise_exception=True in is_valid() method
-if serializer.is_valid(raise_exception=True):
-"""
+# if serializer.is_valid(raise_exception=True):

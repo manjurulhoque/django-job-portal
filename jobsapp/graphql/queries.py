@@ -1,8 +1,9 @@
 import graphene
 
-from .types import JobGQLType
 from jobsapp.models import Job
+
 from .exceptions import GraphQLError
+from .types import JobGQLType
 
 
 class JobQuery(graphene.ObjectType):

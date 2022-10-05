@@ -1,18 +1,21 @@
-from django.urls import re_path
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.contrib.flatpages import views as flatpages_views
 from django.contrib.sitemaps.views import sitemap
-from django.urls import include, path
+from django.urls import include
+from django.urls import path
+from django.urls import re_path
+from django.views.decorators.csrf import csrf_exempt
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework import permissions
-from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
+from rest_framework import permissions
 
-from jobs.sitemaps import Sitemaps, StaticViewSitemap
-from resume_cv.views import load_builder, update_builder
+from jobs.sitemaps import Sitemaps
+from jobs.sitemaps import StaticViewSitemap
+from resume_cv.views import load_builder
+from resume_cv.views import update_builder
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -27,10 +30,11 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-lang_patterns = i18n_patterns(path("", include("jobsapp.urls")),
-                              path("", include("accounts.urls")),
-                              path("", include("resume_cv.urls")),
-                              )
+lang_patterns = i18n_patterns(
+    path("", include("jobsapp.urls")),
+    path("", include("accounts.urls")),
+    path("", include("resume_cv.urls")),
+)
 
 # sitemaps = {
 #     '': JobViewSitemap
@@ -60,4 +64,4 @@ urlpatterns = lang_patterns + [
 ]
 
 if settings.ENABLE_PROMETHEUS:
-    urlpatterns.append(path("", include('django_prometheus.urls')))
+    urlpatterns.append(path("", include("django_prometheus.urls")))

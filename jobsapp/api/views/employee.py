@@ -1,17 +1,23 @@
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
+from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from jobsapp.api.permissions import IsEmployee
-from jobsapp.api.serializers import ApplicantSerializer, AppliedJobSerializer, ApplyJobSerializer, JobSerializer
-from jobsapp.models import Applicant, Job
+from jobsapp.api.serializers import ApplicantSerializer
+from jobsapp.api.serializers import AppliedJobSerializer
+from jobsapp.api.serializers import ApplyJobSerializer
+from jobsapp.api.serializers import JobSerializer
+from jobsapp.models import Applicant
+from jobsapp.models import Job
 
 
 class ApplyJobApiView(CreateAPIView):
     serializer_class = ApplyJobSerializer
-    http_method_names = [u"post"]
+    http_method_names = ["post"]
     permission_classes = [IsAuthenticated, IsEmployee]
 
     def perform_create(self, serializer):
