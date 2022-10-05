@@ -23,6 +23,7 @@ django-cors-headers==3.11.0
 django-elasticsearch-dsl==7.2.2
 django-environ==0.4.5
 django-graphql-jwt==0.3.4
+django-prometheus==2.2.0
 django-oauth-toolkit==1.3.3
 django-rest-framework-social-oauth2==1.1.0
 djangorestframework==3.13.1
@@ -59,6 +60,7 @@ Pillow==8.4.0
 pre-commit==2.13.0
 progress==1.5
 promise==2.3
+prometheus-client==0.14.1
 psycopg2-binary==2.8.6
 pycparser==2.20
 Pygments==2.7.1
