@@ -26,6 +26,7 @@ django-graphql-jwt==0.3.4
 django-prometheus==2.2.0
 django-oauth-toolkit==1.3.3
 django-rest-framework-social-oauth2==1.1.0
+django-tinymce==3.5.0
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.0.0
 drf-yasg==1.20.0

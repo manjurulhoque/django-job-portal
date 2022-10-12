@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from tinymce.models import HTMLField
 
 from accounts.models import User
 from tags.models import Tag
@@ -13,7 +14,8 @@ JOB_TYPE = (("1", "Full time"), ("2", "Part time"), ("3", "Internship"))
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
-    description = models.TextField()
+    # description = models.TextField()
+    description = HTMLField()
     location = models.CharField(max_length=150)
     type = models.CharField(choices=JOB_TYPE, max_length=10)
     category = models.CharField(max_length=100)

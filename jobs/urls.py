@@ -57,6 +57,7 @@ urlpatterns = lang_patterns + [
     # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
     path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.ENABLE_PROMETHEUS:
