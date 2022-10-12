@@ -60,8 +60,8 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <label for="text">Job Description</label>
-                                <textarea id="text" name="description" rows="5" class="form-control">{{ form.description.value|default_if_none:"" }}</textarea>
+                                <label for="description">Job Description</label>
+                                <textarea id="description" name="description" rows="5" style="min-height: 200px" class="form-control">{{ form.description.value|default_if_none:"" }}</textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -167,11 +167,17 @@
 
 {% block javascripts %}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 
     <script>
         $(document).ready(function () {
             $('.js-select2').select2();
+
+            tinymce.init({
+                selector: 'textarea',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'
+            });
         });
     </script>
 

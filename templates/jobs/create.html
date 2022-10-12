@@ -14,7 +14,6 @@
             color: #000000;
         }
     </style>
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -195,15 +194,16 @@
 
 {% block javascripts %}
 
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 
     <script>
         $(document).ready(function () {
             $('.js-select2').select2();
 
-            let quill = new Quill('#description', {
-                theme: 'snow'
+            tinymce.init({
+                selector: 'textarea',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'
             });
         });
     </script>
