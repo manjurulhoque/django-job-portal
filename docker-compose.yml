@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  portal:
+    build: .
+    command: ./entrypoint.sh
+    volumes:
+      - .:/app
+      - .db_data/db.sqlite3:/db.sqlite3
+    ports:
+      - "8000:8000"
