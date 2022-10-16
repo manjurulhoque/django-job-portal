@@ -1,8 +1,10 @@
 import graphene
 import graphql_jwt
 
-from accounts.graphql.graphql_mixins import EmployeeRegisterMixin, EmployerRegisterMixin
-from jobsapp.graphql.graphql_mixins import DynamicArgsMixin, MutationMixin
+from accounts.graphql.graphql_mixins import EmployeeRegisterMixin
+from accounts.graphql.graphql_mixins import EmployerRegisterMixin
+from jobsapp.graphql.graphql_mixins import DynamicArgsMixin
+from jobsapp.graphql.graphql_mixins import MutationMixin
 
 
 class EmployeeRegister(MutationMixin, DynamicArgsMixin, EmployeeRegisterMixin, graphene.Mutation):

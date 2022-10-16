@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 
-from accounts.forms import EmployeeRegistrationForm, EmployerRegistrationForm
+from accounts.forms import EmployeeRegistrationForm
+from accounts.forms import EmployerRegistrationForm
 from jobsapp.graphql.graphql_base import Output
 
 UserModel = get_user_model()

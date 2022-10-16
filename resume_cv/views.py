@@ -1,23 +1,29 @@
 import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
+from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView
+from django.views.generic import CreateView
+from django.views.generic import ListView
 
 # Create your views here.
 from jobsapp.mixins import EmployeeRequiredMixin
 from resume_cv.forms import ResumeCvForm
-from resume_cv.models import ResumeCvTemplate, ResumeCvCategory, ResumeCv
+from resume_cv.models import ResumeCv
+from resume_cv.models import ResumeCvCategory
+from resume_cv.models import ResumeCvTemplate
 
 
 class TemplateListView(ListView):
     """
     Get list of templates to create resume/cv
     """
+
     model = ResumeCvTemplate
     context_object_name = "templates"
     template_name = "resumes/templates.html"
@@ -27,7 +33,7 @@ class TemplateListView(ListView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['categories'] = ResumeCvCategory.objects.all()
+        data["categories"] = ResumeCvCategory.objects.all()
         return data
 
 
@@ -35,6 +41,7 @@ class ResumeCVCreateView(LoginRequiredMixin, EmployeeRequiredMixin, View):
     """
     Create resume/cv
     """
+
     form_class = ResumeCvForm
 
     def post(self, request):
@@ -65,15 +72,21 @@ def update_builder(request, id):
     resume = ResumeCv.objects.get(id=id)
     if resume:
         data = json.loads(request.body)
-        resume.content = data.get('gjs-html')
-        resume.style = data.get('gjs-css')
+        resume.content = data.get("gjs-html")
+        resume.style = data.get("gjs-css")
         resume.save()
-        return JsonResponse({
-            'success': "Updated successfully",
-        }, safe=True)
-    return JsonResponse({
-        'error': "No resume found",
-    }, safe=True)
+        return JsonResponse(
+            {
+                "success": "Updated successfully",
+            },
+            safe=True,
+        )
+    return JsonResponse(
+        {
+            "error": "No resume found",
+        },
+        safe=True,
+    )
 
 
 def load_builder(request, id):
@@ -82,11 +95,17 @@ def load_builder(request, id):
     """
     resume = ResumeCv.objects.get(id=id)
     if resume:
-        return JsonResponse({
-            'gjs-html': resume.content if resume.content else resume.template.content,
-            'gjs-css': resume.style if resume.style else resume.template.style
-        }, safe=True)
+        return JsonResponse(
+            {
+                "gjs-html": resume.content if resume.content else resume.template.content,
+                "gjs-css": resume.style if resume.style else resume.template.style,
+            },
+            safe=True,
+        )
     else:
-        return JsonResponse({
-            'error': "No template found",
-        }, safe=True)
+        return JsonResponse(
+            {
+                "error": "No template found",
+            },
+            safe=True,
+        )

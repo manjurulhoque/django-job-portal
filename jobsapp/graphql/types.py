@@ -1,10 +1,10 @@
-from graphene_django import DjangoObjectType
 import graphene
+from graphene_django import DjangoObjectType
 from graphene_django.utils import camelize
 
-from .exceptions import WrongUsage
-
 from jobsapp.models import Job
+
+from .exceptions import WrongUsage
 
 
 class JobGQLType(DjangoObjectType):

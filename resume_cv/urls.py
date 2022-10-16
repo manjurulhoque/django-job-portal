@@ -1,11 +1,9 @@
 from django.urls import path
 
-from .views import (
-    TemplateListView,
-    ResumeCVCreateView,
-    resume_builder,
-    load_builder,
-)
+from .views import ResumeCVCreateView
+from .views import TemplateListView
+from .views import load_builder
+from .views import resume_builder
 
 app_name = "resume_cv"
 

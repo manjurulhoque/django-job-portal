@@ -18,7 +18,7 @@ class GraphQLError(Exception):
 
 class WrongUsage(GraphQLError):
     """
-        Internal exception
+    Internal exception
     """
 
     default_message = _("Wrong usage, check your code!.")

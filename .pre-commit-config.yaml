@@ -1,12 +1,43 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
 repos:
-  - repo: https://github.com/ambv/black
-    rev: 21.6b0
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.10.1
+    hooks:
+    - id: isort
+      args: ["--sl", "--profile=black"]
+  - repo: https://github.com/psf/black
+    rev: 22.8.0
     hooks:
       - id: black
-        exclude: ^migrations/
-
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: 'v5.9.1'
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
     hooks:
-      - id: isort
-        exclude: ^migrations/
+      - id: check-ast
+      - id: check-case-conflict
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+        exclude: version.txt
+      - id: debug-statements
+      - id: check-added-large-files
+      - id: check-docstring-first
+      - id: check-yaml
+        exclude: conda/meta.yaml
+  - repo: local
+    hooks:
+      - id: sphinx-build
+        name: sphinx build
+        entry: python -m sphinx.cmd.build
+        args: [-a, -E, -W, doc, sphinx]
+        language: system
+        files: ^doc/
+        types: [file]
+        pass_filenames: false
+      - id: sphinx-doctest
+        name: sphinx doctest
+        entry: python -m sphinx.cmd.build
+        args: [-a, -E, -b, doctest, doc, sphinx]
+        language: system
+        files: ^doc/
+        types: [file]
+        pass_filenames: false

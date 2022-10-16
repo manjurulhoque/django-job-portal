@@ -56,7 +56,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
-    "django_prometheus.middleware.PrometheusAfterMiddleware"
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "jobs.urls"
@@ -313,5 +313,8 @@ ENABLE_PROMETHEUS = int(os.environ.get("ENABLE_PROMETHEUS", "0"))
 
 if ENABLE_PROMETHEUS:
     INSTALLED_APPS += ["django_prometheus"]
-    MIDDLEWARE = ['django_prometheus.middleware.PrometheusBeforeMiddleware'] + MIDDLEWARE + \
-        ['django_prometheus.middleware.PrometheusAfterMiddleware']
+    MIDDLEWARE = (
+        ["django_prometheus.middleware.PrometheusBeforeMiddleware"]
+        + MIDDLEWARE
+        + ["django_prometheus.middleware.PrometheusAfterMiddleware"]
+    )
