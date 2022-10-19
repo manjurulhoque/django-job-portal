@@ -80,7 +80,7 @@
                                     <span style="color: #ffffff;"
                                           class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                                 {% endfor %}
-                                <p>{{ job.description }}</p>
+                                <p>{{ job.description | truncatewords_html:30 | safe }}</p>
                             </div>
                         </div>
                     </div>

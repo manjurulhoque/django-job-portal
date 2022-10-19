@@ -37,7 +37,7 @@
                         <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                     {% endfor %}
                     <blockquote class="blockquote">
-                        <p>{{ job.description }}</p>
+                        <p>{{ job.description | safe }}</p>
                     </blockquote>
                     <div class="job-detail__apply-bottom">
                         {% if request.user.is_authenticated %}
