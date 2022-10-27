@@ -31,6 +31,7 @@
                 <div class="col-lg-8">
                     <h3>Category: {{ job.category }}</h3>
                     <h5>Last date: {{ job.last_date|date }}</h5>
+                    <h5 style="color: blueviolet;">Vacancy: {{ job.vacancy }}</h5>
                     <h5 class="text-info">Salary: {% if job.salary > 0 %} {{ job.salary | intcomma}}/Monthly {% else %} Negotiable {% endif %} </h5>
                     Tags:
                     {% for tag in job.tags.all %}
