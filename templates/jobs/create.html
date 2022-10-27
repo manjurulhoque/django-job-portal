@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12 form-group">
+                            <div class="col-lg-6 form-group">
                                 <label for="category">Category</label>
                                 <select id="category" name="category" class="form-control select2">
                                     <option value="web-design" {% if form.category.value == "web-design" %}
@@ -130,6 +130,11 @@
                                             selected {% endif %}>Android
                                     </option>
                                 </select>
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="vacancy">Vacancy: </label>
+                                <input id="vacancy" name="vacancy" type="number" min="1" class="form-control"
+                                        value="{{ form.vacancy.value | default_if_none:"" }}">
                             </div>
                         </div>
                         <div class="row">
