@@ -88,47 +88,49 @@
             </div>
         </div>
     </section>
-    <section>
-        <div class="container">
-            <h4 class="heading">Trending this month</h4>
-            {% for trending in trendings %}
-                <div class="job-listing  job-listing--last">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="{% static 'img/company-1.png' %}"
-                                         alt="ShareBoardd " class="img-fluid">
-                                </div>
-                                <div class="col-10">
-                                    <h4 class="job__title">
-                                        <a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a>
-                                    </h4>
-                                    <p class="job__company">
-                                        {{ trending.company_name }}
-                                    </p>
+    {% if trendings %}
+        <section>
+            <div class="container">
+                <h4 class="heading">Trending this month</h4>
+                {% for trending in trendings %}
+                    <div class="job-listing  job-listing--last">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{% static 'img/company-1.png' %}"
+                                             alt="ShareBoardd " class="img-fluid">
+                                    </div>
+                                    <div class="col-10">
+                                        <h4 class="job__title">
+                                            <a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a>
+                                        </h4>
+                                        <p class="job__company">
+                                            {{ trending.company_name }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                            {{ trending.location }}
-                        </div>
-                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                            <p>Posted {{ trending.created_at|timesince }}</p>
-                        </div>
-                        <div class="col-sm-12 col-md-2 col-lg-1">
-                            <div class="job__star">
-                                <a href="#" data-toggle="tooltip" data-placement="top"
-                                   title="Save to favourites" class="job__star__link">
-                                    <i class="fa fa-star"></i>
-                                </a>
+                            <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
+                                {{ trending.location }}
+                            </div>
+                            <div class="col-10 col-md-3 col-lg-3 ml-auto">
+                                <p>Posted {{ trending.created_at|timesince }}</p>
+                            </div>
+                            <div class="col-sm-12 col-md-2 col-lg-1">
+                                <div class="job__star">
+                                    <a href="#" data-toggle="tooltip" data-placement="top"
+                                       title="Save to favourites" class="job__star__link">
+                                        <i class="fa fa-star"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
     <section class="section-divider">
         <div class="overlay"></div>
         <div class="container">

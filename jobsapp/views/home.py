@@ -46,6 +46,14 @@ class JobListView(ListView):
     context_object_name = "jobs"
     paginate_by = 5
 
+    def get_queryset(self):
+        return self.model.objects.unfilled()
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['total_jobs'] = self.model.objects.unfilled().count()
+        return data
+
 
 class JobDetailsView(DetailView):
     model = Job
