@@ -33,6 +33,7 @@
                                 <th>Position filled</th>
                                 <th>Date posted</th>
                                 <th>Date expiring</th>
+                                <th>Vacancy</th>
                                 <th>Applicants</th>
                                 <th>Actions</th>
                             </tr>
@@ -52,6 +53,7 @@
                                     </td>
                                     <td>{{ job.created_at }}</td>
                                     <td>{{ job.last_date }}</td>
+                                    <td>{{ job.vacancy }}</td>
                                     <td>
                                         <a href="{% url 'jobs:employer-dashboard-applicants' job.id %}"
                                            class="btn btn-success">
