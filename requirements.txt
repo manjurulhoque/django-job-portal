@@ -4,7 +4,7 @@ asgiref==3.4.1
 backports.zoneinfo==0.2.1
 black==20.8b1
 CacheControl==0.12.6
-certifi==2019.11.28
+certifi==2022.12.7
 cffi==1.14.3
 cfgv==3.3.0
 chardet==3.0.4
