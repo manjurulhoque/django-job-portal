@@ -1,8 +1,11 @@
 FROM python:3.8-buster
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY requirements.txt /app/
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+COPY requirements.txt /usr/src/app
 
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
