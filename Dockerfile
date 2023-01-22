@@ -10,7 +10,7 @@ COPY requirements.txt /usr/src/app
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . /app/
+COPY . /usr/src/app
 
 RUN cp .env.dev.sample .env
 
