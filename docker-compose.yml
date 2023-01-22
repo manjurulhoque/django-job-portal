@@ -8,7 +8,7 @@ services:
     volumes:
       - .:/app
       - .db_data/db.sqlite3:/db.sqlite3
-      - static_volume:/home/app/jobs/staticfiles
+      - static_volume:/usr/src/app/jobs/staticfiles
     ports:
       - "8000:8000"
 
