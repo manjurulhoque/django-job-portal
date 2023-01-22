@@ -14,6 +14,7 @@ COPY . /usr/src/app
 
 RUN cp .env.dev.sample .env
 
+RUN apt-get update
 RUN apt-get -y install nano
 
 #EXPOSE 8000
