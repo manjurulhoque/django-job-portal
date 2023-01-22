@@ -8,7 +8,7 @@ services:
       - "8000"
     volumes:
       - web-static:/usr/src/app/static
-    env_file: .env
+#    env_file: .env
     command: /usr/local/bin/gunicorn web.wsgi:application -w 2 -b :8000
 
   nginx:
