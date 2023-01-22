@@ -21,4 +21,6 @@ RUN apt-get -y install nano
 
 RUN chmod +x entrypoint.prod.sh
 
+RUN echo "Running from production dockerfile"
+
 CMD ["sh", "entrypoint.prod.sh"]
