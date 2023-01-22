@@ -23,4 +23,7 @@ RUN chmod +x entrypoint.prod.sh
 
 RUN echo "Running from production dockerfile"
 
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
 CMD ["sh", "entrypoint.prod.sh"]
