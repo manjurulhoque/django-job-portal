@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     restart: always
-    build: ./web
+    build: .
     expose:
       - "8000"
     volumes:
