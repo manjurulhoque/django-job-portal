@@ -3,13 +3,15 @@ version: '3'
 services:
   web:
     restart: always
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     expose:
       - "8000"
     volumes:
       - static_volume:/usr/src/app/jobs/staticfiles
     #    env_file: .env
-#    command: gunicorn jobs.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn jobs.wsgi:application --bind 0.0.0.0:8000
 
   nginx:
     restart: always

@@ -19,6 +19,6 @@ RUN apt-get -y install nano
 
 #EXPOSE 8000
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x entrypoint.prod.sh
 
-CMD ["sh", "entrypoint.sh"]
+CMD ["sh", "entrypoint.prod.sh"]
