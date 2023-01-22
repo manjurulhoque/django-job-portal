@@ -13,7 +13,7 @@ services:
 
   nginx:
     restart: always
-    build: ./nginx/
+    build: ./deployment/nginx/
     ports:
       - "80:80"
     volumes:
