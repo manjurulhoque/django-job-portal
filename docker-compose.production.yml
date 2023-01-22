@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  jobs:
+  we:
     restart: always
     build: .
     expose:
@@ -18,8 +18,8 @@ services:
       - "80:80"
     volumes:
       - static_volume:/home/app/jobs/staticfiles
-    links:
-      - web:web
+    depends_on:
+      - web
 
 volumes:
   static_volume:
