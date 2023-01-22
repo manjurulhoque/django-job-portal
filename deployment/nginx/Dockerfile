@@ -1,4 +1,5 @@
-FROM nginx:1.21-alpine
+FROM tutum/nginx
+#FROM nginx:1.21-alpine
 
 RUN rm /etc/nginx/sites-enabled/default || true
 
