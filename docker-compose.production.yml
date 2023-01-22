@@ -1,15 +1,15 @@
 version: '3'
 
 services:
-  web:
+  jobs:
     restart: always
     build: .
     expose:
       - "8000"
     volumes:
-      - web-static:/usr/src/app/static
-#    env_file: .env
-    command: /usr/local/bin/gunicorn jobs.wsgi:application -w 2 -b :8000
+      - static_volume:/home/app/jobs/staticfiles
+    #    env_file: .env
+    command: gunicorn jobs.wsgi:application -w 2 -b :8000
 
   nginx:
     restart: always
@@ -17,9 +17,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - web-static:/www/static
+      - static_volume:/home/app/jobs/staticfiles
     links:
       - web:web
 
 volumes:
-  web-static:
+  static_volume:
