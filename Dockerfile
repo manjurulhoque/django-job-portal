@@ -14,7 +14,9 @@ COPY . /usr/src/app
 
 RUN cp .env.dev.sample .env
 
-EXPOSE 8000
+RUN apt-get -y install nano
+
+#EXPOSE 8000
 
 RUN chmod +x entrypoint.sh
 
