@@ -15,6 +15,7 @@ env = environ.Env()
 SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
 
 DEBUG = env("DEBUG", default=False)
+print("DEBUG: ", DEBUG)
 
 # DEBUG = True
 SITE_ID = 1
