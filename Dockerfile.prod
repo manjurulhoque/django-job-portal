@@ -21,6 +21,10 @@ RUN apt-get -y install nano
 
 RUN chmod +x entrypoint.prod.sh
 
+ENV APP_HOME=/usr/src/app
+RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
+
 RUN mkdir staticfiles
 RUN mkdir mediafiles
 
