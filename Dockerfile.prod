@@ -21,6 +21,9 @@ RUN apt-get -y install nano
 
 RUN chmod +x entrypoint.prod.sh
 
+RUN mkdir staticfiles
+RUN mkdir mediafiles
+
 RUN echo "Running from production dockerfile"
 
 # Collect static files
