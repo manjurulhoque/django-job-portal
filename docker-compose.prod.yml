@@ -9,7 +9,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - static_volume:/usr/src/app/jobs/staticfiles
+      - static_volume:/usr/src/app/staticfiles
     #    env_file: .env
     command: gunicorn jobs.wsgi:application --bind 0.0.0.0:8000
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - static_volume:/usr/src/app/jobs/staticfiles
+      - static_volume:/usr/src/app/staticfiles
     depends_on:
       - web
 
