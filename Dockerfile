@@ -14,11 +14,13 @@ COPY . /usr/src/app
 
 RUN cp .env.dev.sample .env
 
-RUN apt-get update
-RUN apt-get -y install nano
-
 #EXPOSE 8000
 
 RUN chmod +x entrypoint.sh
+
+ENV APP_HOME=/usr/src/app
+ENV DEBUG=1
+RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
 
 CMD ["sh", "entrypoint.sh"]
