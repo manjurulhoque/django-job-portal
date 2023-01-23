@@ -25,8 +25,8 @@ ENV APP_HOME=/usr/src/app
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/mediafiles
 
-RUN mkdir staticfiles
-RUN mkdir mediafiles
+RUN mkdir -p staticfiles
+RUN mkdir -p mediafiles
 
 RUN echo "Running from production dockerfile"
 
