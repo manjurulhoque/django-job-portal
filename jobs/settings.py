@@ -14,6 +14,9 @@ env = environ.Env()
 
 SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
 
+DEBUG = env("DEBUG", default=False)
+print("DEBUG: ", DEBUG)
+
 # DEBUG = True
 SITE_ID = 1
 INSTALLED_APPS = [
@@ -134,7 +137,7 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
 # ALLOWED_HOSTS = ['django-portal.herokuapp.com', 'localhost', 'jobs.manjurulhoque.com', '127.0.0.1', 'localhost:3000']
 # cors config
 CORS_ORIGIN_ALLOW_ALL = True
@@ -155,11 +158,12 @@ CORS_ALLOW_HEADERS = (
 )
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # for production
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 AUTH_USER_MODEL = "accounts.user"
 
@@ -246,8 +250,6 @@ SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
 }
 
-DEBUG = True
-
 LOGIN_URL = reverse_lazy("accounts:login")
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
@@ -314,5 +316,5 @@ ENABLE_PROMETHEUS = int(os.environ.get("ENABLE_PROMETHEUS", "0"))
 if ENABLE_PROMETHEUS:
     INSTALLED_APPS += ["django_prometheus"]
     MIDDLEWARE = ['django_prometheus.middleware.PrometheusBeforeMiddleware'] + MIDDLEWARE + \
-        ['django_prometheus.middleware.PrometheusAfterMiddleware']
+                 ['django_prometheus.middleware.PrometheusAfterMiddleware']
     MIDDLEWARE.append("jobs.middlewares.CustomMiddleware")

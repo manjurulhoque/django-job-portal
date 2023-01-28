@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    expose:
+      - "8000"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    #    env_file: .env
+    command: gunicorn jobs.wsgi:application --bind 0.0.0.0:8000
+
+  nginx:
+    restart: always
+    build: ./deployment/nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  media_volume:
