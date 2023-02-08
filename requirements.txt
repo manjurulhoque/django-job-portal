@@ -13,7 +13,7 @@ colorama==0.4.3
 contextlib2==0.6.0
 coreapi==2.3.3
 coreschema==0.0.4
-cryptography==3.2.1
+cryptography==39.0.1
 defusedxml==0.7.0rc1
 distlib==0.3.2
 distro==1.4.0
