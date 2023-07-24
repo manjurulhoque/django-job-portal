@@ -33,7 +33,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'git@github.com:manjurulhoque/django-job-portal.git'
+                git 'https://github.com/manjurulhoque/django-job-portal.git'
             }
         }
 
