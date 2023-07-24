@@ -62,7 +62,7 @@ node {
             //slackSend color: "warning", message: "Started `${env.JOB_NAME}#${env.BUILD_NUMBER}`\n\n_The changes:_\n${lastChanges}"
 
         stage 'Deploy'
-            sh 'cd projects/django/job-portal/'
+            // sh 'cd projects/django/job-portal/'
             sh 'docker-compose -f docker-compose.prod.yml up --build -d'
 
         stage 'Publish results'
