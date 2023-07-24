@@ -40,6 +40,9 @@ pipeline {
         stage('Build and Deploy') {
             steps {
                 script {
+                    // navigate into the correct directory
+                    sh 'cd projects/django/job-portal/'
+
                     // build and run docker-compose
                     sh 'docker-compose -f docker-compose.prod.yml up --build -d'
                 }
