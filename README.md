@@ -93,6 +93,10 @@ Used Tech Stack
 
     `python manage.py runserver`
 
+5. Default django admin credentials:
+
+    `email: admin@admin.com`
+    `password: admin`
 
 #### Run test:
 ``python manage.py test``
