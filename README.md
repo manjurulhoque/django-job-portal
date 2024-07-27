@@ -34,10 +34,10 @@ Used Tech Stack
 <img src="screenshots/seven.png" height="800">
 
 ## Login page
-<img src="screenshots/five.png" height="800" alt="login">
+<img src="screenshots/five.png" width="800" alt="login">
 
 ## Add new position as employer
-<img src="screenshots/two.png" height="800" alt="form">
+<img src="screenshots/two.png" width="800" alt="form">
 
 ## Job details
 <img src="screenshots/three.png" height="800" alt="details">
