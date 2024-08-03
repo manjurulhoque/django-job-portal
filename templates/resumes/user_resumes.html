@@ -21,8 +21,7 @@
                         <img src="https://images.pexels.com/photos/590044/pexels-photo-590044.jpeg?auto=compress&cs=tinysrgb&w=600" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ resume.name }}</h5>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'resume_cv:builder' resume.code %}" class="btn btn-primary">Edit</a>
                         </div>
                     </div>
                 </div>
