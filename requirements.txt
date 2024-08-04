@@ -92,4 +92,5 @@ uritemplate==4.1.1
 urllib3==2.2.3
 virtualenv==20.26.6
 webencodings==0.5.1
+weasyprint==63.0
 whitenoise==6.7.0

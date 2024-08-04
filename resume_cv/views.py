@@ -1,13 +1,16 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView
+from weasyprint import HTML
 
+from jobsapp.decorators import user_is_employee
 # Create your views here.
 from jobsapp.mixins import EmployeeRequiredMixin
 from resume_cv.forms import ResumeCvForm
@@ -113,3 +116,15 @@ class UserResumeListView(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(user_id=self.request.user.id).order_by("-id")
+
+
+@login_required
+@user_is_employee
+def download_resume(request, id):
+    resume = ResumeCv.objects.get(id=id)
+    if resume:
+        pdf_file = HTML(string=resume.content).write_pdf()
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = f'attachment; filename="{resume.name}.pdf"'
+        return response
+    return redirect("resume_cv:resumes")

@@ -76,7 +76,7 @@
     let urlStore = '{% url 'resume-cv.update.builder' resume.id %}';
     let urlLoad = '{% url 'resume-cv.load.builder' resume.id %}';
     let back_button_url = "{% url 'resume_cv:templates' %}";
-    let exportPDF_url = "";
+    let exportPDF_url = '{% url 'resume_cv:export.pdf' resume.id %}';
 
     let images_url = ['{% static 'img/1875187.jpg' %}'];
     let all_fonts = ['Arial', 'Verdana', 'Helvetica', 'Tahoma', 'Trebuchet MS', 'Times New Roman', 'Georgia', 'Garamond', 'Courier New', 'Brush Script MT'];
