@@ -13,6 +13,7 @@ from weasyprint import HTML, CSS
 from weasyprint.text.fonts import FontConfiguration
 
 from jobsapp.decorators import user_is_employee
+
 # Create your views here.
 from jobsapp.mixins import EmployeeRequiredMixin
 from resume_cv.forms import ResumeCvForm
@@ -127,7 +128,8 @@ def download_resume(request, id):
     if resume:
         # Font is not working in pdf
         font_config = FontConfiguration()
-        css = CSS(string=f'''
+        css = CSS(
+            string=f"""
                     @font-face {{
                         font-family: "Font Awesome 5 Brands";
                         font-style: normal;
@@ -175,9 +177,11 @@ def download_resume(request, id):
                         font-family: "Font Awesome 5 Brands";
                         font-weight: 400;
                         font-style: normal;
-                    }}''', font_config=font_config)
+                    }}""",
+            font_config=font_config,
+        )
 
-        pdf_file = HTML(string=resume.content, encoding='utf-8').write_pdf(stylesheets=[css], font_config=font_config)
+        pdf_file = HTML(string=resume.content, encoding="utf-8").write_pdf(stylesheets=[css], font_config=font_config)
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = f'attachment; filename="{resume.name}.pdf"'
         return response
