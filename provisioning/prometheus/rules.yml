@@ -1,0 +1,9 @@
+groups:
+- name: nodes
+  rules:
+  - alert: App server is down
+    expr: up{instance="app:8000"} == 0
+    for: 1m
+    annotations:
+      description: App server is not running
+      summary: App server is down and not running

@@ -1,9 +1,36 @@
 version: '3'
 
 services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./provisioning/prometheus:/etc/prometheus
+    ports:
+      - '9090:9090'
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    ports:
+      - '9093:9093'
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./provisioning/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./provisioning/grafana/dashboards:/etc/grafana/provisioning/dashboards
+  node-exporter: # addidional service as a exporter example
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - '9100:9100'
   web:
     restart: always
     build: .
+    environment:
+      ENABLE_PROMETHEUS: 1
     command: ./entrypoint.sh
     volumes:
       - .:/app
