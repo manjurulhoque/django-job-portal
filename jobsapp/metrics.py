@@ -15,13 +15,9 @@ last_user_activity_time = Gauge(
 )
 
 response_time_histogram = Histogram(
-    name='app_response_time_seconds',
-    documentation='Response time for requests',
-    labelnames=['method', 'endpoint']
+    name="app_response_time_seconds", documentation="Response time for requests", labelnames=["method", "endpoint"]
 )
 
 error_rates_counter = Counter(
-    name='app_error_rates_total',
-    documentation='The total number of errors',
-    labelnames=['status_code', 'endpoint']
+    name="app_error_rates_total", documentation="The total number of errors", labelnames=["status_code", "endpoint"]
 )

@@ -315,8 +315,11 @@ ENABLE_PROMETHEUS = 1
 
 if ENABLE_PROMETHEUS:
     INSTALLED_APPS += ["django_prometheus"]
-    MIDDLEWARE = ['django_prometheus.middleware.PrometheusBeforeMiddleware'] + MIDDLEWARE + \
-                 ['django_prometheus.middleware.PrometheusAfterMiddleware', "jobs.middlewares.CustomMiddleware"]
+    MIDDLEWARE = (
+        ["django_prometheus.middleware.PrometheusBeforeMiddleware"]
+        + MIDDLEWARE
+        + ["django_prometheus.middleware.PrometheusAfterMiddleware", "jobs.middlewares.CustomMiddleware"]
+    )
     MIDDLEWARE.append("jobs.middlewares.CustomMiddleware")
     MIDDLEWARE.append("jobs.middlewares.ResponseTimeMiddleware")
     MIDDLEWARE.append("jobs.middlewares.ErrorTrackingMiddleware")

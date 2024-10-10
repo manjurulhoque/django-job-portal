@@ -28,10 +28,11 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-lang_patterns = i18n_patterns(path("", include("jobsapp.urls")),
-                              path("", include("accounts.urls")),
-                              path("", include("resume_cv.urls")),
-                              )
+lang_patterns = i18n_patterns(
+    path("", include("jobsapp.urls")),
+    path("", include("accounts.urls")),
+    path("", include("resume_cv.urls")),
+)
 
 # sitemaps = {
 #     '': JobViewSitemap
@@ -61,7 +62,7 @@ urlpatterns = lang_patterns + [
 ]
 
 if settings.ENABLE_PROMETHEUS:
-    urlpatterns.append(path("", include('django_prometheus.urls')))
+    urlpatterns.append(path("", include("django_prometheus.urls")))
 
 if bool(settings.DEBUG):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

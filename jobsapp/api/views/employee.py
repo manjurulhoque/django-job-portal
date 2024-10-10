@@ -11,7 +11,7 @@ from jobsapp.models import Applicant, Job
 
 class ApplyJobApiView(CreateAPIView):
     serializer_class = ApplyJobSerializer
-    http_method_names = [u"post"]
+    http_method_names = ["post"]
     permission_classes = [IsAuthenticated, IsEmployee]
 
     def perform_create(self, serializer):
