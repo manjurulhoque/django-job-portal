@@ -34,13 +34,13 @@ Used Tech Stack
 <img src="screenshots/seven.png" height="800">
 
 ## Login page
-<img src="screenshots/five.png" height="800">
+<img src="screenshots/five.png" height="800" alt="login">
 
 ## Add new position as employer
-<img src="screenshots/two.png" height="800">
+<img src="screenshots/two.png" height="800" alt="form">
 
 ## Job details
-<img src="screenshots/three.png" height="800">
+<img src="screenshots/three.png" height="800" alt="details">
 
 ## Swagger API
 <img src="screenshots/four.png" height="800">
@@ -56,7 +56,7 @@ Used Tech Stack
 
     Or
 
-    `python3.8 -m venv venv`
+    `python3.11 -m venv venv`
 
 2. Activate it
 
@@ -74,16 +74,15 @@ Used Tech Stack
 
 #### Run
 
-1.With the venv activate it, execute:
+1. With the venv activate it, execute:
 
     python manage.py collectstatic
 
-*Note* : Collect static is not necessary when debug is True (in dev mode)
+   *Note* : Collect static is not necessary when debug is True (in dev mode)
 
 2. Create initial database:
 
     `python manage.py migrate`
-
 
 3. Load demo data (optional):
 

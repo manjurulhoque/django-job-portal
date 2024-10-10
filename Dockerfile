@@ -1,16 +1,16 @@
-FROM python:3.8-buster
+FROM python:3.11-slim
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY requirements.txt /usr/src/app
+COPY requirements.txt requirements.txt
 
 # RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . /usr/src/app
+COPY . .
 
 RUN cp .env.dev.sample .env
 
@@ -18,7 +18,7 @@ RUN cp .env.dev.sample .env
 
 RUN chmod +x entrypoint.sh
 
-ENV APP_HOME=/usr/src/app
+ENV APP_HOME=/app
 ENV DEBUG=1
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/mediafiles
