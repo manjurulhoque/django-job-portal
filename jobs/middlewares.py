@@ -3,8 +3,7 @@ import time
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.timezone import now
 
-from jobsapp.metrics import error_rates_counter, requests_total, last_user_activity_time, \
-    response_time_histogram
+from jobsapp.metrics import error_rates_counter, requests_total, last_user_activity_time, response_time_histogram
 
 
 class CustomMiddleware(MiddlewareMixin):
@@ -19,14 +18,13 @@ class CustomMiddleware(MiddlewareMixin):
             requests_total.labels(
                 endpoint=request.get_full_path(),  # call the method to get the path
                 method=request.method,
-                user=request.user.get_username() if request.user.is_authenticated else 'Anonymous'
+                user=request.user.get_username() if request.user.is_authenticated else "Anonymous",
                 # use get_username() for the user label
             ).inc()
 
             # Update the last user activity time
             if request.user.is_authenticated:
-                last_user_activity_time.labels(user=request.user.get_username()).set(
-                    now().timestamp())
+                last_user_activity_time.labels(user=request.user.get_username()).set(now().timestamp())
 
         # Call the next middleware or view
         response = self.get_response(request)
@@ -42,8 +40,7 @@ class ResponseTimeMiddleware:
         response = self.get_response(request)
         response_time = time.time() - start_time
 
-        response_time_histogram.labels(method=request.method, endpoint=request.path).observe(
-            response_time)
+        response_time_histogram.labels(method=request.method, endpoint=request.path).observe(response_time)
 
         return response
 
