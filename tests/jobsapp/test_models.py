@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.test import TestCase
-from django.utils import translation
+from django.utils import translation, timezone
 
 from accounts.models import User
 from jobsapp.models import Applicant, Job
@@ -20,7 +20,7 @@ class BaseTest(TestCase):
             "location": "Dhaka, Bangladesh",
             "type": "1",
             "category": "web-development",
-            "last_date": datetime.now() + timedelta(days=30),
+            "last_date": timezone.now() + timedelta(days=30),
             "company_name": "Dev Soft",
             "company_description": "A foreign country",
             "website": "www.devsoft.com",

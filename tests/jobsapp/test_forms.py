@@ -1,6 +1,7 @@
-from datetime import datetime, timedelta
-from http import HTTPStatus
+from datetime import timedelta
+
 from django.test import TestCase
+from django.utils import timezone
 
 from accounts.models import User
 from jobsapp.forms import CreateJobForm
@@ -13,11 +14,12 @@ class TestCreateJobForm(TestCase):
         self.valid_job = {
             "title": "Junior Software Engineer",
             "description": "Looking for Python developer",
+            "vacancy": 2,
             "salary": 35000,
             "location": "Dhaka, Bangladesh",
             "type": "1",
             "category": "web-development",
-            "last_date": datetime.now() + timedelta(days=30),
+            "last_date": timezone.now() + timedelta(days=30),
             "company_name": "Dev Soft",
             "company_description": "A foreign country",
             "website": "www.devsoft.com",
