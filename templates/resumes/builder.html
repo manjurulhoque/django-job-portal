@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@
 <div id="mobileAlert">
     <div class="message">
         <h3>Builder doesn't work on mobile</h3>
-        <a href="#">Back</a>
+        <a href="{% url 'resume_cv:templates' %}">Back</a>
     </div>
 </div>
 <!-- The Modal -->
@@ -69,18 +69,18 @@
 <div id="gjs"></div>
 
 <script type="text/javascript">
-    var _token = '{{ token }}';
-    var upload_Image = 'uploadimage_url';
-    var url_load_template = "";
-    var url_default_css_template = '{% static 'css/font-awesome.css' %}';
-    var urlStore = '{% url 'resume-cv.update.builder' resume.id %}';
-    var urlLoad = '{% url 'resume-cv.load.builder' resume.id %}';
-    var back_button_url = "{% url 'resume_cv:templates' %}";
-    var exportPDF_url = "";
+    let _token = '{{ token }}';
+    let upload_Image = 'uploadimage_url';
+    let url_load_template = "";
+    let url_default_css_template = '{% static 'css/font-awesome.css' %}';
+    let urlStore = '{% url 'resume-cv.update.builder' resume.id %}';
+    let urlLoad = '{% url 'resume-cv.load.builder' resume.id %}';
+    let back_button_url = "{% url 'resume_cv:templates' %}";
+    let exportPDF_url = "";
 
-    var images_url = ['{% static 'img/1875187.jpg' %}'];
-    var all_fonts = ['Arial', 'Verdana', 'Helvetica', 'Tahoma', 'Trebuchet MS', 'Times New Roman', 'Georgia', 'Garamond', 'Courier New', 'Brush Script MT'];
-    var langs = {
+    let images_url = ['{% static 'img/1875187.jpg' %}'];
+    let all_fonts = ['Arial', 'Verdana', 'Helvetica', 'Tahoma', 'Trebuchet MS', 'Times New Roman', 'Georgia', 'Garamond', 'Courier New', 'Brush Script MT'];
+    let langs = {
         "fontFamily": "FONT FAMILY",
         "changeTemplates": "Change Templates",
         "exportPdf": "Download PDF",
@@ -88,7 +88,7 @@
     var config = {
         all_icons: ["fab fa-500px", "fab fa-accessible-icon", "fab fa-accusoft", "fab fa-acquisitions-incorporated", "fas fa-ad", "fas fa-address-book", "far fa-address-book", "fas fa-address-card"],
     };
-    var all_icons = ["fab fa-500px", "fab fa-accessible-icon", "fab fa-accusoft", "fab fa-acquisitions-incorporated", "fas fa-ad", "fas fa-address-book", "far fa-address-book", "fas fa-address-card"];
+    let all_icons = ["fab fa-500px", "fab fa-accessible-icon", "fab fa-accusoft", "fab fa-acquisitions-incorporated", "fas fa-ad", "fas fa-address-book", "far fa-address-book", "fas fa-address-card"];
 
 </script>
 <script src="{% static 'js/builder.js' %}"></script>

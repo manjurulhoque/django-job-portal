@@ -104,3 +104,12 @@ def load_builder(request, id):
             },
             safe=True,
         )
+
+
+class UserResumeListView(ListView):
+    model = ResumeCv
+    template_name = "resumes/user_resumes.html"
+    context_object_name = "resumes"
+
+    def get_queryset(self):
+        return self.model.objects.filter(user_id=self.request.user.id).order_by("-id")

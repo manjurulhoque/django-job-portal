@@ -132,6 +132,7 @@
                                     >
                                         Edit Profile
                                     </a>
+                                    <a href="{% url 'resume_cv:resumes' %}" class="dropdown-item">My resumes</a>
                                     <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                                 </div>
                             </li>
@@ -171,7 +172,6 @@
 </header>
 <div>
     {% if messages %}
-
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                 {{ message }}
@@ -179,7 +179,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {#            <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+            {#<li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>#}
         {% endfor %}
 
     {% endif %}

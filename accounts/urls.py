@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
+from django.urls import path
 
 from jobsapp.views import EditProfileView, EmployerProfileEditView
-
 from .views import *
 
 app_name = "accounts"
