@@ -59,8 +59,8 @@
     editor.on('load', function () {
         // Customize builder interface
         // remove class's state-hover,click...
-        var classs_state = document.getElementById("gjs-clm-up");
-        if (classs_state) classs_state.remove();
+        var class_state = document.getElementById("gjs-clm-up");
+        if (class_state) class_state.remove();
         // add default css on template font-awesome
         const head = editor.Canvas.getDocument().head;
         head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="${url_default_css_template}">`);
