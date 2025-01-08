@@ -45,7 +45,7 @@ inflection==0.5.1
 ipaddr==2.2.0
 isort==5.13.2
 itypes==1.2.0
-Jinja2==3.1.4
+Jinja2==3.1.5
 lockfile==0.12.2
 MarkupSafe==3.0.1
 msgpack==1.1.0
