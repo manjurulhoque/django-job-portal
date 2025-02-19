@@ -103,4 +103,6 @@ Used Tech Stack
 #### To dump data:
 ``python manage.py dumpdata --format=json --indent 4 app_name > app_name/fixtures/app_name_initial_data.json``
 
+![Analytics](https://repobeats.axiom.co/api/embed/2ed66773eb8b3acef70bc808ddc6701253f2fc09.svg "Repobeats analytics image")
+
 Show your support by 🌟 the project!!
