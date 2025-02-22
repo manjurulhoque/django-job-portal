@@ -18,7 +18,7 @@ services:
     restart: always
     build: ./deployment/nginx/
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
