@@ -5,32 +5,28 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Install system dependencies using apk
+# Copy only requirements first to leverage Docker cache
+COPY requirements.txt .
+
+# Install system dependencies and Python packages in a single layer
 RUN apk update \
-    && apk add --no-cache nano
+    && apk add --no-cache \
+        nano \
+        gobject-introspection-dev \
+        pango-dev \
+        cairo-dev \
+        libffi-dev \
+        libmagic \
+        libxml2-dev \
+        libxslt-dev \
+    && python -m pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-RUN apk add --no-cache \
-    gobject-introspection-dev \
-    pango-dev \
-    cairo-dev \
-    libffi-dev \
-    libmagic \
-    libxml2-dev \
-    libxslt-dev
+# Copy the rest of the application
+COPY . .
 
-COPY requirements.txt /usr/src/app
-
-RUN python -m pip install --upgrade pip
-
-RUN pip install -r requirements.txt
-
-COPY . /usr/src/app
-
-RUN cp .env.dev.sample .env
-
-#EXPOSE 8000
-
-RUN chmod +x entrypoint.prod.sh
+RUN cp .env.dev.sample .env \
+    && chmod +x entrypoint.prod.sh
 
 ENV APP_HOME=/usr/src/app
 # No need to create directories twice
