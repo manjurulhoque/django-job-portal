@@ -4,7 +4,7 @@ from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpRespons
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from ..decorators import user_is_employee
 from ..forms import ApplyJobForm
@@ -23,6 +23,10 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context["trendings"] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
         return context
+
+
+class AboutUsView(TemplateView):
+    template_name = "about_us.html"
 
 
 class SearchView(ListView):
