@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     expose:
-      - "8000"
+      - "8000:8000"
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
