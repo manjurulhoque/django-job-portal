@@ -7,6 +7,14 @@ User = get_user_model()
 
 
 class RegistrationAPITestCase(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.invalid_data = {
+            "email": "invalid-email",
+            "password": "short",  # too short
+            "username": "test",
+        }
+        
     def setUp(self):
         self.url = reverse("accounts.api:register")
         self.valid_data = {
@@ -15,11 +23,6 @@ class RegistrationAPITestCase(APITestCase):
             "password2": "testpass123",
             "gender": "male",
             "role": "employee",
-        }
-        self.invalid_data = {
-            "email": "invalid-email",
-            "password": "short",  # too short
-            "username": "test",
         }
 
     def test_registration_success(self):
@@ -34,6 +37,33 @@ class RegistrationAPITestCase(APITestCase):
     def test_registration_invalid_data(self):
         response = self.client.post(self.url, self.invalid_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        
+    def test_registration_duplicate_email(self):
+        # Create a user with the same email
+        User.objects.create_user(
+            email=self.valid_data["email"],
+            password="testpass123",
+            role="employee"
+        )
+        response = self.client.post(self.url, self.valid_data, format="json")
+        """
+        response
+        {
+            "status": False,
+            "message": "A user with that email already exists. ",
+            "errors": {
+                "email": ["A user with that email already exists."]
+            }
+        }
+        """
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["errors"][0]["email"], "A user with that email already exists.")
+        self.assertFalse(response.data["status"])
+        self.assertEqual(response.data["message"], "A user with that email already exists. ")
+    
+    def tearDown(self):
+        # Clean up created data
+        User.objects.all().delete()
 
 
 class EditEmployeeProfileAPITestCase(APITestCase):
