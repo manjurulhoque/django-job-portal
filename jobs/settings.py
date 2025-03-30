@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework_social_oauth2",
     "django.contrib.humanize",
     "graphene_django",
+    "categories",
 ]
 
 MIDDLEWARE = [
