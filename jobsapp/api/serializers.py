@@ -41,7 +41,10 @@ class DashboardJobSerializer(serializers.ModelSerializer):
 
 
 class NewJobSerializer(serializers.ModelSerializer):
-    user = UserSerializer(default=serializers.CurrentUserDefault())
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = Job
