@@ -17,6 +17,8 @@ from .views import (
     already_applied_api_view,
 )
 
+app_name = "jobs-api"
+
 router = DefaultRouter()
 router.register("jobs", JobViewSet)
 
@@ -36,10 +38,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("docs/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-    path("search/", SearchApiView.as_view()),
-    path("apply-job/<int:job_id>/", ApplyJobApiView.as_view()),
-    path("applied-jobs/", AppliedJobsAPIView.as_view()),
-    path("applied-for-job/<int:job_id>/", already_applied_api_view),
+    path("search/", SearchApiView.as_view(), name="search"),
+    path("apply-job/<int:job_id>/", ApplyJobApiView.as_view(), name="apply-job"),
+    path("applied-jobs/", AppliedJobsAPIView.as_view(), name="applied-jobs"),
+    path("applied-for-job/<int:job_id>/", already_applied_api_view, name="applied-for-job"),
     path(
         "employer/",
         include(

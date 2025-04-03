@@ -27,7 +27,7 @@ class TestCommonApiViews(APITestCase):
 
     def test_jobs_list_api_view(self):
         """Test the jobs list API endpoint"""
-        url = reverse('jobs:list')
+        url = reverse('jobs-api:job-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 5)
@@ -35,10 +35,15 @@ class TestCommonApiViews(APITestCase):
     def test_job_detail_api_view(self):
         """Test the job detail API endpoint"""
         job = self.jobs[0]
-        url = reverse('job-detail', kwargs={'pk': job.id})
+        url = reverse('jobs-api:job-detail', kwargs={'pk': job.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['title'], job.title)
 
     def test_search_api_view(self):
-        pass
+        """Test the search API endpoint"""
+        url = reverse('jobs-api:search')
+        response = self.client.get(url, {'location': 'Dhaka', 'position': 'Software Engineer'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
