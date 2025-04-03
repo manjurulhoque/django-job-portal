@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "graphene_django",
     "categories",
+    "django_extensions"
 ]
 
 MIDDLEWARE = [
