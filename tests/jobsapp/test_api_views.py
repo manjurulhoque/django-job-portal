@@ -92,3 +92,26 @@ class TestCommonApiViews(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["applicant"]["job"]["id"], self.jobs[0].id)
+
+    def test_already_applied_api_view(self):
+        """Test the already applied API endpoint"""
+        # check without authentication
+        url = reverse("jobs-api:applied-for-job", kwargs={"job_id": self.jobs[0].id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # check with authentication before applying
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.json()["is_applied"])
+
+        # apply for the job
+        apply_url = reverse("jobs-api:apply-job", kwargs={"job_id": self.jobs[0].id})
+        self.client.post(apply_url, {"job": self.jobs[0].id})
+        
+        # check after applying
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json()["is_applied"])
+        
