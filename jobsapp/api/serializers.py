@@ -42,8 +42,7 @@ class DashboardJobSerializer(serializers.ModelSerializer):
 
 class NewJobSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        default=serializers.CurrentUserDefault()
+        queryset=User.objects.all(), default=serializers.CurrentUserDefault()
     )
 
     class Meta:
@@ -56,6 +55,13 @@ class ApplyJobSerializer(serializers.ModelSerializer):
         model = Applicant
         fields = ("job",)
 
+    def validate(self, attrs):
+        if Applicant.objects.filter(
+            user=self.context.get("request", None).user, job=attrs.get("job")
+        ).exists():
+            raise serializers.ValidationError("You have already applied to this job")
+        return attrs
+
 
 class ApplicantSerializer(serializers.ModelSerializer):
     applied_user = serializers.SerializerMethodField()
@@ -64,7 +70,15 @@ class ApplicantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Applicant
-        fields = ("id", "job_id", "applied_user", "job", "status", "created_at", "comment")
+        fields = (
+            "id",
+            "job_id",
+            "applied_user",
+            "job",
+            "status",
+            "created_at",
+            "comment",
+        )
 
     def get_status(self, obj):
         return obj.get_status

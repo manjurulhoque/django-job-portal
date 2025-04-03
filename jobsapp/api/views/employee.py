@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from jobsapp.api.permissions import IsEmployee
-from jobsapp.api.serializers import ApplicantSerializer, AppliedJobSerializer, ApplyJobSerializer, JobSerializer
+from jobsapp.api.serializers import AppliedJobSerializer, ApplyJobSerializer
 from jobsapp.models import Applicant, Job
 
 
