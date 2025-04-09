@@ -24,9 +24,7 @@ class TestCommonApiViews(APITestCase):
         url = reverse("categories:categories-list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
-            len(response.json()), 15
-        )  # job factory creates 5 more categories
+        self.assertEqual(len(response.json()), 15)  # job factory creates 5 more categories
 
     def test_jobs_list_api_view(self):
         """Test the jobs list API endpoint"""
@@ -46,9 +44,7 @@ class TestCommonApiViews(APITestCase):
     def test_search_api_view(self):
         """Test the search API endpoint"""
         url = reverse("jobs-api:search")
-        response = self.client.get(
-            url, {"location": "Dhaka", "position": "Software Engineer"}
-        )
+        response = self.client.get(url, {"location": "Dhaka", "position": "Software Engineer"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_apply_job_api_view(self):
@@ -109,9 +105,8 @@ class TestCommonApiViews(APITestCase):
         # apply for the job
         apply_url = reverse("jobs-api:apply-job", kwargs={"job_id": self.jobs[0].id})
         self.client.post(apply_url, {"job": self.jobs[0].id})
-        
+
         # check after applying
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.json()["is_applied"])
-        

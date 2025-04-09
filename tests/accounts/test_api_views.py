@@ -14,7 +14,7 @@ class RegistrationAPITestCase(APITestCase):
             "password": "short",  # too short
             "username": "test",
         }
-        
+
     def setUp(self):
         self.url = reverse("accounts.api:register")
         self.valid_data = {
@@ -37,14 +37,10 @@ class RegistrationAPITestCase(APITestCase):
     def test_registration_invalid_data(self):
         response = self.client.post(self.url, self.invalid_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        
+
     def test_registration_duplicate_email(self):
         # Create a user with the same email
-        User.objects.create_user(
-            email=self.valid_data["email"],
-            password="testpass123",
-            role="employee"
-        )
+        User.objects.create_user(email=self.valid_data["email"], password="testpass123", role="employee")
         response = self.client.post(self.url, self.valid_data, format="json")
         """
         response
@@ -60,7 +56,7 @@ class RegistrationAPITestCase(APITestCase):
         self.assertEqual(response.data["errors"][0]["email"], "A user with that email already exists.")
         self.assertFalse(response.data["status"])
         self.assertEqual(response.data["message"], "A user with that email already exists. ")
-    
+
     def tearDown(self):
         # Clean up created data
         User.objects.all().delete()
@@ -68,9 +64,7 @@ class RegistrationAPITestCase(APITestCase):
 
 class EditEmployeeProfileAPITestCase(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            email="test@example.com", password="testpass123", role="employee"
-        )
+        self.user = User.objects.create_user(email="test@example.com", password="testpass123", role="employee")
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
         self.url = reverse("accounts.api:employee-profile")

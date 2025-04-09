@@ -6,11 +6,7 @@ from accounts.models import User
 
 class TestUserSerializer(TestCase):
     def setUp(self):
-        self.user_data = {
-            "email": "test@example.com",
-            "password": "testpass123",
-            "role": "employee"
-        }
+        self.user_data = {"email": "test@example.com", "password": "testpass123", "role": "employee"}
         self.user = User.objects.create_user(**self.user_data)
 
     def test_user_serializer(self):
@@ -20,7 +16,7 @@ class TestUserSerializer(TestCase):
         # Verify excluded fields are not in serialized data
         self.assertNotIn("password", serializer.data)
         self.assertNotIn("is_staff", serializer.data)
-    
+
     def test_user_serializer_with_partial_update(self):
         update_data = {"role": "employer"}
         serializer = UserSerializer(self.user, data=update_data, partial=True)
@@ -36,7 +32,7 @@ class TestUserCreateSerializer(TestCase):
             "password": "testpass123",
             "password2": "testpass123",
             "gender": "male",
-            "role": "employee"
+            "role": "employee",
         }
 
     def test_create_user_with_valid_data(self):
@@ -56,13 +52,8 @@ class TestUserCreateSerializer(TestCase):
 
     def test_create_user_with_existing_email(self):
         # Create a user first
-        User.objects.create_user(
-            email=self.valid_payload["email"],
-            password="somepass",
-            role="employee"
-        )
+        User.objects.create_user(email=self.valid_payload["email"], password="somepass", role="employee")
         # Try to create another user with same email
         serializer = UserCreateSerializer(data=self.valid_payload)
         self.assertFalse(serializer.is_valid())
         self.assertIn("email", serializer.errors)
-

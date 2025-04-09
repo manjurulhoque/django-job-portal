@@ -24,10 +24,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, attrs):
-        if attrs.get('password') != attrs.get('password2'):
+        if attrs.get("password") != attrs.get("password2"):
             raise serializers.ValidationError({"password2": "Password fields didn't match."})
         return attrs
-    
+
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError({"email": "Email addresses must be unique."})

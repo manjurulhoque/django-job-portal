@@ -38,9 +38,7 @@ class TestJobSerializer(TestCase):
         self.assertEqual(serializer.data["location"], "Test Location")
         self.assertEqual(serializer.data["salary"], 100000)
         # Format the datetime to match DRF's UTC format
-        expected_datetime = self.job_data["created_at"].strftime(
-            "%Y-%m-%dT%H:%M:%S.%fZ"
-        )
+        expected_datetime = self.job_data["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         self.assertEqual(serializer.data["created_at"], expected_datetime)
 
 
@@ -91,9 +89,7 @@ class TestNewJobSerializer(TestCase):
         self.assertEqual(job.company_name, self.job_data["company_name"])
         self.assertEqual(job.company_description, self.job_data["company_description"])
         self.assertEqual(job.website, self.job_data["website"])
-        self.assertEqual(
-            list(job.tags.values_list("id", flat=True)), self.job_data["tags"]
-        )
+        self.assertEqual(list(job.tags.values_list("id", flat=True)), self.job_data["tags"])
         self.assertEqual(job.user, self.user)
 
     def test_new_job_with_logged_in_user(self):
