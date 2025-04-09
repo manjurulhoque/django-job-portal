@@ -5,6 +5,7 @@ from rest_framework import status
 
 from tests.factories.category_factory import CategoryFactory
 from tests.factories.job_factory import JobFactory
+from tests.factories.tag_factory import TagFactory
 from tests.factories.user_factory import UserFactory
 
 User = get_user_model()
@@ -115,9 +116,29 @@ class TestCommonApiViews(APITestCase):
 
 
 class TestEmployerApiViews(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up test data for all test methods"""
+        cls.employer = UserFactory(role="employer")
+        cls.tag = TagFactory()
+        cls.job_data = {
+            "title": "Test Job",
+            "description": "Test Description",
+            "location": "Test Location",
+            "salary": 10000,
+            "type": "1",  # Full time
+            "category": "web-development",
+            "last_date": "2024-12-31",
+            "company_name": "Test Company",
+            "company_description": "A great company to work for",
+            "website": "www.testcompany.com",
+            "tags": [cls.tag.pk],
+        }
+
     def setUp(self):
-        self.employer = UserFactory(role="employer")
+        """Set up test client for each test method"""
         self.job = JobFactory(user=self.employer)
+        self.client = self.client_class()
 
     def test_dashboard_api_view(self):
         """Test the dashboard API endpoint"""
@@ -132,3 +153,15 @@ class TestEmployerApiViews(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["id"], self.job.id)
+
+    def test_job_create_api_view(self):
+        """Test the job create API endpoint"""
+        url = reverse("jobs-api:employer-job-create")
+        response = self.client.post(url, self.job_data)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # check with authentication
+        self.client.force_authenticate(user=self.employer)
+        response = self.client.post(url, self.job_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.json()["title"], "Test Job")
