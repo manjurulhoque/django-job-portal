@@ -39,3 +39,4 @@ class TestLogoutView(BaseTest):
     def test_redirect_after_logout(self):
         response = self.client.get(reverse("accounts:logout"))
         self.assertEqual(response.status_code, 302)
+        self.assertURLEqual(reverse("accounts:login"), "/" + self.language_code + response.url + "/")
