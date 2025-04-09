@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
@@ -24,7 +22,9 @@ class TestCommonApiViews(APITestCase):
         url = reverse("categories:categories-list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.json()), 15)  # job factory creates 5 more categories
+        self.assertEqual(
+            len(response.json()), 15
+        )  # job factory creates 5 more categories
 
     def test_jobs_list_api_view(self):
         """Test the jobs list API endpoint"""
@@ -44,7 +44,9 @@ class TestCommonApiViews(APITestCase):
     def test_search_api_view(self):
         """Test the search API endpoint"""
         url = reverse("jobs-api:search")
-        response = self.client.get(url, {"location": "Dhaka", "position": "Software Engineer"})
+        response = self.client.get(
+            url, {"location": "Dhaka", "position": "Software Engineer"}
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_apply_job_api_view(self):
@@ -110,3 +112,23 @@ class TestCommonApiViews(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.json()["is_applied"])
+
+
+class TestEmployerApiViews(APITestCase):
+    def setUp(self):
+        self.employer = UserFactory(role="employer")
+        self.job = JobFactory(user=self.employer)
+
+    def test_dashboard_api_view(self):
+        """Test the dashboard API endpoint"""
+        # check without authentication
+        url = reverse("jobs-api:employer-dashboard")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # check with authentication
+        self.client.force_authenticate(user=self.employer)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]["id"], self.job.id)
