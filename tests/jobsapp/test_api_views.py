@@ -177,3 +177,16 @@ class TestEmployerApiViews(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 0)
+
+    def test_applicants_per_job_list_api_view(self):
+        """Test the applicants per job list API endpoint"""
+        url = reverse("jobs-api:employer-applicants-per-job-list", kwargs={"job_id": self.job.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # check with authentication
+        self.client.force_authenticate(user=self.employer)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()), 0)
+        
