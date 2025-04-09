@@ -120,6 +120,7 @@ class TestEmployerApiViews(APITestCase):
     def setUpTestData(cls):
         """Set up test data for all test methods"""
         cls.employer = UserFactory(role="employer")
+        cls.employee = UserFactory(role="employee")
         cls.tag = TagFactory()
         cls.job_data = {
             "title": "Test Job",
@@ -180,7 +181,9 @@ class TestEmployerApiViews(APITestCase):
 
     def test_applicants_per_job_list_api_view(self):
         """Test the applicants per job list API endpoint"""
-        url = reverse("jobs-api:employer-applicants-per-job-list", kwargs={"job_id": self.job.id})
+        url = reverse(
+            "jobs-api:employer-applicants-per-job-list", kwargs={"job_id": self.job.id}
+        )
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -189,4 +192,31 @@ class TestEmployerApiViews(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 0)
-        
+
+    def test_update_applicant_status_api_view(self):
+        """Test the update applicant status API endpoint"""
+        # apply for the job
+        self.client.force_authenticate(user=self.employee)
+        apply_url = reverse("jobs-api:apply-job", kwargs={"job_id": self.job.id})
+        self.client.post(apply_url, {"job": self.job.id})
+
+        # update applicant status without authentication
+        self.client.logout()
+        url = reverse(
+            "jobs-api:employer-update-applicant-status",
+            kwargs={"applicant_id": self.employee.id, "status_code": 1},
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # check with authentication
+        self.client.force_authenticate(user=self.employer)
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        url = reverse(
+            "jobs-api:employer-update-applicant-status",
+            kwargs={"applicant_id": self.job.id, "status_code": 10},
+        )
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

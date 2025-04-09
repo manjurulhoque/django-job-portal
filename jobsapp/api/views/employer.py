@@ -2,9 +2,14 @@ from django.http import JsonResponse
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from rest_framework import status
 
 from jobsapp.api.permissions import IsEmployer, IsJobCreator
-from jobsapp.api.serializers import ApplicantSerializer, DashboardJobSerializer, NewJobSerializer
+from jobsapp.api.serializers import (
+    ApplicantSerializer,
+    DashboardJobSerializer,
+    NewJobSerializer,
+)
 from jobsapp.models import Applicant
 
 
@@ -13,7 +18,9 @@ class DashboardAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployer]
 
     def get_queryset(self):
-        return self.serializer_class.Meta.model.objects.filter(user_id=self.request.user.id)
+        return self.serializer_class.Meta.model.objects.filter(
+            user_id=self.request.user.id
+        )
 
 
 class JobCreateAPIView(CreateAPIView):
@@ -45,14 +52,16 @@ class UpdateApplicantStatusAPIView(APIView):
         applicant_id = kwargs.get("applicant_id")
         status_code = kwargs.get("status_code")
         try:
-            applicant = Applicant.objects.select_related("job__user").get(id=applicant_id)
+            applicant = Applicant.objects.select_related("job__user").get(
+                id=applicant_id
+            )
         except Applicant.DoesNotExist:
             data = {"message": "Applicant not found"}
-            return JsonResponse(data, status=404)
+            return JsonResponse(data, status=status.HTTP_404_NOT_FOUND)
 
         if applicant.job.user != request.user:
             data = {"errors": "You are not authorized"}
-            return JsonResponse(data, status=403)
+            return JsonResponse(data, status=status.HTTP_403_FORBIDDEN)
         if status_code not in [1, 2]:
             status_code = 3
 
@@ -60,4 +69,4 @@ class UpdateApplicantStatusAPIView(APIView):
         applicant.comment = request.data.get("comment", "")
         applicant.save()
         data = {"message": "Applicant status updated"}
-        return JsonResponse(data, status=200)
+        return JsonResponse(data, status=status.HTTP_200_OK)
