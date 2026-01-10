@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Companies
+{% endblock %}
+
+{% block content %}
+
+    <section class="job-form-section job-form-section--compressed">
+        <div class="container">
+            <h4 class="heading">Browse <span class="accent">Companies</span></h4>
+            <form id="company-search-form" method="get" class="job-main-form">
+                <div class="controls">
+                    <div class="row align-items-end">
+                        <div class="col-sm-1 col-lg-2"></div>
+                        <div class="col-sm-5 col-lg-4 form-group">
+                            <label for="industry">Industry</label>
+                            <input type="text" id="industry" name="industry"
+                                   placeholder="Filter by industry" value="{{ request.GET.industry }}" class="form-control">
+                        </div>
+                        <div class="col-sm-1 col-lg-2 form-group">
+                            <button type="submit" class="btn btn-outline-white-primary job-main-form__button">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        <div class="col-sm-5 col-lg-4 form-group">
+                            <a href="{% url 'jobs:company-featured' %}" class="btn btn-outline-white-primary">
+                                <i class="fa fa-star"></i> Featured Companies
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h3 class="heading">Found <span class="accent">{{ companies|length }}</span> companies</h3>
+            <div class="row">
+                {% for company in companies %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="job-listing">
+                            <div class="row">
+                                <div class="col-12 text-center mb-3">
+                                    {% if company.logo %}
+                                        <img src="{{ company.logo.url }}" alt="{{ company.name }}" 
+                                             class="img-fluid" style="max-height: 100px; max-width: 200px;">
+                                    {% else %}
+                                        <img src="{% static 'img/company-1.png' %}" alt="{{ company.name }}" 
+                                             class="img-fluid" style="max-height: 100px;">
+                                    {% endif %}
+                                    {% if company.featured %}
+                                        <span class="badge featured-badge badge-warning">Featured</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12">
+                                    <h4 class="job__title">
+                                        <a href="{% url 'jobs:company-detail' company.id %}">{{ company.name }}</a>
+                                    </h4>
+                                    {% if company.industry %}
+                                        <p class="text-muted"><i class="fa fa-industry"></i> {{ company.industry }}</p>
+                                    {% endif %}
+                                    {% if company.size %}
+                                        <p class="text-muted"><i class="fa fa-users"></i> {{ company.get_size_display }}</p>
+                                    {% endif %}
+                                    {% if company.description %}
+                                        <p class="job__company">{{ company.description|truncatewords:20 }}</p>
+                                    {% endif %}
+                                    <a href="{% url 'jobs:company-detail' company.id %}" 
+                                       class="btn btn-outline-primary btn-sm mt-2">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p class="text-center">No companies found.</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if is_paginated %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.industry %}&industry={{ request.GET.industry }}{% endif %}"
+                                           class="page-link">&laquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active">
+                                            <a class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a href="?page={{ i }}{% if request.GET.industry %}&industry={{ request.GET.industry }}{% endif %}" 
+                                               class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.industry %}&industry={{ request.GET.industry }}{% endif %}" 
+                                           class="page-link">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}
+

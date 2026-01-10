@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Featured Companies
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <h1 class="heading">Featured <span class="accent">Companies</span></h1>
+            <p class="lead text-center">Discover top companies looking for talent</p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                {% for company in companies %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="job-listing">
+                            <div class="row">
+                                <div class="col-12 text-center mb-3">
+                                    {% if company.logo %}
+                                        <img src="{{ company.logo.url }}" alt="{{ company.name }}" 
+                                             class="img-fluid" style="max-height: 120px; max-width: 250px;">
+                                    {% else %}
+                                        <img src="{% static 'img/company-1.png' %}" alt="{{ company.name }}" 
+                                             class="img-fluid" style="max-height: 120px;">
+                                    {% endif %}
+                                    <span class="badge featured-badge badge-warning">Featured</span>
+                                </div>
+                                <div class="col-12">
+                                    <h4 class="job__title">
+                                        <a href="{% url 'jobs:company-detail' company.id %}">{{ company.name }}</a>
+                                    </h4>
+                                    {% if company.industry %}
+                                        <p class="text-muted"><i class="fa fa-industry"></i> {{ company.industry }}</p>
+                                    {% endif %}
+                                    {% if company.size %}
+                                        <p class="text-muted"><i class="fa fa-users"></i> {{ company.get_size_display }}</p>
+                                    {% endif %}
+                                    {% if company.description %}
+                                        <p class="job__company">{{ company.description|truncatewords:20 }}</p>
+                                    {% endif %}
+                                    <a href="{% url 'jobs:company-detail' company.id %}" 
+                                       class="btn btn-outline-primary btn-sm mt-2">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p class="text-center">No featured companies available at the moment.</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if is_paginated %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active">
+                                            <a class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}
+

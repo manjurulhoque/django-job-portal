@@ -3,7 +3,7 @@ from datetime import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Applicant, Job, Company
 
 
 class CreateJobForm(forms.ModelForm):
@@ -49,3 +49,41 @@ class ApplyJobForm(forms.ModelForm):
     class Meta:
         model = Applicant
         fields = ("job",)
+
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = (
+            "name",
+            "description",
+            "website",
+            "logo",
+            "industry",
+            "size",
+            "culture_benefits",
+        )
+        labels = {
+            "name": "Company Name",
+            "description": "Company Description",
+            "website": "Company Website",
+            "logo": "Company Logo",
+            "industry": "Industry",
+            "size": "Company Size",
+            "culture_benefits": "Culture & Benefits",
+        }
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 4}),
+            "culture_benefits": forms.Textarea(attrs={"rows": 6}),
+        }
+
+    def clean_logo(self):
+        logo = self.cleaned_data.get("logo")
+        if logo:
+            # Validate file size (max 5MB)
+            if logo.size > 5 * 1024 * 1024:
+                raise ValidationError("Logo file size should not exceed 5MB.")
+            # Validate file type
+            if not logo.content_type.startswith("image/"):
+                raise ValidationError("Please upload a valid image file.")
+        return logo
