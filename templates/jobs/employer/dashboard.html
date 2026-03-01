@@ -143,20 +143,41 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="pages">
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
-                            <ul class="pagination">
-                                <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span
-                                        aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
-                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                <li class="page-item"><a href="#" aria-label="Next" class="page-link"><span
-                                        aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    {% if is_paginated %}
+                    <nav aria-label="Job list pagination" class="d-flex justify-content-center mt-4 mb-4">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></span>
+                                </li>
+                            {% endif %}
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                {% else %}
+                                    <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">»</span><span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link"><span aria-hidden="true">»</span><span class="sr-only">Next</span></span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
                 </div>
             </div>
         </div>

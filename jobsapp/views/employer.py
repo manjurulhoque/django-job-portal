@@ -17,6 +17,7 @@ class DashboardView(ListView):
     model = Job
     template_name = "jobs/employer/dashboard.html"
     context_object_name = "jobs"
+    paginate_by = 10
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     @method_decorator(user_is_employer)
@@ -24,7 +25,7 @@ class DashboardView(ListView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.model.objects.filter(user_id=self.request.user.id)
+        return self.model.objects.filter(user_id=self.request.user.id).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
