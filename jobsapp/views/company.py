@@ -61,7 +61,7 @@ class CompanyCreateView(CreateView):
     template_name = "jobs/company/create.html"
     form_class = CompanyForm
     extra_context = {"title": "Create Company Profile"}
-    success_url = reverse_lazy("jobs:company-list")
+    success_url = reverse_lazy("jobs:employer-dashboard")
 
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -84,7 +84,7 @@ class CompanyUpdateView(UpdateView):
     extra_context = {"title": "Edit Company Profile"}
     slug_field = "id"
     slug_url_kwarg = "id"
-    success_url = reverse_lazy("jobs:company-list")
+    success_url = reverse_lazy("jobs:employer-dashboard")
     context_object_name = "company"
 
     def dispatch(self, request, *args, **kwargs):

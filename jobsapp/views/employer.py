@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from accounts.forms import EmployerProfileUpdateForm
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Applicant, Company, Job
 from tags.models import Tag
 
 
@@ -25,6 +25,11 @@ class DashboardView(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(user_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
+        return context
 
 
 class ApplicantPerJobView(ListView):
