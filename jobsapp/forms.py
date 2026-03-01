@@ -9,12 +9,17 @@ from jobsapp.models import Applicant, Job, Company
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ("user", "created_at")
+        exclude = ("user", "created_at", "company_name", "company_description", "website")
         labels = {
             "last_date": "Last Date",
-            "company_name": "Company Name",
-            "company_description": "Company Description",
+            "company": "Company profile",
         }
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["company"].required = True
+        self.fields["company"].empty_label = "Select a company"
+        self.fields["company"].widget.attrs["class"] = "form-control"
 
     def is_valid(self):
         valid = super(CreateJobForm, self).is_valid()
@@ -38,6 +43,10 @@ class CreateJobForm(forms.ModelForm):
 
     def save(self, commit=True):
         job = super(CreateJobForm, self).save(commit=False)
+        if job.company:
+            job.company_name = job.company.name[:100]
+            job.company_description = (job.company.description or "")[:300]
+            job.website = (job.company.website or "")[:100]
         if commit:
             job.save()
             for tag in self.cleaned_data["tags"]:

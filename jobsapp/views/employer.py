@@ -70,6 +70,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 
     def form_valid(self, form):
@@ -105,6 +106,7 @@ class JobUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 
     def form_valid(self, form):

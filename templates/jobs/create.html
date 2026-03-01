@@ -157,28 +157,13 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <h4>Company details</h4>
+                                <p class="text-muted text-small">Select the company profile for this job.</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <label for="company_name">Company name</label>
-                                <input id="company_name" name="company_name" type="text" class="form-control"
-                                       value="{{ form.company_name.value|default_if_none:"" }}">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                {#                                <p class="text-danger">{{ form.company_description.errors }}</p>#}
-                                <label for="company_description">Company Description</label>
-                                <textarea id="company_description" name="company_description" rows="3"
-                                          class="form-control">{{ form.company_description.value|default_if_none:"" }}</textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 form-group">
-                                <label for="company_website">Website</label>
-                                <input id="company_website" name="website" type="url" class="form-control"
-                                       value="{{ form.website.value|default_if_none:"" }}">
+                                <label for="id_company">Company profile</label>
+                                {{ form.company }}
                             </div>
                         </div>
                         <div class="row">
