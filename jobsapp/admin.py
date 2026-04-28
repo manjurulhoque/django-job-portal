@@ -36,14 +36,12 @@ class JobAdmin(admin.ModelAdmin):
         "salary",
         "location",
         "type",
-        "category",
         "company",
-        "company_name",
-        "last_date",
+        "application_deadline",
         "created_at",
         "filled",
         "user",
     ]
-    list_filter = ["salary", "last_date", "created_at", "user", "filled"]
+    list_filter = ["salary", "application_deadline", "created_at", "user", "filled"]
     date_hierarchy = "created_at"
-    search_fields = ["title", "company_name", "company__name"]
+    search_fields = ["title", "company__name"]

@@ -9,7 +9,7 @@ from jobsapp.models import Applicant, Job, Company
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ("user", "created_at", "company_name", "company_description", "website")
+        exclude = ("user", "created_at", "website")
         labels = {
             "last_date": "Last Date",
             "company": "Company profile",
@@ -43,10 +43,6 @@ class CreateJobForm(forms.ModelForm):
 
     def save(self, commit=True):
         job = super(CreateJobForm, self).save(commit=False)
-        if job.company:
-            job.company_name = job.company.name[:100]
-            job.company_description = (job.company.description or "")[:300]
-            job.website = (job.company.website or "")[:100]
         if commit:
             job.save()
             for tag in self.cleaned_data["tags"]:
