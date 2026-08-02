@@ -1,14 +1,20 @@
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 
 from jobsapp.api.serializers import JobSerializer
+
+
+class JobPagination(PageNumberPagination):
+    page_size = 9
 
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
     queryset = serializer_class.Meta.model.objects.unfilled()
     permission_classes = [AllowAny]
+    pagination_class = JobPagination
 
 
 class SearchApiView(ListAPIView):
