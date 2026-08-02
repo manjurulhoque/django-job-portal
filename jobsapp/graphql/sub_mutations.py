@@ -22,10 +22,8 @@ class CreateNewJob(MutationMixin, DynamicArgsMixin, CreateNewJobMixin, graphene.
         "description": "String",
         "location": "String",
         "type": "String",
-        "category": "String",
+        "company": "ID",
         "last_date": "String",
-        "company_name": "String",
-        "company_description": "String",
         "website": "String",
         "salary": "Int",
     }
@@ -44,10 +42,8 @@ class UpdateJob(MutationMixin, DynamicArgsMixin, SingleObjectMixin, UpdateJobMix
         "description": "String",
         "location": "String",
         "type": "String",
-        "category": "String",
+        "company": "ID",
         "last_date": "String",
-        "company_name": "String",
-        "company_description": "String",
         "website": "String",
         "salary": "Int",
     }

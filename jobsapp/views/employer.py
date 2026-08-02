@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from accounts.forms import EmployerProfileUpdateForm
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
-from jobsapp.models import Applicant, Job
+from jobsapp.models import Applicant, Company, Job
 from tags.models import Tag
 
 
@@ -17,6 +17,7 @@ class DashboardView(ListView):
     model = Job
     template_name = "jobs/employer/dashboard.html"
     context_object_name = "jobs"
+    paginate_by = 10
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     @method_decorator(user_is_employer)
@@ -24,7 +25,12 @@ class DashboardView(ListView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.model.objects.filter(user_id=self.request.user.id)
+        return self.model.objects.filter(user_id=self.request.user.id).order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
+        return context
 
 
 class ApplicantPerJobView(ListView):
@@ -65,6 +71,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 
     def form_valid(self, form):
@@ -100,6 +107,7 @@ class JobUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 
     def form_valid(self, form):
@@ -160,7 +168,7 @@ class AppliedApplicantView(DetailView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_queryset(self):
-        return Applicant.objects.select_related("job").filter(job_id=self.kwargs["job_id"])
+        return Applicant.objects.select_related("job__company", "user").filter(job_id=self.kwargs["job_id"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -11,10 +11,16 @@ GENDER_CHOICES = [
 
 class User(AbstractUser):
     username = None
-    role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"})
-    gender = models.CharField(max_length=10, blank=True, null=True, default="", choices=GENDER_CHOICES)
+    role = models.CharField(
+        max_length=12, error_messages={"required": "Role must be provided"}
+    )
+    gender = models.CharField(
+        max_length=10, blank=True, null=True, default="", choices=GENDER_CHOICES
+    )
     email = models.EmailField(
-        unique=True, blank=False, error_messages={"unique": "A user with that email already exists."}
+        unique=True,
+        blank=False,
+        error_messages={"unique": "A user with that email already exists."},
     )
 
     USERNAME_FIELD = "email"

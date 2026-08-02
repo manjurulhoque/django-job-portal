@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/company.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <section class="company-page">
+        <div class="container">
+            <div class="company-shell company-shell--form">
+                <a href="{% url 'jobs:employer-dashboard' %}" class="company-back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to dashboard
+                </a>
+
+                <header class="company-intro">
+                    <div>
+                        <h1>Create company profile</h1>
+                        <p>Add the details candidates will see on your public company page.</p>
+                    </div>
+                </header>
+
+                <div class="company-panel">
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="company-alert" role="alert">{{ field.label }}: {{ error|escape }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <form id="company-form" method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="company-form-grid">
+                            <div class="company-field company-field--full">
+                                <label for="id_name">Company name *</label>
+                                <input id="id_name" name="name" type="text" class="form-control" required
+                                       value="{{ form.name.value|default_if_none:'' }}">
+                            </div>
+
+                            <div class="company-field company-field--full">
+                                <label for="id_description">Company description</label>
+                                <textarea id="id_description" name="description" rows="4"
+                                          class="form-control">{{ form.description.value|default_if_none:'' }}</textarea>
+                            </div>
+
+                            <div class="company-field">
+                                <label for="id_website">Website</label>
+                                <input id="id_website" name="website" type="url" class="form-control"
+                                       value="{{ form.website.value|default_if_none:'' }}"
+                                       placeholder="https://example.com">
+                            </div>
+
+                            <div class="company-field">
+                                <label for="id_logo">Company logo</label>
+                                <input id="id_logo" name="logo" type="file" class="form-control-file" accept="image/*">
+                                <span class="company-hint">Max 5MB. Square images work best.</span>
+                            </div>
+
+                            <div class="company-field">
+                                <label for="id_industry">Industry</label>
+                                <input id="id_industry" name="industry" type="text" class="form-control"
+                                       value="{{ form.industry.value|default_if_none:'' }}"
+                                       placeholder="e.g. Technology">
+                            </div>
+
+                            <div class="company-field">
+                                <label for="id_size">Company size</label>
+                                <select id="id_size" name="size" class="form-control">
+                                    <option value="">Select size</option>
+                                    <option value="1" {% if form.size.value == "1" %} selected {% endif %}>1-10 employees</option>
+                                    <option value="2" {% if form.size.value == "2" %} selected {% endif %}>11-50 employees</option>
+                                    <option value="3" {% if form.size.value == "3" %} selected {% endif %}>51-200 employees</option>
+                                    <option value="4" {% if form.size.value == "4" %} selected {% endif %}>201-500 employees</option>
+                                    <option value="5" {% if form.size.value == "5" %} selected {% endif %}>501-1000 employees</option>
+                                    <option value="6" {% if form.size.value == "6" %} selected {% endif %}>1000+ employees</option>
+                                </select>
+                            </div>
+
+                            <div class="company-field company-field--full">
+                                <label for="id_culture_benefits">Culture & benefits</label>
+                                <textarea id="id_culture_benefits" name="culture_benefits" rows="6"
+                                          class="form-control"
+                                          placeholder="Benefits, work style, and what makes your team a good place to join.">{{ form.culture_benefits.value|default_if_none:'' }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="company-actions">
+                            <button type="submit" class="company-btn company-btn--primary">
+                                <i class="fa fa-save" aria-hidden="true"></i> Create company
+                            </button>
+                            <a href="{% url 'jobs:employer-dashboard' %}" class="company-btn company-btn--secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

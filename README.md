@@ -27,20 +27,20 @@ Used Tech Stack
 ### Screenshots
 
 ## Home page
-<img src="screenshots/one.png" height="800">
+<img src="screenshots/home.png" height="800">
+
+## Companies page
+<img src="screenshots/companies.png">
 
 ## Resume template page
 <img src="screenshots/six.png" height="800">
 <img src="screenshots/seven.png" height="800">
 
-## Login page
-<img src="screenshots/five.png" width="800" alt="login">
-
 ## Add new position as employer
-<img src="screenshots/two.png" width="800" alt="form">
+<img src="screenshots/post.png" width="800" alt="form">
 
 ## Job details
-<img src="screenshots/three.png" height="800" alt="details">
+<img src="screenshots/details.png" alt="details">
 
 ## Swagger API
 <img src="screenshots/four.png" height="800">

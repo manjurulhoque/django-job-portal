@@ -1,75 +1,74 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
     Employee Register
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}"/>
+{% endblock %}
+
 {% block content %}
+    <section class="auth-page">
+        <div class="container">
+            <div class="auth-shell">
+                <div class="auth-card">
+                    <h1>Create candidate account</h1>
+                    <p>Already registered? <a href="{% url 'accounts:login' %}">Sign in</a></p>
 
-    <div class="col-lg-6 offset-3 mt-3">
-        <div class="box">
-            <h3 class="heading">New account for employee</h3>
-            <p class="lead">Not our registered yet?</p>
-            <p class="text-muted">If you have any questions, please feel free to <a href="#">contact us</a>,
-                our customer service center is working for you 24/7.</p>
-            {% if form.errors %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    {% if field.name == 'gender' %}
-
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="male gender"
-                                       value="male">
-                                <label class="form-check-label" for="male">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="female"
-                                       value="female">
-                                <label class="form-check-label" for="female">Female</label>
-                            </div>
-                        </div>
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>{{ error|escape }}</strong>
-                            </div>
+                    {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="auth-alert" role="alert">{{ error|escape }}</div>
                         {% endfor %}
-
-                    {% else %}
-
-                        <div class="form-group">
-                            <label for="id_{{ field.name }}">{{ field.label }}</label>
-                            <input type="{{ field.field.widget.input_type }}"
-                                   class="form-control"
-                                   name="{{ field.name }}"
-                                   id="id_{{ field.name }}"
-                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
-                            {% for error in field.errors %}
-                                <div class="alert alert-danger alert-dismissable">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <strong>{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        </div>
-
                     {% endif %}
-                {% endfor %}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-user-md"></i> Register
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.name == 'gender' %}
+                                <div class="auth-field">
+                                    <label>Gender</label>
+                                    <div class="auth-radio-group">
+                                        <label class="auth-radio" for="gender-male">
+                                            <input type="radio" name="gender" id="gender-male" value="male"
+                                                   {% if field.value == 'male' %}checked{% endif %}>
+                                            Male
+                                        </label>
+                                        <label class="auth-radio" for="gender-female">
+                                            <input type="radio" name="gender" id="gender-female" value="female"
+                                                   {% if field.value == 'female' %}checked{% endif %}>
+                                            Female
+                                        </label>
+                                    </div>
+                                    {% for error in field.errors %}
+                                        <span class="auth-field-error">{{ error|escape }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="auth-field">
+                                    <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                    <input type="{{ field.field.widget.input_type }}"
+                                           class="form-control"
+                                           name="{{ field.name }}"
+                                           id="id_{{ field.name }}"
+                                           placeholder="{{ field.field.widget.attrs.placeholder }}">
+                                    {% for error in field.errors %}
+                                        <span class="auth-field-error">{{ error|escape }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="auth-submit">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Create account
+                        </button>
+                    </form>
+
+                    <p class="auth-footer">
+                        Hiring instead?
+                        <a href="{% url 'accounts:employer-register' %}">Register as employer</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

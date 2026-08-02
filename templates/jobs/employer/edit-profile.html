@@ -4,46 +4,56 @@
     Edit Profile
 {% endblock %}
 
-{% block content %}
-    <div class="col-lg-6 offset-3">
-        <div class="box">
-            <h3 class="heading">Edit Company Profile</h3>
-            {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <form action="" method="post">
-                {% csrf_token %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/employer.css' %}"/>
+{% endblock %}
 
-                {% for field in form %}
-                    <div class="form-group">
-                        <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        <input type="{{ field.field.widget.input_type }}"
-                               class="form-control"
-                               name="{{ field.name }}"
-                               id="id_{{ field.name }}"
-                               value="{{ field.value }}"
-                               placeholder="{{ field.field.widget.attrs.placeholder }}">
+{% block content %}
+    <section class="employer-page">
+        <div class="container">
+            <div class="employer-shell employer-shell--narrow">
+                <a href="{% url 'jobs:employer-dashboard' %}" class="employer-back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to dashboard
+                </a>
+
+                <header class="employer-intro">
+                    <div>
+                        <h1>Edit profile</h1>
+                        <p>Update your employer account details.</p>
                     </div>
-                {% endfor %}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-white-primary">
-                        <i class="fa fa-signing"></i> Update
-                    </button>
+                </header>
+
+                <div class="employer-panel employer-panel--padded">
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="employer-alert" role="alert">{{ field.label }}: {{ error|escape }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="employer-alert" role="alert">{{ error|escape }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="employer-field">
+                                <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}"
+                                       class="form-control"
+                                       name="{{ field.name }}"
+                                       id="id_{{ field.name }}"
+                                       value="{{ field.value|default_if_none:'' }}"
+                                       placeholder="{{ field.field.widget.attrs.placeholder }}">
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="employer-btn employer-btn--primary employer-submit">
+                            Save changes
+                        </button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}

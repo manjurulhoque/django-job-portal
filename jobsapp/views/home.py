@@ -6,9 +6,10 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
+from accounts.models import User
 from ..decorators import user_is_employee
 from ..forms import ApplyJobForm
-from ..models import Applicant, Favorite, Job
+from ..models import Applicant, Company, Favorite, Job
 
 
 class HomeView(ListView):
@@ -22,6 +23,10 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["trendings"] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
+        context["live_jobs_count"] = self.model.objects.unfilled().count()
+        context["companies_count"] = Company.objects.count()
+        context["candidates_count"] = User.objects.filter(role="employee").count()
+        context["new_jobs_count"] = self.model.objects.unfilled(created_at__month=timezone.now().month).count()
         return context
 
 
@@ -51,7 +56,7 @@ class JobListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return self.model.objects.unfilled()
+        return self.model.objects.unfilled().order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)

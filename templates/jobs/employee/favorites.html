@@ -1,66 +1,74 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Favorite List
+    Favorites
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/employee.css' %}"/>
 {% endblock %}
 
 {% block content %}
-    <section class="bg-light-gray">
+    <section class="employee-page">
         <div class="container">
-            <h3 class="heading">Wish list</h3>
-            {% if favorites.count > 0 %}
-                {% for trending in favorites %}
-                    <div class="job-listing job-listing--last">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img src="{% static 'img/company-1.png' %}"
-                                             alt="ShareBoardd " class="img-fluid">
+            <div class="employee-shell">
+                <header class="employee-intro">
+                    <h1>Favorites</h1>
+                    <p>Jobs you saved to review later.</p>
+                </header>
+
+                {% if favorites %}
+                    <div class="employee-list">
+                        {% for favorite in favorites %}
+                            <article class="employee-item favorite-item">
+                                {% if favorite.job.company.logo %}
+                                    <img src="{{ favorite.job.company.logo.url }}" alt="" class="employee-item-logo">
+                                {% else %}
+                                    <div class="employee-item-logo-fallback" aria-hidden="true">
+                                        <i class="fa fa-building"></i>
                                     </div>
-                                    <div class="col-10">
-                                        <h4 class="job__title">
-                                            <a href="{% url 'jobs:jobs-detail' trending.job.id %}">{{ trending.job.title }}</a>
-                                        </h4>
-                                        <p class="job__company">
-                                            {{ trending.job.company_name }}
-                                        </p>
-                                    </div>
+                                {% endif %}
+                                <div>
+                                    <h2>
+                                        <a href="{% url 'jobs:jobs-detail' favorite.job.id %}">{{ favorite.job.title }}</a>
+                                    </h2>
+                                    <p class="employee-item-meta">
+                                        {{ favorite.job.company.name }} · {{ favorite.job.location }}
+                                        · Posted {{ favorite.job.created_at|timesince }} ago
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                                {{ trending.job.location }}
-                            </div>
-                            <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                                <p>Posted {{ trending.job.created_at|timesince }}</p>
-                            </div>
-                            <div class="col-sm-12 col-md-2 col-lg-1">
-                                <div class="job__star">
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ trending.job.id }}"
-                                       data-placement="top" title="Saved to favourites"
-                                       class="job__star__link favorite">
-                                        <i class="fa fa-star"></i>
+                                <div class="employee-item-side">
+                                    <span class="employee-badge employee-badge--accent">{{ favorite.job.get_type_display }}</span>
+                                    <a href="javascript:void(0)"
+                                       data-toggle="tooltip"
+                                       data-id="{{ favorite.job.id }}"
+                                       data-placement="top"
+                                       title="Remove from favourites"
+                                       class="employee-favorite job__star__link favorite"
+                                       aria-label="Remove from favourites">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
                                     </a>
                                 </div>
-                            </div>
-                        </div>
+                            </article>
+                        {% endfor %}
                     </div>
-                {% endfor %}
-            {% else %}
-                <h4 class="text-center mb-lg-5">Empty favorite list!</h4>
-            {% endif %}
+                {% else %}
+                    <div class="employee-empty">
+                        <h2>No favorites yet</h2>
+                        <p>Save jobs from the listings page to keep them here.</p>
+                        <a href="{% url 'jobs:jobs' %}" class="employee-btn employee-btn--primary">Browse jobs</a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </section>
 {% endblock %}
 
-
 {% block javascripts %}
-
     <script>
         let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
         function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
 
@@ -75,15 +83,17 @@
         function removeFadeOut(el, speed) {
             var seconds = speed / 1000;
             el.style.transition = "opacity " + seconds + "s ease";
-
             el.style.opacity = 0;
             setTimeout(function () {
-                el.parentNode.removeChild(el);
+                if (el.parentNode) {
+                    el.parentNode.removeChild(el);
+                }
             }, speed);
         }
 
-        $('.job-listing--last .job__star__link').on('click', function (e) {
+        $('.favorite-item .job__star__link').on('click', function () {
             let job_id = $(this).data('id');
+            let item = $(this).closest('.favorite-item')[0];
             let that = $(this);
             $.ajax({
                 type: "POST",
@@ -97,11 +107,10 @@
                         document.activeElement.blur();
                         that.removeClass('favorite');
                         toastr.warning(res.message);
-                        removeFadeOut(e.target.parentNode.parentNode.parentNode.parentNode.parentNode, 1000);
+                        removeFadeOut(item, 1000);
                     }
                 }
             })
         });
     </script>
-
 {% endblock %}

@@ -2,145 +2,848 @@
 {% load static %}
 {% load i18n %}
 {% block title %}
-    Home
+Home
+{% endblock %}
+
+{% block styles %}
+<style>
+    :root {
+        --primary: #0bab64;
+        --primary-dark: #089455;
+        --border: #e4e4e7;
+        --muted: #71717a;
+        --surface: #fafafa;
+    }
+
+    .hero-v2 {
+        background: linear-gradient(135deg, #e8faf3 0%, #f0fdf9 65%, #ecfdf5 100%);
+        padding: 72px 0 56px;
+    }
+
+    .hero-v2 h1 {
+        font-size: 2.3rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .hero-v2 .highlight {
+        color: var(--primary);
+    }
+
+    .hero-v2 .sub {
+        color: #52525b;
+        max-width: 560px;
+    }
+
+    .hero-search {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+    }
+
+    .hero-search .form-control {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .hero-search .btn {
+        border-radius: 8px;
+    }
+
+    .stats-v2 {
+        padding: 34px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .stat-box {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+    }
+
+    .stat-icon-svg {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .stat-num {
+        font-size: 1.35rem;
+        font-weight: 800;
+    }
+
+    .stat-label {
+        font-size: .82rem;
+        color: var(--muted);
+    }
+
+    .section-v2 {
+        padding: 72px 0;
+    }
+
+    .section-v2.alt {
+        background: var(--surface);
+    }
+
+    .section-title-v2 {
+        font-size: 1.9rem;
+        font-weight: 800;
+    }
+
+    .section-title-v2 .accent {
+        color: var(--primary);
+    }
+
+    .cat-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px;
+        transition: all .2s;
+    }
+
+    .cat-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .newway-card {
+        text-align: center;
+        padding: 28px 22px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        transition: all .25s ease;
+        height: 100%;
+    }
+
+    .newway-card:hover {
+        border-color: var(--primary);
+        box-shadow: 0 10px 26px rgba(11, 171, 100, .12);
+        transform: translateY(-3px);
+    }
+
+    .newway-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        font-size: 1.35rem;
+    }
+
+    .learn-more-link {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: .86rem;
+        text-decoration: none;
+    }
+
+    .learn-more-link:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+    }
+
+    .job-card-v2 {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+
+    .job-meta-v2 {
+        color: var(--muted);
+        font-size: .82rem;
+    }
+
+    .company-logo {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+    }
+
+    .step-card {
+        text-align: center;
+        padding: 24px 16px;
+        position: relative;
+    }
+
+    .step-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 16px;
+        background: #e8faf3;
+        color: var(--primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+
+    .step-icon.active {
+        background: var(--primary);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(11, 171, 100, .25);
+    }
+
+    .step-card h6 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .step-card p {
+        color: var(--muted);
+        font-size: .84rem;
+        margin: 0;
+    }
+
+    .step-connector {
+        position: absolute;
+        top: 56px;
+        right: -28px;
+        width: 56px;
+        height: 2px;
+        background: repeating-linear-gradient(90deg, var(--primary) 0, var(--primary) 7px, transparent 7px, transparent 14px);
+    }
+
+    .journey-imgs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .journey-imgs .img-block {
+        border-radius: 12px;
+        overflow: hidden;
+        min-height: 120px;
+    }
+
+    .journey-imgs .img-block.tall {
+        grid-row: span 2;
+        min-height: 250px;
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: #52525b;
+    }
+
+    .check-item .check-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #e8faf3;
+        color: var(--primary);
+        font-size: .65rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+    }
+
+    .app-section {
+        background: linear-gradient(135deg, #0bab64 0%, #089455 100%);
+        color: #fff;
+        padding: 72px 0;
+    }
+
+    .store-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        color: #18181b;
+        border-radius: 10px;
+        padding: 10px 18px;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .store-btn:hover {
+        text-decoration: none;
+        color: #18181b;
+    }
+
+    .testimonial-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 22px;
+        height: 100%;
+        background: #fff;
+    }
+
+    .stars {
+        color: #f5a623;
+        margin-bottom: 10px;
+        font-size: .85rem;
+    }
+
+    .reviewer-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .training-card {
+        border-radius: 14px;
+        padding: 28px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .training-card.day {
+        background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+    }
+
+    .training-card.evening {
+        background: linear-gradient(135deg, #f5a623 0%, #f7b733 100%);
+    }
+
+    .btn-register {
+        background: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .step-connector {
+            display: none;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
+<section class="hero-v2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <span class="badge badge-success mb-3">#1 Job Platform in Bangladesh</span>
+                <h1>Popular Job Categories For Our <span class="highlight">Candidates</span></h1>
+                <p class="sub mb-4">Search jobs from trusted companies, filter by location and skills, and apply faster
+                    with a modern job workflow.</p>
+                <form method="get" action="{% url 'jobs:search' %}" class="hero-search">
+                    <div class="form-row align-items-center">
+                        <div class="col-md-5 mb-2 mb-md-0">
+                            <input type="text" id="profession" name="position" class="form-control"
+                                placeholder="Job title, keyword, company">
+                        </div>
+                        <div class="col-md-4 mb-2 mb-md-0">
+                            <input type="text" id="location" name="location" class="form-control"
+                                placeholder="Location">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-success btn-block">Find Job</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div class="hero-illustration">
+                    <!-- Inline SVG illustration -->
+                    <svg class="hero-svg" viewBox="0 0 440 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background circles -->
+                        <circle cx="360" cy="60" r="50" fill="#E8FAF3" />
+                        <circle cx="60" cy="280" r="40" fill="#E8FAF3" />
+                        <!-- Desk -->
+                        <rect x="100" y="200" width="260" height="12" rx="4" fill="#CBD5E1" />
+                        <rect x="120" y="212" width="6" height="60" rx="3" fill="#94A3B8" />
+                        <rect x="334" y="212" width="6" height="60" rx="3" fill="#94A3B8" />
+                        <!-- Monitor -->
+                        <rect x="140" y="130" width="180" height="118" rx="10" fill="#fff" stroke="#CBD5E1"
+                            stroke-width="2" />
+                        <rect x="148" y="138" width="164" height="90" rx="6" fill="#E8FAF3" />
+                        <rect x="215" y="248" width="30" height="10" rx="3" fill="#CBD5E1" />
+                        <rect x="200" y="256" width="60" height="6" rx="3" fill="#CBD5E1" />
+                        <!-- Screen content (job listing) -->
+                        <rect x="156" y="148" width="80" height="6" rx="3" fill="#0BAB64" />
+                        <rect x="156" y="160" width="140" height="4" rx="2" fill="#94A3B8" />
+                        <rect x="156" y="170" width="110" height="4" rx="2" fill="#94A3B8" />
+                        <rect x="156" y="180" width="120" height="4" rx="2" fill="#94A3B8" />
+                        <rect x="156" y="192" width="60" height="18" rx="5" fill="#0BAB64" />
+                        <text x="165" y="205" font-family="Inter,sans-serif" font-size="8" fill="#fff"
+                            font-weight="600">Apply Now</text>
+                        <!-- Person 1 (standing, suit) -->
+                        <circle cx="90" cy="145" r="20" fill="#FBBF24" />
+                        <rect x="72" y="168" width="36" height="50" rx="8" fill="#1D4ED8" />
+                        <rect x="76" y="172" width="12" height="46" rx="3" fill="#1E40AF" />
+                        <rect x="60" y="170" width="12" height="34" rx="6" fill="#1D4ED8" />
+                        <rect x="96" y="170" width="12" height="34" rx="6" fill="#1D4ED8" />
+                        <rect x="72" y="218" width="14" height="26" rx="5" fill="#1E3A8A" />
+                        <rect x="86" y="218" width="14" height="26" rx="5" fill="#1E3A8A" />
+                        <!-- Briefcase -->
+                        <rect x="97" y="185" width="20" height="14" rx="3" fill="#CA8A04" />
+                        <rect x="101" y="182" width="12" height="6" rx="2" fill="#CA8A04" stroke="#fff"
+                            stroke-width="1" />
+                        <!-- Person 2 (sitting) -->
+                        <circle cx="358" cy="155" r="18" fill="#F9A8D4" />
+                        <rect x="342" y="174" width="32" height="44" rx="8" fill="#7C3AED" />
+                        <rect x="330" y="176" width="12" height="30" rx="6" fill="#7C3AED" />
+                        <rect x="342" y="218" width="12" height="22" rx="5" fill="#5B21B6" />
+                        <rect x="358" y="218" width="12" height="22" rx="5" fill="#5B21B6" />
+                        <!-- Plant -->
+                        <rect x="390" y="230" width="14" height="30" rx="3" fill="#92400E" />
+                        <ellipse cx="397" cy="215" rx="18" ry="20" fill="#22C55E" />
+                        <ellipse cx="385" cy="225" rx="14" ry="16" fill="#16A34A" />
+                        <ellipse cx="410" cy="222" rx="14" ry="16" fill="#16A34A" />
+                        <!-- Floating elements -->
+                        <g transform="translate(30, 80)">
+                            <rect width="90" height="36" rx="10" fill="#fff" filter="url(#shadow)" />
+                            <circle cx="18" cy="18" r="10" fill="#E8FAF3" />
+                            <text x="14" y="22" font-family="Inter,sans-serif" font-size="10" fill="#0BAB64">✓</text>
+                            <rect x="34" y="10" width="42" height="5" rx="2" fill="#18181B" />
+                            <rect x="34" y="20" width="30" height="4" rx="2" fill="#A1A1AA" />
+                        </g>
+                        <g transform="translate(300, 50)">
+                            <rect width="100" height="38" rx="10" fill="#fff" filter="url(#shadow)" />
+                            <circle cx="19" cy="19" r="11" fill="#FFF7ED" />
+                            <text x="13" y="24" font-family="Inter,sans-serif" font-size="11" fill="#FF6B35">★</text>
+                            <rect x="36" y="12" width="48" height="5" rx="2" fill="#18181B" />
+                            <rect x="36" y="23" width="34" height="4" rx="2" fill="#A1A1AA" />
+                        </g>
+                        <defs>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00000015" />
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+</section>
 
-    <section class="job-form-section job-form-section--image">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="job-form-box">
-                        <h2 class="heading">Find a <span class="accent">job</span> you will
-                            <span class="accent">love</span>.
-                        </h2>
-                        <form id="job-main-form" method="get" action="{% url 'jobs:search' %}" class="job-main-form">
-                            <div class="controls">
-                                <div class="row align-items-center">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="profession">{% trans 'Position' %}</label>
-                                            <input type="text" id="profession" name="position"
-                                                   placeholder="Position you are looking for" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="location">Location</label>
-                                            <input type="text" id="location" name="location"
-                                                   placeholder="Any particular location?" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit"
-                                                class="btn btn-outline-white-primary job-main-form__button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+<section class="stats-v2">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                <div class="stat-box">
+                    <div class="stat-icon-svg" style="background:#e8faf3;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M7 7h10v10H7z" stroke="#0bab64" stroke-width="1.8" stroke-linejoin="round" />
+                            <path d="M9 7V5h6v2M9 17v2h6v-2" stroke="#0bab64" stroke-width="1.8"
+                                stroke-linecap="round" />
+                        </svg>
                     </div>
+                    <div class="stat-num">{{ live_jobs_count }}</div>
+                    <div class="stat-label">Live Jobs</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                <div class="stat-box">
+                    <div class="stat-icon-svg" style="background:#eff6ff;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M3 20h18M5 20V9l7-4 7 4v11" stroke="#3b82f6" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 12h6v8H9z" stroke="#3b82f6" stroke-width="1.8" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="stat-num">{{ companies_count }}</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="stat-icon-svg" style="background:#fff7ed;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="8" cy="9" r="3" stroke="#ff6b35" stroke-width="1.8" />
+                            <circle cx="16" cy="9" r="3" stroke="#ff6b35" stroke-width="1.8" />
+                            <path d="M3.5 19c.8-2.4 2.7-4 4.5-4s3.7 1.6 4.5 4M11.5 19c.8-2.4 2.7-4 4.5-4s3.7 1.6 4.5 4"
+                                stroke="#ff6b35" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="stat-num">{{ candidates_count }}</div>
+                    <div class="stat-label">Candidates</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="stat-icon-svg" style="background:#f5f3ff;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3l2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L12 3z"
+                                stroke="#8b5cf6" stroke-width="1.8" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="stat-num">{{ new_jobs_count }}</div>
+                    <div class="stat-label">New This Month</div>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="bg-light-gray">
-        <div class="container">
-            <h3 class="heading">Featured jobs</h3>
-            <div class="row featured align-items-stretch">
-                {% for job in jobs %}
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="box-image-text bg-visible full-height">
-                            <div class="top">
-                                <a href="#">
-                                    <div class="image">
-                                        <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="bg"></div>
-                                    <div class="logo">
-                                        <img src="{% static 'img/company-1.png' %}" alt="" style="max-width: 80px;">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h5><a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h5>
-                                <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
-                                    {{ job.location }}
-                                    {% if job.type == '1' %}
-                                        <span class="badge featured-badge badge-success">Full time</span>
-                                    {% elif job.type == '2' %}
-                                        <span class="badge featured-badge badge-primary">Part time</span>
-                                    {% else %}
-                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
-                                    {% endif %}
-                                </p>
-                                {% for tag in job.tags.all %}
-                                    <span style="color: #ffffff;"
-                                          class="badge featured-badge badge-secondary">{{ tag.name }}</span>
-                                {% endfor %}
-                                <p>{{ job.description | truncatewords_html:30 | safe }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+    </div>
+</section>
+
+<section class="section-v2">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title-v2">New Way To <span class="accent">Get A Job</span></h2>
+            <p class="text-muted mt-3 mb-0">Upon gaining entry to the Jobboard platform, your initial task involves
+                inputting your initial team positions or roles.</p>
         </div>
-    </section>
-    {% if trendings %}
-        <section>
-            <div class="container">
-                <h4 class="heading">Trending this month</h4>
-                {% for trending in trendings %}
-                    <div class="job-listing  job-listing--last">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img src="{% static 'img/company-1.png' %}"
-                                             alt="ShareBoardd " class="img-fluid">
-                                    </div>
-                                    <div class="col-10">
-                                        <h4 class="job__title">
-                                            <a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a>
-                                        </h4>
-                                        <p class="job__company">
-                                            {{ trending.company_name }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                                {{ trending.location }}
-                            </div>
-                            <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                                <p>Posted {{ trending.created_at|timesince }}</p>
-                            </div>
-                            <div class="col-sm-12 col-md-2 col-lg-1">
-                                <div class="job__star">
-                                    <a href="#" data-toggle="tooltip" data-placement="top"
-                                       title="Save to favourites" class="job__star__link">
-                                        <i class="fa fa-star"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="newway-card">
+                    <span class="newway-icon" style="background:#e8faf3; color:#0bab64;">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <h5>Future Of Job Hunting</h5>
+                    <p class="text-muted mb-3">Say Goodbye To The Traditional Job Search Process And Step Into The
+                        Future Of Employment Opportunities.</p>
+                    <a href="{% url 'jobs:jobs' %}" class="learn-more-link">Learn More <i
+                            class="fa fa-arrow-right"></i></a>
+                </div>
             </div>
-        </section>
-    {% endif %}
-    <section class="section-divider">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Start searching for your new job now! </p>
-                    <p><a href="{% url 'jobs:jobs' %}" class="btn btn-outline-light">See our job offers </a></p>
+            <div class="col-md-4 mb-4">
+                <div class="newway-card">
+                    <span class="newway-icon" style="background:#eff6ff; color:#3b82f6;">
+                        <i class="fa fa-bar-chart"></i>
+                    </span>
+                    <h5>Simplify Research</h5>
+                    <p class="text-muted mb-3">Save Time And Effort By Accessing A Wide Range Of Opportunities In
+                        Various Industries And Career Stages.</p>
+                    <a href="{% url 'jobs:jobs' %}" class="learn-more-link">Learn More <i
+                            class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="newway-card">
+                    <span class="newway-icon" style="background:#fff7ed; color:#ff6b35;">
+                        <i class="fa fa-user-circle"></i>
+                    </span>
+                    <h5>Be Unique</h5>
+                    <p class="text-muted mb-3">Craft A Detailed Profile That Effectively Showcases Your Unique Skills,
+                        Past Experiences, And Achievements.</p>
+                    <a href="{% url 'jobs:jobs' %}" class="learn-more-link">Learn More <i
+                            class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section class="section-v2 alt">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title-v2">Popular <span class="accent">Job Categories</span></h2>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3 mb-3">
+                <div class="cat-card">
+                    <h6>Graphics & Design</h6>
+                    <p class="mb-0 text-muted">Creative roles</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="cat-card">
+                    <h6>Programming</h6>
+                    <p class="mb-0 text-muted">Software engineering</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="cat-card">
+                    <h6>Digital Marketing</h6>
+                    <p class="mb-0 text-muted">Growth & SEO</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="cat-card">
+                    <h6>Finance</h6>
+                    <p class="mb-0 text-muted">Accounting & audit</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-v2">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title-v2 mb-0">Explore <span class="accent">Featured Jobs</span></h2>
+            <a href="{% url 'jobs:jobs' %}" class="btn btn-outline-success btn-sm">View More</a>
+        </div>
+        {% for job in jobs %}
+        <div class="job-card-v2">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    <div class="d-flex align-items-center">
+                        {% if job.company.logo %}
+                        <img src="{{ job.company.logo.url }}" class="company-logo mr-3" alt="{{ job.company.name }}">
+                        {% else %}
+                        <img src="{% static 'img/company-1.png' %}" class="company-logo mr-3"
+                            alt="{{ job.company.name }}">
+                        {% endif %}
+                        <div>
+                            <h5 class="mb-1"><a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h5>
+                            <div class="job-meta-v2">{{ job.company.name }} · {{ job.location }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2 mb-md-0">
+                    {% if job.type == '1' %}
+                    <span class="badge badge-success">Full time</span>
+                    {% elif job.type == '2' %}
+                    <span class="badge badge-primary">Part time</span>
+                    {% else %}
+                    <span class="badge badge-warning">Internship</span>
+                    {% endif %}
+                </div>
+                <div class="col-md-3 text-md-right">
+                    <a href="{% url 'jobs:jobs-detail' job.id %}" class="btn btn-success btn-sm">Apply Now</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No jobs available right now.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% if trendings %}
+<section class="section-v2 alt">
+    <div class="container">
+        <h2 class="section-title-v2 mb-4">Trending This Month</h2>
+        {% for trending in trendings %}
+        <div class="job-card-v2">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="mb-1"><a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a></h5>
+                    <div class="job-meta-v2">{{ trending.company.name }} · {{ trending.location }}</div>
+                </div>
+                <div class="col-md-4 text-md-right">
+                    <small class="text-muted">Posted {{ trending.created_at|timesince }} ago</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+<section class="section-divider">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p>Start searching for your new job now! </p>
+                <p><a href="{% url 'jobs:jobs' %}" class="btn btn-outline-light">See our job offers </a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-v2 alt">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title-v2">How <span class="accent">JobPilot</span> Works</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3">
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa fa-user-plus"></i></div>
+                    <h6>Create account</h6>
+                    <p>Sign up and complete your profile in minutes.</p>
+                    <div class="step-connector d-none d-md-block"></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="step-card">
+                    <div class="step-icon active"><i class="fa fa-file-text-o"></i></div>
+                    <h6>Upload CV/Resume</h6>
+                    <p>Highlight your strengths and standout experience.</p>
+                    <div class="step-connector d-none d-md-block"></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa fa-search"></i></div>
+                    <h6>Find suitable job</h6>
+                    <p>Use smart filters to find your best opportunities.</p>
+                    <div class="step-connector d-none d-md-block"></div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="step-card">
+                    <div class="step-icon"><i class="fa fa-paper-plane"></i></div>
+                    <h6>Apply Job</h6>
+                    <p>Apply quickly and track your application progress.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-v2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5 mb-4 mb-md-0">
+                <div class="journey-imgs">
+                    <div class="img-block tall"
+                        style="background:linear-gradient(160deg,#E8FAF3,#D1FAE5); display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" width="160" height="220">
+                            <rect x="20" y="30" width="120" height="160" rx="12" fill="#fff" stroke="#E4E4E7"
+                                stroke-width="1.5" />
+                            <circle cx="80" cy="75" r="24" fill="#E8FAF3" />
+                            <circle cx="80" cy="75" r="16" fill="#0BAB64" />
+                            <text x="74" y="80" font-family="Inter" font-size="14" fill="#fff"
+                                font-weight="800">✓</text>
+                            <rect x="40" y="112" width="80" height="7" rx="3" fill="#18181B" />
+                            <rect x="50" y="126" width="60" height="5" rx="2" fill="#A1A1AA" />
+                            <rect x="30" y="148" width="100" height="28" rx="6" fill="#0BAB64" />
+                            <text x="52" y="167" font-family="Inter" font-size="11" fill="#fff" font-weight="600">Get
+                                Hired</text>
+                        </svg>
+                    </div>
+                    <div class="img-block"
+                        style="background:linear-gradient(160deg,#EFF6FF,#DBEAFE); display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 160 110" xmlns="http://www.w3.org/2000/svg" width="140">
+                            <rect x="10" y="10" width="140" height="90" rx="10" fill="#fff" stroke="#E4E4E7"
+                                stroke-width="1.5" />
+                            <rect x="22" y="24" width="60" height="6" rx="3" fill="#18181B" />
+                            <rect x="22" y="36" width="40" height="4" rx="2" fill="#94A3B8" />
+                            <rect x="22" y="52" width="116" height="3" rx="1.5" fill="#E4E4E7" />
+                            <rect x="22" y="52" width="72" height="3" rx="1.5" fill="#0BAB64" />
+                            <rect x="22" y="60" width="50" height="5" rx="2" fill="#A1A1AA" />
+                            <circle cx="130" cy="28" r="16" fill="#E8FAF3" />
+                            <text x="122" y="33" font-family="Inter" font-size="12" fill="#0BAB64">📋</text>
+                        </svg>
+                    </div>
+                    <div class="img-block"
+                        style="background:linear-gradient(160deg,#FFF7ED,#FED7AA); display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 160 110" xmlns="http://www.w3.org/2000/svg" width="140">
+                            <circle cx="80" cy="55" r="40" fill="#fff" />
+                            <text x="60" y="70" font-family="Inter" font-size="32">💼</text>
+                            <circle cx="110" cy="30" r="16" fill="#DCFCE7" />
+                            <text x="103" y="35" font-family="Inter" font-size="11" fill="#16A34A"
+                                font-weight="700">+3k</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h2 class="section-title-v2">Start <span class="accent">Your Journey</span> With Us</h2>
+                <p class="mt-3 font-weight-bold">Millions of jobs, find the one that suits you.</p>
+                <div class="check-item">
+                    <span class="check-icon"><i class="fa fa-check"></i></span>
+                    <span>Get matched with jobs based on your profile and preferences.</span>
+                </div>
+                <div class="check-item">
+                    <span class="check-icon"><i class="fa fa-check"></i></span>
+                    <span>Apply faster with a streamlined workflow and smart suggestions.</span>
+                </div>
+                <div class="check-item">
+                    <span class="check-icon"><i class="fa fa-check"></i></span>
+                    <span>Track responses and updates from employers in one place.</span>
+                </div>
+                <a href="{% url 'jobs:jobs' %}" class="btn btn-success mt-3">Read More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="app-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-7 mb-4 mb-md-0">
+                <h2 class="mb-3">Get the JobPilot Search App</h2>
+                <p class="mb-4">Search jobs, save favorites, and apply on the go with a seamless mobile experience.</p>
+                <a href="#" class="store-btn">
+                    <i class="fa fa-android fa-lg text-success"></i>
+                    <span>Google Play</span>
+                </a>
+                <a href="#" class="store-btn">
+                    <i class="fa fa-apple fa-lg"></i>
+                    <span>App Store</span>
+                </a>
+            </div>
+            <div class="col-md-5 text-center">
+                <div class="phone-mockup d-flex justify-content-center" style="gap:16px;">
+                    <!-- Phone SVG 1 -->
+                    <svg class="phone-svg" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="5" width="110" height="210" rx="20" fill="#18181B" />
+                        <rect x="9" y="9" width="102" height="202" rx="18" fill="#fff" />
+                        <rect x="40" y="12" width="40" height="6" rx="3" fill="#CBD5E1" />
+                        <rect x="9" y="24" width="102" height="50" fill="#E8FAF3" />
+                        <circle cx="35" cy="48" r="12" fill="#0BAB64" />
+                        <text x="29" y="53" font-family="Inter" font-size="10" fill="#fff" font-weight="700">BD</text>
+                        <rect x="54" y="40" width="44" height="5" rx="2" fill="#18181B" />
+                        <rect x="54" y="50" width="32" height="4" rx="2" fill="#94A3B8" />
+                        <rect x="14" y="84" width="90" height="28" rx="8" fill="#F8FAFC" stroke="#E4E4E7"
+                            stroke-width="1" />
+                        <circle cx="27" cy="98" r="8" fill="#EFF6FF" />
+                        <rect x="40" y="92" width="52" height="4" rx="2" fill="#18181B" />
+                        <rect x="40" y="100" width="36" height="3" rx="1.5" fill="#94A3B8" />
+                        <rect x="14" y="118" width="90" height="28" rx="8" fill="#F8FAFC" stroke="#E4E4E7"
+                            stroke-width="1" />
+                        <circle cx="27" cy="132" r="8" fill="#FFF7ED" />
+                        <rect x="40" y="126" width="52" height="4" rx="2" fill="#18181B" />
+                        <rect x="40" y="134" width="36" height="3" rx="1.5" fill="#94A3B8" />
+                        <rect x="14" y="152" width="90" height="28" rx="8" fill="#F8FAFC" stroke="#E4E4E7"
+                            stroke-width="1" />
+                        <circle cx="27" cy="166" r="8" fill="#E8FAF3" />
+                        <rect x="40" y="160" width="52" height="4" rx="2" fill="#18181B" />
+                        <rect x="40" y="168" width="36" height="3" rx="1.5" fill="#94A3B8" />
+                        <rect x="14" y="188" width="90" height="14" rx="6" fill="#0BAB64" />
+                        <text x="42" y="199" font-family="Inter" font-size="8" fill="#fff" font-weight="600">Apply
+                            Now</text>
+                    </svg>
+                    <!-- Phone SVG 2 -->
+                    <svg class="phone-svg" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg"
+                        style="margin-top:30px; animation-delay:.5s;">
+                        <rect x="5" y="5" width="110" height="210" rx="20" fill="#0BAB64" />
+                        <rect x="9" y="9" width="102" height="202" rx="18" fill="#fff" />
+                        <rect x="40" y="12" width="40" height="6" rx="3" fill="#CBD5E1" />
+                        <rect x="9" y="24" width="102" height="40" fill="#E8FAF3" />
+                        <rect x="14" y="30" width="70" height="6" rx="2" fill="#18181B" />
+                        <rect x="14" y="40" width="50" height="4" rx="2" fill="#94A3B8" />
+                        <rect x="14" y="72" width="40" height="5" rx="2" fill="#18181B" />
+                        <rect x="14" y="84" width="90" height="4" rx="2" fill="#E4E4E7" />
+                        <rect x="14" y="84" width="54" height="4" rx="2" fill="#0BAB64" />
+                        <rect x="14" y="96" width="40" height="5" rx="2" fill="#18181B" />
+                        <rect x="14" y="108" width="90" height="4" rx="2" fill="#E4E4E7" />
+                        <rect x="14" y="108" width="72" height="4" rx="2" fill="#0BAB64" />
+                        <rect x="14" y="126" width="44" height="16" rx="5" fill="#0BAB64" />
+                        <text x="18" y="138" font-family="Inter" font-size="7" fill="#fff" font-weight="600">Find
+                            Jobs</text>
+                        <rect x="64" y="126" width="40" height="16" rx="5" fill="#E8FAF3" />
+                        <text x="70" y="138" font-family="Inter" font-size="7" fill="#0BAB64"
+                            font-weight="600">Profile</text>
+                        <rect x="9" y="148" width="102" height="1" fill="#F1F5F9" />
+                        <circle cx="27" cy="168" r="12" fill="#EFF6FF" />
+                        <circle cx="60" cy="168" r="12" fill="#FFF7ED" />
+                        <circle cx="93" cy="168" r="12" fill="#F0FDF4" />
+                        <text x="21" y="173" font-family="Inter" font-size="10">📊</text>
+                        <text x="54" y="173" font-family="Inter" font-size="10">💼</text>
+                        <text x="87" y="173" font-family="Inter" font-size="10">⭐</text>
+                        <rect x="14" y="188" width="90" height="14" rx="6" fill="#18181B" />
+                        <text x="35" y="199" font-family="Inter" font-size="8" fill="#fff" font-weight="600">Upload
+                            Resume</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

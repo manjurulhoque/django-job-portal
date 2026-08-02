@@ -1,46 +1,87 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    All templates
+    Resume templates
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/templates.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/resumes.css' %}"/>
 {% endblock %}
 
 {% block content %}
-
-    <section class="mt-4">
+    <section class="resumes-page">
         <div class="container">
-            <h2 class="text-center">Choose a template for your Resume/CV</h2>
-            <a href="{% url 'resume_cv:templates' %}" class="btn btn-sm btn-danger">All Templates</a>
-            {% for category in categories %}
-                <a href="{% url 'resume_cv:templates' %}" class="btn btn-sm btn-success">{{ category.name }}</a>
-            {% endfor %}
-
-            <div class="row mt-2">
-                {% for template in templates %}
-                    <div class="col-md-4">
-                        <div class="clearfix blog-bottom blog blogitemlarge">
-                            <a href="#" data-id="{{ template.id }}" data-toggle="modal" data-target="#createModal" title="Resume 8"
-                               class="btn_builder_template image-blog date clearfix">
-                                <img src="{{ template.thumbnail.url }}"
-                                     alt="{{ template.name }}"
-                                     data-was-processed="true" class="">
-                                <span class="post-date badge badge-success"> Free</span>
-                            </a>
-                            <div class="content_blog clearfix flex flex-column flex-lg-row">
-                                <div class="p-1">
-                                    {{ template.name }}
-                                </div>
-                                <div class="d-flex pt-1">
-                                    <a href="#" class="btn btn-sm btn-primary mr-2 btn_builder_template" data-id="{{ template.id }}"
-                                       data-toggle="modal" data-target="#createModal">Builder</a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="resumes-shell">
+                <header class="resumes-intro">
+                    <div>
+                        <h1>Resume templates</h1>
+                        <p>Pick a template, name your resume, and open the builder to customize it.</p>
                     </div>
-                {% endfor %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'resume_cv:resumes' %}" class="resumes-btn resumes-btn--secondary">
+                            My resumes
+                        </a>
+                    {% endif %}
+                </header>
+
+                {% if categories %}
+                    <div class="resumes-filters" aria-label="Template categories">
+                        <span class="resumes-chip">All templates</span>
+                        {% for category in categories %}
+                            <span class="resumes-chip">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if templates %}
+                    <div class="resumes-grid">
+                        {% for template in templates %}
+                            <article class="resume-card">
+                                <a href="#"
+                                   class="resume-card-media btn_builder_template"
+                                   data-id="{{ template.id }}"
+                                   data-toggle="modal"
+                                   data-target="#createModal"
+                                   title="Use {{ template.name }}">
+                                    {% if template.thumbnail %}
+                                        <img src="{{ template.thumbnail.url }}" alt="{{ template.name }}">
+                                    {% else %}
+                                        <div class="resume-card-media-fallback" aria-hidden="true">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    {% endif %}
+                                    {% if template.is_premium %}
+                                        <span class="resume-card-badge resume-card-badge--premium">Premium</span>
+                                    {% else %}
+                                        <span class="resume-card-badge resume-card-badge--free">Free</span>
+                                    {% endif %}
+                                </a>
+                                <div class="resume-card-body">
+                                    <div>
+                                        <h2>{{ template.name }}</h2>
+                                        {% if template.category %}
+                                            <p class="resume-card-meta">{{ template.category.name }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="resume-card-actions">
+                                        <a href="#"
+                                           class="resumes-btn resumes-btn--primary resumes-btn--sm btn_builder_template"
+                                           data-id="{{ template.id }}"
+                                           data-toggle="modal"
+                                           data-target="#createModal">
+                                            Use template
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="resumes-empty">
+                        <h2>No templates available</h2>
+                        <p>Active resume templates will appear here once they are published.</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -49,24 +90,26 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Resumecv</h5>
+                        <h5 class="modal-title" id="createModalLabel">Create resume</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="" action="{% url 'resume_cv:create' %}" method="post">
+                    <form action="{% url 'resume_cv:create' %}" method="post">
                         {% csrf_token %}
                         <div class="modal-body">
-                            <div class="form-group">
-                                <input type="number" class="form-control" name="template" hidden required
-                                       id="template_id_builder">
-                                <label for="name" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control" name="name" required="" id="page-name">
+                            <input type="number" class="form-control" name="template" hidden required
+                                   id="template_id_builder">
+                            <div class="form-group mb-0">
+                                <label for="page-name" class="col-form-label">Resume name</label>
+                                <input type="text" class="form-control" name="name" required id="page-name"
+                                       placeholder="e.g. Software engineer CV">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary btn-sm" id="saveandbuilder">Save & Builder
+                            <button type="button" class="resumes-btn resumes-btn--ghost" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="resumes-btn resumes-btn--primary resumes-btn--sm" id="saveandbuilder">
+                                Save and open builder
                             </button>
                         </div>
                     </form>
@@ -74,5 +117,4 @@
             </div>
         </div>
     </section>
-
 {% endblock %}

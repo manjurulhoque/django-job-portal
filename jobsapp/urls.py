@@ -24,6 +24,8 @@ urlpatterns = [
                 path("send-response/<int:applicant_id>", SendResponseView.as_view(), name="applicant-send-response"),
                 path("jobs/create/", JobCreateView.as_view(), name="employer-jobs-create"),
                 path("jobs/<int:id>/edit/", JobUpdateView.as_view(), name="employer-jobs-edit"),
+                path("company/create/", CompanyCreateView.as_view(), name="company-create"),
+                path("company/<int:id>/edit/", CompanyUpdateView.as_view(), name="company-edit"),
             ]
         ),
     ),
@@ -40,4 +42,7 @@ urlpatterns = [
     path("jobs/", JobListView.as_view(), name="jobs"),
     path("jobs/<int:id>/", JobDetailsView.as_view(), name="jobs-detail"),
     path("about-us/", AboutUsView.as_view(), name="about-us"),
+    path("companies/", CompanyListView.as_view(), name="company-list"),
+    path("companies/featured/", FeaturedCompanyListView.as_view(), name="company-featured"),
+    path("companies/<int:id>/", CompanyDetailView.as_view(), name="company-detail"),
 ]

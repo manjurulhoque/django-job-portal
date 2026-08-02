@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Django Jobs">
+  <rect width="32" height="32" rx="7" fill="#2b90d9"/>
+  <path fill="#fff" d="M11 9.5h10a1.5 1.5 0 0 1 1.5 1.5v1H26a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2h3.5v-1A1.5 1.5 0 0 1 11 9.5zm0 2.5v1h10v-1H11zm-1 5.5a1 1 0 0 0-1 1v1.5h14V18.5a1 1 0 0 0-1-1H10z"/>
+</svg>
