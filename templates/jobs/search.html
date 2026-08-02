@@ -1,110 +1,185 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load is_favorited %}
 {% block title %}
-    All jobs
+    Search jobs
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/jobs-browse.css' %}"/>
 {% endblock %}
 
 {% block content %}
+    <section class="jobs-page">
+        <div class="container">
+            <div class="jobs-shell">
+                <header class="jobs-intro">
+                    <h1>Search results</h1>
+                    <p>Refine your position or location to find a better match.</p>
+                </header>
 
-    <section class="job-form-section job-form-section--compressed">
-        <div class="container">
-            <h4 class="heading">Find a <span class="accent">job </span> you will <span class="accent">love</span></h4>
-            <form id="job-main-form" method="get" action="#" class="job-main-form">
-                <div class="controls">
-                    <div class="row align-items-end">
-                        <div class="col-sm-1 col-lg-2"></div>
-                        <div class="col-sm-5 col-lg-4 form-group">
-                            <label for="profession">Position</label>
-                            <input type="text" id="position" name="position"
-                                   placeholder="Position you are looking for" class="form-control">
-                        </div>
-                        <div class="col-sm-5 col-lg-4 form-group">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" name="location" placeholder="Any particular location?"
-                                   value="" class="form-control">
-                        </div>
-                        <div class="col-sm-1 col-lg-2 form-group">
-                            <button type="submit" name="name"
-                                    class="btn btn-outline-white-primary job-main-form__button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
+                <form method="get" action="{% url 'jobs:search' %}" class="jobs-search">
+                    <div class="jobs-search-field">
+                        <label for="position">Position</label>
+                        <input type="text" id="position" name="position"
+                               placeholder="e.g. Frontend engineer"
+                               value="{{ request.GET.position }}"
+                               class="form-control">
                     </div>
-                </div>
-            </form>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <h3 class="heading">We have found <span class="accent">{{ jobs.count }}</span> jobs</h3>
-            {% for job in jobs %}
-                <div class="job-listing  ">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="{% static 'img/company-1.png' %}"
-                                         alt="Ipsioou " class="img-fluid">
-                                </div>
-                                <div class="col-10">
-                                    <h4 class="job__title"><a
-                                            href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h4>
-                                    <p class="job__company">
-                                        {{ job.company_name }}
+                    <div class="jobs-search-field">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location"
+                               placeholder="e.g. Dhaka"
+                               value="{{ request.GET.location }}"
+                               class="form-control">
+                    </div>
+                    <button type="submit" class="jobs-btn jobs-btn--primary">
+                        <i class="fa fa-search" aria-hidden="true"></i> Search
+                    </button>
+                </form>
+
+                <p class="jobs-count">We found <strong>{{ jobs|length }}</strong> job{{ jobs|length|pluralize }}</p>
+
+                {% if jobs %}
+                    <div class="jobs-list">
+                        {% for job in jobs %}
+                            <article class="job-card">
+                                {% if job.company.logo %}
+                                    <img src="{{ job.company.logo.url }}" alt="" class="job-card-logo">
+                                {% else %}
+                                    <div class="job-card-logo job-card-logo--placeholder" aria-hidden="true">
+                                        <i class="fa fa-building"></i>
+                                    </div>
+                                {% endif %}
+
+                                <div>
+                                    <h2 class="job-card-title">
+                                        <a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a>
+                                    </h2>
+                                    <p class="job-card-company">
+                                        <a href="{% url 'jobs:company-detail' job.company.id %}">{{ job.company.name }}</a>
                                     </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                            {{ job.location }}
-                        </div>
-                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                            <p>Posted {{ job.created_at|timesince }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            {% if is_paginated %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4 mb-4">
-                            <ul class="pagination">
-                                {% if page_obj.has_previous %}
-                                    <li class="page-item">
-                                        <a href="?page={{ page_obj.previous_page_number }}"
-                                           class="page-link">&laquo;</a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <a class="page-link">&laquo;</a>
-                                    </li>
-                                {% endif %}
-                                {% for i in page_obj.paginator.page_range %}
-                                    {% if page_obj.number == i %}
-                                        <li class="page-item active">
-                                            <a class="page-link">{{ i }}</a>
-                                        </li>
-                                    {% else %}
-                                        <li class="page-item">
-                                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-                                        </li>
+                                    <p class="job-card-meta">
+                                        <span><i class="fa fa-map-marker" aria-hidden="true"></i> {{ job.location }}</span>
+                                        <span>{{ job.get_type_display }}</span>
+                                        <span>{{ job.get_workplace_type_display }}</span>
+                                    </p>
+                                    {% if job.tags.all %}
+                                        <div class="job-tags">
+                                            {% for tag in job.tags.all %}
+                                                <span class="job-tag">{{ tag.name }}</span>
+                                            {% endfor %}
+                                        </div>
                                     {% endif %}
-                                {% endfor %}
-                                {% if page_obj.has_next %}
-                                    <li class="page-item">
-                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <a class="page-link">&raquo;</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
+                                </div>
+
+                                <div class="job-card-side">
+                                    <p class="job-card-posted">{{ job.created_at|timesince }} ago</p>
+                                    <span class="job-badge job-badge--accent">{{ job.get_experience_level_display }}</span>
+                                    {% if user.is_authenticated and request.user.role == 'employee' %}
+                                        {% is_favorited job as is_already_favorited %}
+                                        <a href="javascript:void(0)"
+                                           data-toggle="tooltip"
+                                           data-id="{{ job.id }}"
+                                           data-placement="top"
+                                           title="{% if is_already_favorited %}Saved to favourites{% else %}Save to favourites{% endif %}"
+                                           class="job-favorite job__star__link{% if is_already_favorited %} favorite{% endif %}"
+                                           aria-label="Toggle favourite">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        {% endfor %}
                     </div>
-                </div>
-            {% endif %}
+                {% else %}
+                    <div class="jobs-empty">
+                        <h2>No matching jobs</h2>
+                        <p>Try a broader title or another location.</p>
+                    </div>
+                {% endif %}
+
+                {% if is_paginated %}
+                    <nav class="jobs-pagination" aria-label="Search results pagination">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.position %}&position={{ request.GET.position }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}"
+                                       class="page-link">&laquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                                {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a href="?page={{ i }}{% if request.GET.position %}&position={{ request.GET.position }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}"
+                                           class="page-link">{{ i }}</a>
+                                    </li>
+                                {% elif i == 1 or i == page_obj.paginator.num_pages %}
+                                    <li class="page-item">
+                                        <a href="?page={{ i }}{% if request.GET.position %}&position={{ request.GET.position }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}"
+                                           class="page-link">{{ i }}</a>
+                                    </li>
+                                {% elif i == page_obj.number|add:'-3' or i == page_obj.number|add:'3' %}
+                                    <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.position %}&position={{ request.GET.position }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}"
+                                       class="page-link">&raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
         </div>
     </section>
+{% endblock %}
 
+{% block javascripts %}
+    <script>
+        let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        function csrfSafeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $('.job__star__link').on('click', function () {
+            let job_id = $(this).data('id');
+            let that = $(this);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'jobs:favorite' %}",
+                data: {job_id},
+                success: function (res) {
+                    if (res.status === "added") {
+                        that.addClass('favorite');
+                        toastr.success(res.message);
+                    } else if (res.status === "removed") {
+                        document.activeElement.blur();
+                        that.removeClass('favorite');
+                        toastr.warning(res.message);
+                    }
+                },
+                error: function () {
+                    toastr.error("Something wrong");
+                }
+            })
+        });
+    </script>
 {% endblock %}

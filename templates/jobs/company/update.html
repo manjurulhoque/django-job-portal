@@ -5,91 +5,77 @@
 {% endblock %}
 
 {% block styles %}
-    <style>
-        .bootstrap-select .dropdown-menu a {
-            color: #000000;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/company.css' %}"/>
 {% endblock %}
 
 {% block content %}
+    <section class="company-page">
+        <div class="container">
+            <div class="company-shell company-shell--form">
+                <a href="{% url 'jobs:company-detail' company.id %}" class="company-back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to company
+                </a>
 
-    <section class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h1 class="heading">Edit Company Profile</h1>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
+                <header class="company-intro">
+                    <div>
+                        <h1>Edit company profile</h1>
+                        <p>Update the information shown on your public company page.</p>
+                    </div>
+                </header>
+
+                <div class="company-panel">
                     {% if form.errors %}
                         {% for field in form %}
                             {% for error in field.errors %}
-                                <div class="alert alert-danger alert-dismissable">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <strong>{{ field.label }}: {{ error|escape }}</strong>
-                                </div>
+                                <div class="company-alert" role="alert">{{ field.label }}: {{ error|escape }}</div>
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
+
                     {% if company.logo %}
-                        <div class="row mb-3">
-                            <div class="col-lg-12">
-                                <label>Current Logo:</label><br>
-                                <img src="{{ company.logo.url }}" alt="{{ company.name }}" 
-                                     class="img-thumbnail" style="max-height: 150px;">
-                            </div>
+                        <div class="company-field company-field--full mb-3">
+                            <label>Current logo</label>
+                            <img src="{{ company.logo.url }}" alt="" class="company-current-logo">
                         </div>
                     {% endif %}
-                    <form id="company-form" method="post" action="" enctype="multipart/form-data" class="job-add-form">
+
+                    <form id="company-form" method="post" action="" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Company Information</h4>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="id_name">Company Name *</label>
+                        <div class="company-form-grid">
+                            <div class="company-field company-field--full">
+                                <label for="id_name">Company name *</label>
                                 <input id="id_name" name="name" type="text" class="form-control" required
                                        value="{{ form.name.value|default_if_none:company.name }}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="id_description">Company Description</label>
+
+                            <div class="company-field company-field--full">
+                                <label for="id_description">Company description</label>
                                 <textarea id="id_description" name="description" rows="4"
                                           class="form-control">{{ form.description.value|default_if_none:company.description }}</textarea>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
+
+                            <div class="company-field">
                                 <label for="id_website">Website</label>
                                 <input id="id_website" name="website" type="url" class="form-control"
-                                       value="{{ form.website.value|default_if_none:company.website }}" 
+                                       value="{{ form.website.value|default_if_none:company.website }}"
                                        placeholder="https://example.com">
                             </div>
-                            <div class="col-lg-6 form-group">
-                                <label for="id_logo">Company Logo</label>
+
+                            <div class="company-field">
+                                <label for="id_logo">Replace logo</label>
                                 <input id="id_logo" name="logo" type="file" class="form-control-file" accept="image/*">
-                                <small class="form-text text-muted">Leave empty to keep current logo. Max size: 5MB.</small>
+                                <span class="company-hint">Leave empty to keep the current logo. Max 5MB.</span>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
+
+                            <div class="company-field">
                                 <label for="id_industry">Industry</label>
                                 <input id="id_industry" name="industry" type="text" class="form-control"
-                                       value="{{ form.industry.value|default_if_none:company.industry }}" 
-                                       placeholder="e.g. Technology, Healthcare, Finance">
+                                       value="{{ form.industry.value|default_if_none:company.industry }}"
+                                       placeholder="e.g. Technology">
                             </div>
-                            <div class="col-lg-6 form-group">
-                                <label for="id_size">Company Size</label>
+
+                            <div class="company-field">
+                                <label for="id_size">Company size</label>
                                 <select id="id_size" name="size" class="form-control">
                                     <option value="">Select size</option>
                                     <option value="1" {% if form.size.value == "1" or company.size == "1" %} selected {% endif %}>1-10 employees</option>
@@ -100,32 +86,26 @@
                                     <option value="6" {% if form.size.value == "6" or company.size == "6" %} selected {% endif %}>1000+ employees</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="id_culture_benefits">Culture & Benefits</label>
+
+                            <div class="company-field company-field--full">
+                                <label for="id_culture_benefits">Culture & benefits</label>
                                 <textarea id="id_culture_benefits" name="culture_benefits" rows="6"
-                                          class="form-control" 
-                                          placeholder="Describe your company culture, benefits, perks, work environment, etc.">{{ form.culture_benefits.value|default_if_none:company.culture_benefits }}</textarea>
-                                <small class="form-text text-muted">Tell potential candidates about what makes your company a great place to work.</small>
+                                          class="form-control"
+                                          placeholder="Benefits, work style, and what makes your team a good place to join.">{{ form.culture_benefits.value|default_if_none:company.culture_benefits }}</textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <hr>
-                                <button type="submit" class="btn btn-outline-white-primary">
-                                    <i class="fa fa-save"></i> Update Company Profile
-                                </button>
-                                <a href="{% url 'jobs:company-detail' company.id %}" class="btn btn-outline-secondary">
-                                    Cancel
-                                </a>
-                            </div>
+
+                        <div class="company-actions">
+                            <button type="submit" class="company-btn company-btn--primary">
+                                <i class="fa fa-save" aria-hidden="true"></i> Save changes
+                            </button>
+                            <a href="{% url 'jobs:company-detail' company.id %}" class="company-btn company-btn--secondary">
+                                Cancel
+                            </a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
 {% endblock %}
-

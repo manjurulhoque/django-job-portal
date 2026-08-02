@@ -1,0 +1,635 @@
+/* Employer dashboard & applicants — calm, solid surfaces, no gradients */
+
+.employer-page {
+    --ep-ink: #1a2b3c;
+    --ep-muted: #5a6b7c;
+    --ep-line: #d5dde6;
+    --ep-surface: #ffffff;
+    --ep-canvas: #eef2f6;
+    --ep-accent: #2b90d9;
+    --ep-accent-ink: #1e6fa8;
+    --ep-accent-soft: #e8f3fb;
+    --ep-success: #1f7a4d;
+    --ep-success-soft: #e6f5ed;
+    --ep-warning: #8a6a12;
+    --ep-warning-soft: #fff6d9;
+    --ep-danger: #8a1f1b;
+    --ep-danger-soft: #fdecea;
+    --ep-neutral-soft: #eef1f4;
+    --ep-radius: 6px;
+    background: var(--ep-canvas);
+    padding: 2.5rem 0 4rem;
+}
+
+.employer-page .employer-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.employer-page .employer-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.employer-page .employer-intro h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ep-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.4rem;
+    text-wrap: balance;
+}
+
+.employer-page .employer-intro p {
+    margin: 0;
+    max-width: 56ch;
+    color: var(--ep-muted);
+    font-size: 1rem;
+    line-height: 1.55;
+}
+
+.employer-page .employer-intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.employer-page .employer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: var(--ep-radius);
+    font-family: Montserrat, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.65rem 1.1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;
+}
+
+.employer-page .employer-btn:hover,
+.employer-page .employer-btn:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.employer-page .employer-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.28);
+}
+
+.employer-page .employer-btn--primary {
+    background: var(--ep-accent);
+    border-color: var(--ep-accent);
+    color: #fff;
+}
+
+.employer-page .employer-btn--primary:hover,
+.employer-page .employer-btn--primary:focus {
+    background: var(--ep-accent-ink);
+    border-color: var(--ep-accent-ink);
+    color: #fff;
+}
+
+.employer-page .employer-btn--secondary {
+    background: var(--ep-surface);
+    border-color: var(--ep-line);
+    color: var(--ep-ink);
+}
+
+.employer-page .employer-btn--secondary:hover,
+.employer-page .employer-btn--secondary:focus {
+    border-color: var(--ep-accent);
+    color: var(--ep-accent-ink);
+    background: var(--ep-surface);
+}
+
+.employer-page .employer-btn--ghost {
+    background: transparent;
+    border-color: var(--ep-line);
+    color: var(--ep-ink);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.employer-page .employer-btn--ghost:hover,
+.employer-page .employer-btn--ghost:focus {
+    border-color: var(--ep-accent);
+    color: var(--ep-accent-ink);
+}
+
+.employer-page .employer-btn--sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.employer-page .employer-panel {
+    background: var(--ep-surface);
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+}
+
+.employer-page .employer-panel--padded {
+    padding: 1.5rem 1.4rem;
+    overflow: visible;
+}
+
+.employer-page .employer-actions--stack {
+    flex-direction: column;
+}
+
+.employer-page .employer-note-box {
+    margin-top: 1rem;
+    padding: 1.75rem 1rem;
+}
+
+.employer-page .employer-panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1.15rem 1.35rem;
+    border-bottom: 1px solid var(--ep-line);
+}
+
+.employer-page .employer-panel-head h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--ep-ink);
+    margin: 0;
+}
+
+.employer-page .employer-panel-head p {
+    margin: 0.2rem 0 0;
+    color: var(--ep-muted);
+    font-size: 0.875rem;
+}
+
+.employer-page .employer-table-wrap {
+    overflow-x: auto;
+}
+
+.employer-page .employer-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.employer-page .employer-table th,
+.employer-page .employer-table td {
+    padding: 0.9rem 1.1rem;
+    border-top: 1px solid var(--ep-line);
+    vertical-align: middle;
+    color: var(--ep-ink);
+    font-size: 0.925rem;
+}
+
+.employer-page .employer-table thead th {
+    border-top: 0;
+    background: #f7f9fb;
+    color: var(--ep-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.employer-page .employer-table tbody tr:hover {
+    background: #fafcfd;
+}
+
+.employer-page .employer-table a {
+    color: var(--ep-accent-ink);
+    font-weight: 600;
+}
+
+.employer-page .employer-table a:hover {
+    color: var(--ep-accent);
+    text-decoration: none;
+}
+
+.employer-page .employer-company-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.employer-page .employer-company-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--ep-line);
+    background: var(--ep-neutral-soft);
+}
+
+.employer-page .employer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.employer-page .employer-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.employer-page .employer-badge--success {
+    background: var(--ep-success-soft);
+    color: var(--ep-success);
+}
+
+.employer-page .employer-badge--neutral {
+    background: var(--ep-neutral-soft);
+    color: var(--ep-muted);
+}
+
+.employer-page .employer-badge--accent {
+    background: var(--ep-accent-soft);
+    color: var(--ep-accent-ink);
+}
+
+.employer-page .employer-badge--warning {
+    background: var(--ep-warning-soft);
+    color: var(--ep-warning);
+}
+
+.employer-page .employer-badge--danger {
+    background: var(--ep-danger-soft);
+    color: var(--ep-danger);
+}
+
+.employer-page .employer-empty {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--ep-muted);
+}
+
+.employer-page .employer-empty h3 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ep-ink);
+    margin: 0 0 0.4rem;
+}
+
+.employer-page .employer-empty p {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+}
+
+.employer-page .employer-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 1rem;
+    padding: 1.15rem 1.35rem;
+    margin-bottom: 1.25rem;
+    background: var(--ep-surface);
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+}
+
+.employer-page .employer-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 200px;
+}
+
+.employer-page .employer-filter-field label {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ep-ink);
+}
+
+.employer-page .employer-filter-field .form-control {
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+    min-height: 2.5rem;
+    box-shadow: none;
+    color: var(--ep-ink);
+}
+
+.employer-page .employer-filter-field .form-control:focus {
+    border-color: var(--ep-accent);
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.18);
+}
+
+.employer-page .employer-applicant-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.employer-page .employer-applicant {
+    display: flex;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    background: var(--ep-surface);
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+}
+
+.employer-page .employer-applicant-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--ep-line);
+    flex-shrink: 0;
+    background: var(--ep-neutral-soft);
+}
+
+.employer-page .employer-applicant-body {
+    min-width: 0;
+    flex: 1;
+}
+
+.employer-page .employer-applicant-name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0 0.35rem;
+    font-family: Montserrat, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.employer-page .employer-applicant-name a {
+    color: var(--ep-ink);
+}
+
+.employer-page .employer-applicant-name a:hover {
+    color: var(--ep-accent);
+    text-decoration: none;
+}
+
+.employer-page .employer-applicant-meta {
+    margin: 0 0 0.65rem;
+    color: var(--ep-muted);
+    font-size: 0.875rem;
+    line-height: 1.45;
+}
+
+.employer-page .employer-applicant-meta strong {
+    color: var(--ep-ink);
+    font-weight: 600;
+}
+
+.employer-page .employer-skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0 0 0.75rem;
+}
+
+.employer-page .employer-skill {
+    display: inline-flex;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--ep-accent-soft);
+    color: var(--ep-accent-ink);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.employer-page .employer-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.employer-page .employer-pagination .pagination {
+    margin: 0;
+}
+
+.employer-page .employer-pagination .page-link {
+    color: var(--ep-ink);
+    border-color: var(--ep-line);
+    background: var(--ep-surface);
+}
+
+.employer-page .employer-pagination .page-item.active .page-link {
+    background: var(--ep-accent);
+    border-color: var(--ep-accent);
+    color: #fff;
+}
+
+.employer-page .employer-pagination .page-item.disabled .page-link {
+    color: #9aa8b5;
+    background: var(--ep-surface);
+}
+
+.employer-page .employer-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+    color: var(--ep-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.employer-page .employer-back:hover {
+    color: var(--ep-accent-ink);
+    text-decoration: none;
+}
+
+.employer-page .employer-shell--narrow {
+    max-width: 520px;
+}
+
+.employer-page .employer-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.15rem;
+    align-items: start;
+}
+
+.employer-page .employer-detail-main,
+.employer-page .employer-detail-aside {
+    background: var(--ep-surface);
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+    padding: 1.35rem 1.4rem;
+}
+
+.employer-page .employer-detail-aside {
+    position: sticky;
+    top: 1.25rem;
+}
+
+.employer-page .employer-detail-main h2,
+.employer-page .employer-detail-aside h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ep-ink);
+    margin: 0 0 0.85rem;
+}
+
+.employer-page .employer-info-row {
+    margin: 0 0 0.85rem;
+    font-size: 0.925rem;
+    color: var(--ep-muted);
+}
+
+.employer-page .employer-info-row strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--ep-ink);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.employer-page .employer-info-row a {
+    color: var(--ep-accent-ink);
+    font-weight: 600;
+}
+
+.employer-page .employer-comment {
+    margin: 0;
+    padding: 0.85rem 0.95rem;
+    background: #f8fafc;
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+    color: var(--ep-ink);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.employer-page .employer-alert {
+    padding: 0.75rem 0.9rem;
+    margin-bottom: 0.85rem;
+    background: var(--ep-danger-soft);
+    border: 1px solid #f0c4c1;
+    border-radius: var(--ep-radius);
+    color: var(--ep-danger);
+    font-size: 0.9rem;
+}
+
+.employer-page .employer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+.employer-page .employer-field label {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ep-ink);
+}
+
+.employer-page .employer-field .form-control {
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+    min-height: 2.6rem;
+    box-shadow: none;
+}
+
+.employer-page .employer-field .form-control:focus {
+    border-color: var(--ep-accent);
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.18);
+}
+
+.employer-page .employer-submit {
+    width: 100%;
+}
+
+.employer-page .employer-btn--block {
+    width: 100%;
+    justify-content: center;
+}
+
+.employer-page .employer-btn:disabled,
+.employer-page .employer-btn.disabled {
+    opacity: 0.65;
+    cursor: default;
+    pointer-events: none;
+}
+
+.employer-page .modal-content {
+    border: 1px solid var(--ep-line);
+    border-radius: var(--ep-radius);
+}
+
+.employer-page .modal-header,
+.employer-page .modal-footer {
+    border-color: var(--ep-line);
+}
+
+.employer-page .modal-title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    color: var(--ep-ink);
+}
+
+@media (max-width: 991.98px) {
+    .employer-page .employer-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .employer-page .employer-detail-aside {
+        position: static;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .employer-page {
+        padding: 1.5rem 0 3rem;
+    }
+
+    .employer-page .employer-intro {
+        align-items: stretch;
+    }
+
+    .employer-page .employer-intro-actions {
+        width: 100%;
+    }
+
+    .employer-page .employer-intro-actions .employer-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .employer-page .employer-applicant-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employer-page .employer-filter {
+        align-items: stretch;
+    }
+
+    .employer-page .employer-filter-field {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .employer-page .employer-btn {
+        transition: none;
+    }
+}

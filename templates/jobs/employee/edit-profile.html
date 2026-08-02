@@ -4,68 +4,68 @@
     Edit Profile
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/employee.css' %}"/>
+{% endblock %}
+
 {% block content %}
-    <div class="col-lg-6 offset-3">
-        <div class="box">
-            <h3 class="heading">Edit Profile</h3>
-            {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    {% if field.name == 'gender' %}
+    <section class="employee-page">
+        <div class="container">
+            <div class="employee-shell employee-shell--narrow">
+                <header class="employee-intro">
+                    <h1>Edit profile</h1>
+                    <p>Keep your details up to date for employers reviewing your applications.</p>
+                </header>
 
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" {% if field.value == 'male' %} checked {% endif %}
-                                       type="radio" name="gender" id="male gender"
-                                       value="male">
-                                <label class="form-check-label" for="male">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" {% if field.value == 'female' %} checked {% endif %}
-                                       type="radio" name="gender" id="female"
-                                       value="female">
-                                <label class="form-check-label" for="female">Female</label>
-                            </div>
-                        </div>
-
-                    {% else %}
-
-                        <div class="form-group">
-                            <label for="id_{{ field.name }}">{{ field.label }}</label>
-                            <input type="{{ field.field.widget.input_type }}"
-                                   class="form-control"
-                                   name="{{ field.name }}"
-                                   id="id_{{ field.name }}"
-                                   value="{{ field.value }}"
-                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
-                        </div>
-
+                <div class="employee-panel">
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="employee-alert" role="alert">{{ field.label }}: {{ error|escape }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="employee-alert" role="alert">{{ error|escape }}</div>
+                        {% endfor %}
                     {% endif %}
-                {% endfor %}
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-white-primary">
-                        <i class="fa fa-signing"></i> Update
-                    </button>
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.name == 'gender' %}
+                                <div class="employee-field">
+                                    <label>Gender</label>
+                                    <div class="employee-radio-group">
+                                        <label class="employee-radio" for="gender-male">
+                                            <input type="radio" name="gender" id="gender-male" value="male"
+                                                   {% if field.value == 'male' %}checked{% endif %}>
+                                            Male
+                                        </label>
+                                        <label class="employee-radio" for="gender-female">
+                                            <input type="radio" name="gender" id="gender-female" value="female"
+                                                   {% if field.value == 'female' %}checked{% endif %}>
+                                            Female
+                                        </label>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="employee-field">
+                                    <label for="id_{{ field.name }}">{{ field.label }}</label>
+                                    <input type="{{ field.field.widget.input_type }}"
+                                           class="form-control"
+                                           name="{{ field.name }}"
+                                           id="id_{{ field.name }}"
+                                           value="{{ field.value|default_if_none:'' }}"
+                                           placeholder="{{ field.field.widget.attrs.placeholder }}">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="employee-btn employee-btn--primary employee-submit">
+                            Save changes
+                        </button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}

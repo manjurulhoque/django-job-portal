@@ -1,150 +1,165 @@
 {% extends 'base.html' %}
-{% block title %}
-    Applicants
-{% endblock %}
 {% load static %}
+{% block title %}
+    Applicant details
+{% endblock %}
+
 {% block styles %}
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf_viewer.css"/>
-    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        .top-bar {
-            background: #333;
-            color: #fff;
-            padding: 1rem;
-        }
-
-        .btn-pdf {
-            background: coral;
-            color: #fff;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 0.7rem 2rem;
-        }
-
-        .btn-pdf:hover {
-            opacity: 0.9;
-        }
-
-        .page-info {
-            margin-left: 1rem;
-        }
-
-        .error {
-            background: orangered;
-            color: #fff;
-            padding: 1rem;
-        }
-    </style>
-
+    <link rel="stylesheet" href="{% static 'css/employer.css' %}"/>
 {% endblock %}
 
 {% block content %}
+    <section class="employer-page">
+        <div class="container">
+            <div class="employer-shell">
+                <a href="{% url 'jobs:employer-dashboard-applicants' applicant.job.id %}" class="employer-back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to applicants
+                </a>
 
-    <section class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h1 class="heading">{{ applicant.user.get_full_name }}</h1>
-                    <h6 class="heading">Applied for: {{ applicant.job.title }}</h6>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    {% if applicant.cv.name %}
-                        <div class="top-bar hidden">
-                            <button class="btn btn-pdf" id="prev-page">
-                                <i class="fa fa-arrow-circle-left"></i> Prev Page
-                            </button>
-                            <button class="btn btn-pdf" id="next-page">
-                                Next Page <i class="fa fa-arrow-circle-right"></i>
-                            </button>
-                            <span class="page-info">
-                            Page <span id="page-num"></span> of <span id="page-count"></span>
-                        </span>
+                <header class="employer-intro">
+                    <div>
+                        <h1>{{ applicant.user.get_full_name|default:applicant.user.email }}</h1>
+                        <p>Applied for <strong>{{ applicant.job.title }}</strong> · {{ applicant.created_at|date:"M j, Y" }}</p>
+                    </div>
+                    <div class="employer-intro-actions">
+                        {% if applicant.status == 1 %}
+                            <span class="employer-badge employer-badge--warning">Pending</span>
+                        {% elif applicant.status == 2 %}
+                            <span class="employer-badge employer-badge--success">Accepted</span>
+                        {% else %}
+                            <span class="employer-badge employer-badge--danger">Rejected</span>
+                        {% endif %}
+                    </div>
+                </header>
+
+                <div class="employer-detail-layout">
+                    <div class="employer-detail-main">
+                        <h2>Application summary</h2>
+                        <p class="employer-info-row">
+                            <strong>Role</strong>
+                            <a href="{% url 'jobs:jobs-detail' applicant.job.id %}">{{ applicant.job.title }}</a>
+                        </p>
+                        <p class="employer-info-row">
+                            <strong>Company</strong>
+                            {% if applicant.job.company %}
+                                <a href="{% url 'jobs:company-detail' applicant.job.company.id %}">{{ applicant.job.company.name }}</a>
+                            {% else %}
+                                —
+                            {% endif %}
+                        </p>
+                        <p class="employer-info-row">
+                            <strong>Applied on</strong>
+                            {{ applicant.created_at|date:"F j, Y" }}
+                        </p>
+
+                        {% if applicant.comment %}
+                            <h2 class="mt-4">Your previous comment</h2>
+                            <p class="employer-comment">{{ applicant.comment }}</p>
+                        {% endif %}
+
+                        <div class="employer-empty employer-note-box">
+                            <h3>Resume file not attached</h3>
+                            <p class="mb-0">This application does not include an uploaded CV. Contact the candidate by email if you need more details.</p>
                         </div>
+                    </div>
 
-                        <canvas id="pdf-render"></canvas>
-                    {% else %}
-                        <h3>CV not available</h3>
-                    {% endif %}
+                    <aside class="employer-detail-aside">
+                        <h2>Candidate</h2>
+                        <p class="employer-info-row">
+                            <strong>Name</strong>
+                            {{ applicant.user.get_full_name|default:"—" }}
+                        </p>
+                        <p class="employer-info-row">
+                            <strong>Email</strong>
+                            <a href="mailto:{{ applicant.user.email }}">{{ applicant.user.email }}</a>
+                        </p>
+                        {% if applicant.user.gender %}
+                            <p class="employer-info-row">
+                                <strong>Gender</strong>
+                                {{ applicant.user.get_gender_display|default:applicant.user.gender }}
+                            </p>
+                        {% endif %}
+
+                        {% if applicant.user.profile.tags.all %}
+                            <p class="employer-info-row">
+                                <strong>Skills</strong>
+                            </p>
+                            <div class="employer-skill-list mb-3">
+                                {% for tag in applicant.user.profile.tags.all %}
+                                    <span class="employer-skill">{{ tag.name }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <p class="employer-info-row">
+                            <strong>Status</strong>
+                            {% if applicant.status == 1 %}
+                                <span class="employer-badge employer-badge--warning">Pending</span>
+                            {% elif applicant.status == 2 %}
+                                <span class="employer-badge employer-badge--success">Accepted</span>
+                            {% else %}
+                                <span class="employer-badge employer-badge--danger">Rejected</span>
+                            {% endif %}
+                        </p>
+
+                        <div class="employer-actions employer-actions--stack">
+                            <a href="mailto:{{ applicant.user.email }}?subject=Regarding {{ applicant.job.title }}"
+                               class="employer-btn employer-btn--secondary employer-btn--block">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> Contact
+                            </a>
+                            {% if applicant.status == 1 %}
+                                <button type="button"
+                                        class="employer-btn employer-btn--primary employer-btn--block"
+                                        data-toggle="modal"
+                                        data-target="#responseModal">
+                                    Send response
+                                </button>
+                            {% else %}
+                                <button type="button" class="employer-btn employer-btn--secondary employer-btn--block" disabled>
+                                    Response sent
+                                </button>
+                            {% endif %}
+                        </div>
+                    </aside>
                 </div>
-                <div class="col-lg-4">
-                    <h4>About: {{ applicant.user.get_full_name }}</h4>
-                    <h6>Skills:
-                        {% for tag in applicant.user.profile.tags.all %}
-                            <span style="color: #ffffff;"
-                                  class="badge featured-badge badge-secondary">{{ tag.name }}
-                            </span>
-                        {% endfor %}
-                    </h6>
-                    <h6>Gender: {{ applicant.user.gender }}</h6>
-                    <h6>Email: {{ applicant.user.email }}</h6>
-                    <h6 class="text-success">Status: {% if applicant.status == 1 %}
-                        Pending {% elif applicant.status == 2 %} Accepted {% elif applicant.status == 3 %}
-                        Rejected {% endif %}</h6>
-                    <p class="job-detail__company-description">{{ job.company_description }}</p>
-                    <p class="job-detail__social social social--outline">
-                        <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website"
-                           class="link">
-                            <i class="fa fa-link"></i>
-                        </a>
-                    </p>
-                    <input type="button" class="btn btn-outline-white-primary" {% if applicant.status != 1 %}
-                           disabled {% endif %} value="Send Response" data-toggle="modal"
-                           data-target="#myModal"/>
-                </div>
+
                 {% if applicant.status == 1 %}
-                    <div class="modal fade" id="myModal">
-                        <div class="modal-dialog">
+                    <div class="modal fade" id="responseModal" tabindex="-1" role="dialog"
+                         aria-labelledby="responseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content">
-
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Send response</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h5 class="modal-title" id="responseModalLabel">Send response</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-
-                                <form action="{% url 'jobs:applicant-send-response' applicant.id %}" method="POST">
+                                <form action="{% url 'jobs:applicant-send-response' applicant.id %}" method="post">
                                     {% csrf_token %}
                                     <div class="modal-body">
                                         <input type="hidden" name="job_id" value="{{ applicant.job.id }}">
-                                        <div class="form-group">
+                                        <div class="employer-field">
                                             <label for="status">Status</label>
                                             <select id="status" name="status" class="form-control">
-                                                <option value="2" {% if applicant.status == 2 %} selected
-                                                        disabled {% endif %}>
-                                                    Accepted
-                                                </option>
-                                                <option value="3" {% if applicant.status == 3 %} selected
-                                                        disabled {% endif %}>
-                                                    Rejected
-                                                </option>
+                                                <option value="2">Accepted</option>
+                                                <option value="3">Rejected</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="employer-field mb-0">
                                             <label for="Comment">Comment</label>
                                             <textarea id="Comment" name="comment" rows="3" required
-                                                      class="form-control">{{ applicant.comment|default_if_none:"" }}</textarea>
+                                                      class="form-control"
+                                                      placeholder="Share a short note with the candidate.">{{ applicant.comment|default_if_none:"" }}</textarea>
                                         </div>
                                     </div>
-
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" value="Send"/>
+                                        <button type="button" class="employer-btn employer-btn--secondary employer-btn--sm"
+                                                data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="employer-btn employer-btn--primary employer-btn--sm">
+                                            Send
+                                        </button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -152,5 +167,4 @@
             </div>
         </div>
     </section>
-
 {% endblock %}

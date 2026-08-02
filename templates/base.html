@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
     {% block styles %}{% endblock %}
     <!-- Favicon-->
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -57,6 +57,9 @@
                         </li>
                         <li class="nav-item {% if url_name == 'jobs' %}active{% endif %}">
                             <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
+                        </li>
+                        <li class="nav-item {% if url_name == 'company-list' %}active{% endif %}">
+                            <a href="{% url 'jobs:company-list' %}" class="nav-link">Companies</a>
                         </li>
                         <li class="nav-item {% if url_name == 'templates' %}active{% endif %}">
                             <a href="{% url 'resume_cv:templates' %}" class="nav-link">Create ResumeCV</a>
@@ -185,60 +188,60 @@
     {% endif %}
     {% block content %} {% endblock %}
 </div>
-<footer class="footer">
-    <div class="footer__block">
+<footer class="site-footer">
+    <div class="site-footer__main">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-12 mb-5">
-                    <h4 class="h5">About django-jobs</h4>
-                    <p>Your premier platform for connecting talented professionals with outstanding career opportunities. We simplify the job search and hiring process for both job seekers and employers.</p>
+            <div class="site-footer__grid">
+                <div class="site-footer__brand">
+                    <h2>Django Jobs</h2>
+                    <p>An open-source job portal for employers to post openings and candidates to find work.</p>
                 </div>
-                <div class="col-lg-4 col-md-12 mb-5">
-                    <h4 class="h5">Contact Us</h4>
-                    <p>Email: info@django-jobs.com</p>
-                    <p>Phone: +123 456 7890</p>
+                <div>
+                    <h3>Explore</h3>
+                    <ul class="site-footer__links">
+                        <li><a href="{% url 'jobs:jobs' %}">Browse jobs</a></li>
+                        <li><a href="{% url 'jobs:company-list' %}">Companies</a></li>
+                        <li><a href="{% url 'resume_cv:templates' %}">Resume builder</a></li>
+                        <li><a href="/{{ LANGUAGE_CODE }}/about-us/">About us</a></li>
+                    </ul>
                 </div>
-                <div class="col-lg-4 col-md-12 mb-5">
-                    <h4 class="h5">Follow Us</h4>
-                    <a href="https://www.facebook.com/django-jobs" target="_blank" rel="noopener">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://www.twitter.com/django-jobs" target="_blank" rel="noopener">
-                        <i class="fab fa-twitter"></i> Twitter
-                    </a>
-                    <a href="https://www.linkedin.com/company/django-jobs" target="_blank" rel="noopener">
-                        <i class="fab fa-linkedin-in"></i> LinkedIn
-                    </a>
+                <div>
+                    <h3>For employers</h3>
+                    <ul class="site-footer__links">
+                        <li><a href="{% url 'accounts:employer-register' %}">Create account</a></li>
+                        <li><a href="{% url 'accounts:login' %}">Sign in</a></li>
+                        <li><a href="{% url 'jobs:employer-jobs-create' %}">Post a job</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Connect</h3>
+                    <ul class="site-footer__links">
+                        <li>
+                            <a href="mailto:info@django-jobs.com">
+                                <i class="fa fa-envelope" aria-hidden="true"></i> info@django-jobs.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener noreferrer">
+                                <i class="fa fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/company/django-jobs" target="_blank" rel="noopener noreferrer">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer__copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-md-left text-center">
-                    <p>&copy;{% now "Y" %} django-jobs!</p>
-                </div>
-                <div class="col-md-8 text-center text-md-right github-buttons">
-                    <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener">
-                        <img alt="stars"
-                             src="https://img.shields.io/github/stars/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener">
-                        <img alt="forks"
-                             src="https://img.shields.io/github/forks/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal/issues" target="_blank" rel="noopener">
-                        <img alt="issues"
-                             src="https://img.shields.io/github/issues/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal/#contributors-" target="_blank"
-                       rel="noopener">
-                        <img alt="translation"
-                             src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/>
-                    </a>
-                </div>
-            </div>
+    <div class="site-footer__bar">
+        <div class="container site-footer__bar-inner">
+            <p>&copy; {% now "Y" %} Django Jobs</p>
+            <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener noreferrer">
+                Open source on GitHub
+            </a>
         </div>
     </div>
 </footer>

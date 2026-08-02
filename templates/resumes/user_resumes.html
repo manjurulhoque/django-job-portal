@@ -1,31 +1,73 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}
     My resumes
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/resumes.css' %}"/>
+{% endblock %}
+
 {% block content %}
-    <div class="container">
-        <div class="row mt-2 mb-2">
-            <div class="col-md-12">
-                <h1>Your Resumes</h1>
-                <a href="{% url 'resume_cv:templates' %}" class="btn btn-primary">Create New Resume</a>
+    <section class="resumes-page">
+        <div class="container">
+            <div class="resumes-shell">
+                <header class="resumes-intro">
+                    <div>
+                        <h1>My resumes</h1>
+                        <p>Open a resume to keep editing, or start a new one from a template.</p>
+                    </div>
+                    <a href="{% url 'resume_cv:templates' %}" class="resumes-btn resumes-btn--primary">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create new resume
+                    </a>
+                </header>
+
+                {% if resumes %}
+                    <div class="resumes-grid">
+                        {% for resume in resumes %}
+                            <article class="resume-card">
+                                <a href="{% url 'resume_cv:builder' resume.code %}" class="resume-card-media" title="Edit {{ resume.name }}">
+                                    {% if resume.template.thumbnail %}
+                                        <img src="{{ resume.template.thumbnail.url }}" alt="">
+                                    {% else %}
+                                        <div class="resume-card-media-fallback" aria-hidden="true">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    {% endif %}
+                                </a>
+                                <div class="resume-card-body">
+                                    <div>
+                                        <h2>{{ resume.name }}</h2>
+                                        <p class="resume-card-meta">
+                                            {{ resume.template.name }}
+                                            · Updated {{ resume.updated_at|timesince }} ago
+                                        </p>
+                                    </div>
+                                    <div class="resume-card-actions">
+                                        <a href="{% url 'resume_cv:builder' resume.code %}"
+                                           class="resumes-btn resumes-btn--primary resumes-btn--sm">
+                                            Edit
+                                        </a>
+                                        <a href="{% url 'resume_cv:export.pdf' resume.id %}"
+                                           class="resumes-btn resumes-btn--ghost">
+                                            Download PDF
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="resumes-empty">
+                        <h2>No resumes yet</h2>
+                        <p>Choose a template to create your first resume.</p>
+                        <a href="{% url 'resume_cv:templates' %}" class="resumes-btn resumes-btn--primary">
+                            Browse templates
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
-        <div class="row">
-            {% for resume in resumes %}
-                <div class="col-md-4 mb-2">
-                    <div class="card">
-                        <img src="https://images.pexels.com/photos/590044/pexels-photo-590044.jpeg?auto=compress&cs=tinysrgb&w=600" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ resume.name }}</h5>
-                            <a href="{% url 'resume_cv:builder' resume.code %}" class="btn btn-primary">Edit</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    </section>
 {% endblock %}

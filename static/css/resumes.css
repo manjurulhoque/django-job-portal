@@ -1,0 +1,296 @@
+/* Resume templates & my resumes */
+
+.resumes-page {
+    --rp-ink: #1a2b3c;
+    --rp-muted: #5a6b7c;
+    --rp-line: #d5dde6;
+    --rp-surface: #ffffff;
+    --rp-canvas: #eef2f6;
+    --rp-accent: #2b90d9;
+    --rp-accent-ink: #1e6fa8;
+    --rp-accent-soft: #e8f3fb;
+    --rp-warning-soft: #fff6d9;
+    --rp-warning: #8a6a12;
+    --rp-radius: 6px;
+    background: var(--rp-canvas);
+    padding: 2.5rem 0 4rem;
+}
+
+.resumes-page .resumes-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.resumes-page .resumes-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.resumes-page .resumes-intro h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--rp-ink);
+    margin: 0 0 0.4rem;
+}
+
+.resumes-page .resumes-intro p {
+    margin: 0;
+    color: var(--rp-muted);
+    font-size: 0.975rem;
+    max-width: 52ch;
+    line-height: 1.5;
+}
+
+.resumes-page .resumes-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: var(--rp-radius);
+    font-family: Montserrat, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.65rem 1.1rem;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;
+}
+
+.resumes-page .resumes-btn--primary {
+    background: var(--rp-accent);
+    border-color: var(--rp-accent);
+    color: #fff;
+}
+
+.resumes-page .resumes-btn--primary:hover,
+.resumes-page .resumes-btn--primary:focus {
+    background: var(--rp-accent-ink);
+    border-color: var(--rp-accent-ink);
+    color: #fff;
+    text-decoration: none;
+}
+
+.resumes-page .resumes-btn--secondary {
+    background: var(--rp-surface);
+    border-color: var(--rp-line);
+    color: var(--rp-ink);
+}
+
+.resumes-page .resumes-btn--secondary:hover,
+.resumes-page .resumes-btn--secondary:focus {
+    border-color: var(--rp-accent);
+    color: var(--rp-accent-ink);
+    text-decoration: none;
+}
+
+.resumes-page .resumes-btn--sm {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8125rem;
+}
+
+.resumes-page .resumes-btn--ghost {
+    background: transparent;
+    border-color: var(--rp-line);
+    color: var(--rp-ink);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.resumes-page .resumes-btn--ghost:hover,
+.resumes-page .resumes-btn--ghost:focus {
+    border-color: var(--rp-accent);
+    color: var(--rp-accent-ink);
+    text-decoration: none;
+}
+
+.resumes-page .resumes-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.35rem;
+}
+
+.resumes-page .resumes-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--rp-line);
+    border-radius: 999px;
+    background: var(--rp-surface);
+    color: var(--rp-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.resumes-page .resumes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.resumes-page .resume-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--rp-surface);
+    border: 1px solid var(--rp-line);
+    border-radius: var(--rp-radius);
+    overflow: hidden;
+}
+
+.resumes-page .resume-card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    background: #f4f7fa;
+    border-bottom: 1px solid var(--rp-line);
+    overflow: hidden;
+}
+
+.resumes-page .resume-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.resumes-page .resume-card-media-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rp-muted);
+    font-size: 1.75rem;
+}
+
+.resumes-page .resume-card-badge {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.65rem;
+    display: inline-flex;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.resumes-page .resume-card-badge--free {
+    background: var(--rp-accent-soft);
+    color: var(--rp-accent-ink);
+}
+
+.resumes-page .resume-card-badge--premium {
+    background: var(--rp-warning-soft);
+    color: var(--rp-warning);
+}
+
+.resumes-page .resume-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.05rem 1.1rem;
+    flex: 1;
+}
+
+.resumes-page .resume-card-body h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--rp-ink);
+    margin: 0;
+}
+
+.resumes-page .resume-card-meta {
+    margin: 0;
+    color: var(--rp-muted);
+    font-size: 0.85rem;
+}
+
+.resumes-page .resume-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+}
+
+.resumes-page .resumes-empty {
+    padding: 2.5rem 1.25rem;
+    text-align: center;
+    background: var(--rp-surface);
+    border: 1px solid var(--rp-line);
+    border-radius: var(--rp-radius);
+    color: var(--rp-muted);
+}
+
+.resumes-page .resumes-empty h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--rp-ink);
+    margin: 0 0 0.4rem;
+}
+
+.resumes-page .resumes-empty p {
+    margin: 0 0 1rem;
+}
+
+/* Modal polish */
+.resumes-page .modal-content {
+    border: 1px solid var(--rp-line);
+    border-radius: var(--rp-radius);
+}
+
+.resumes-page .modal-header,
+.resumes-page .modal-footer {
+    border-color: var(--rp-line);
+}
+
+.resumes-page .modal-title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    color: var(--rp-ink);
+}
+
+.resumes-page .modal-body .form-control {
+    border: 1px solid var(--rp-line);
+    border-radius: var(--rp-radius);
+    box-shadow: none;
+}
+
+.resumes-page .modal-body .form-control:focus {
+    border-color: var(--rp-accent);
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.18);
+}
+
+@media (max-width: 991.98px) {
+    .resumes-page .resumes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .resumes-page {
+        padding: 1.5rem 0 3rem;
+    }
+
+    .resumes-page .resumes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resumes-page .resumes-intro {
+        align-items: stretch;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resumes-page .resumes-btn {
+        transition: none;
+    }
+}

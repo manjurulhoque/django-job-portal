@@ -1,0 +1,274 @@
+/* Job create / update form — calm, solid surfaces, no gradients */
+
+.job-form-page {
+    --jf-ink: #1a2b3c;
+    --jf-muted: #5a6b7c;
+    --jf-line: #d5dde6;
+    --jf-surface: #ffffff;
+    --jf-canvas: #eef2f6;
+    --jf-accent: #2b90d9;
+    --jf-accent-ink: #1e6fa8;
+    --jf-danger-bg: #fdecea;
+    --jf-danger-ink: #8a1f1b;
+    --jf-radius: 6px;
+    background: var(--jf-canvas);
+    padding: 2.5rem 0 4rem;
+}
+
+.job-form-page .job-form-shell {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.job-form-page .job-form-intro {
+    margin-bottom: 1.75rem;
+}
+
+.job-form-page .job-form-intro h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--jf-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+    text-wrap: balance;
+}
+
+.job-form-page .job-form-intro p {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--jf-muted);
+    font-size: 1rem;
+    line-height: 1.55;
+}
+
+.job-form-page .job-form-alerts {
+    margin-bottom: 1.25rem;
+}
+
+.job-form-page .job-form-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.65rem;
+    background: var(--jf-danger-bg);
+    color: var(--jf-danger-ink);
+    border: 1px solid #f0c4c1;
+    border-radius: var(--jf-radius);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+}
+
+.job-form-page .job-form-alert strong {
+    font-weight: 600;
+}
+
+.job-form-page .job-form-panel {
+    background: var(--jf-surface);
+    border: 1px solid var(--jf-line);
+    border-radius: var(--jf-radius);
+    padding: 1.75rem 1.75rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.job-form-page .job-form-section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--jf-line);
+}
+
+.job-form-page .job-form-step {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--jf-accent);
+    color: var(--jf-accent);
+    font-size: 0.875rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin-top: 0.1rem;
+}
+
+.job-form-page .job-form-section-head h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--jf-ink);
+    margin: 0 0 0.25rem;
+}
+
+.job-form-page .job-form-section-head p {
+    margin: 0;
+    color: var(--jf-muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    max-width: 60ch;
+}
+
+.job-form-page .job-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.15rem 1.25rem;
+}
+
+.job-form-page .job-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.job-form-page .job-form-field--full {
+    grid-column: 1 / -1;
+}
+
+.job-form-page .job-form-field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--jf-ink);
+    margin: 0;
+}
+
+.job-form-page .job-form-hint {
+    font-weight: 400;
+    color: var(--jf-muted);
+}
+
+.job-form-page .job-form-field .form-control,
+.job-form-page .job-form-field select.form-control {
+    border: 1px solid var(--jf-line);
+    border-radius: var(--jf-radius);
+    color: var(--jf-ink);
+    font-size: 0.95rem;
+    min-height: 2.65rem;
+    padding: 0.55rem 0.85rem;
+    box-shadow: none;
+    transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+.job-form-page .job-form-field textarea.form-control {
+    min-height: 200px;
+    resize: vertical;
+}
+
+.job-form-page .job-form-field .form-control:focus,
+.job-form-page .job-form-field select.form-control:focus {
+    border-color: var(--jf-accent);
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.18);
+    outline: none;
+}
+
+.job-form-page .job-form-field .form-control::placeholder {
+    color: #7a8a9a;
+}
+
+.job-form-page .select2-container--default .select2-selection--multiple {
+    border: 1px solid var(--jf-line) !important;
+    border-radius: var(--jf-radius) !important;
+    min-height: 2.65rem;
+    padding: 0.2rem 0.35rem;
+}
+
+.job-form-page .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--jf-accent) !important;
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.18);
+}
+
+.job-form-page .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background: #e8f3fb;
+    border: 1px solid #b7d7ef;
+    color: var(--jf-ink);
+    border-radius: 4px;
+}
+
+.job-form-page .job-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--jf-surface);
+    border: 1px solid var(--jf-line);
+    border-radius: var(--jf-radius);
+    padding: 1rem 1.35rem;
+}
+
+.job-form-page .job-form-actions-note {
+    margin: 0;
+    color: var(--jf-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.job-form-page .job-form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--jf-accent);
+    color: #fff;
+    border: 1px solid var(--jf-accent);
+    border-radius: var(--jf-radius);
+    font-family: Montserrat, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.7rem 1.35rem;
+    cursor: pointer;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out;
+}
+
+.job-form-page .job-form-submit:hover,
+.job-form-page .job-form-submit:focus {
+    background: var(--jf-accent-ink);
+    border-color: var(--jf-accent-ink);
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.job-form-page .job-form-submit:focus-visible {
+    box-shadow: 0 0 0 3px rgba(43, 144, 217, 0.28);
+}
+
+.job-form-page .tox-tinymce {
+    border-radius: var(--jf-radius) !important;
+    border-color: var(--jf-line) !important;
+}
+
+@media (max-width: 767.98px) {
+    .job-form-page {
+        padding: 1.5rem 0 3rem;
+    }
+
+    .job-form-page .job-form-panel {
+        padding: 1.25rem 1.1rem 1rem;
+    }
+
+    .job-form-page .job-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .job-form-page .job-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .job-form-page .job-form-submit {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .job-form-page .job-form-field .form-control,
+    .job-form-page .job-form-submit {
+        transition: none;
+    }
+}

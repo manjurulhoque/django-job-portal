@@ -9,77 +9,68 @@
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}"/>
-    <style>
-        .bootstrap-select .dropdown-menu a {
-            color: #000000;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/job-form.css' %}"/>
 {% endblock %}
 
 {% block content %}
+    <section class="job-form-page">
+        <div class="container">
+            <div class="job-form-shell">
+                <header class="job-form-intro">
+                    <h1>Add a new position</h1>
+                    <p>Share accurate role details so candidates know what you need and how to apply.</p>
+                </header>
 
-    <section class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h1 class="heading">Add a new position</h1>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    {% if form.errors %}
+                {% if form.errors %}
+                    <div class="job-form-alerts" role="alert">
                         {% for field in form %}
                             {% for error in field.errors %}
-                                <div class="alert alert-danger alert-dismissable">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <strong>{{ field.label }}: {{ error|escape }}</strong>
+                                <div class="job-form-alert">
+                                    <strong>{{ field.label }}:</strong>
+                                    <span>{{ error|escape }}</span>
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                    {% endif %}
-                    <form id="job-main-form" method="post" action="" class="job-add-form">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Job details</h4>
-                                <p class="text-muted text-small">Some additional info for this screen about validity of
-                                    the ads, etc. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                                    fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-                                    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-                                    ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien
-                                    ullamcorper pharetra. </p>
-                                <hr>
+                    </div>
+                {% endif %}
+
+                <form id="job-main-form" method="post" action="" class="job-add-form">
+                    {% csrf_token %}
+
+                    <section class="job-form-panel" aria-labelledby="job-details-heading">
+                        <div class="job-form-section-head">
+                            <span class="job-form-step" aria-hidden="true">1</span>
+                            <div>
+                                <h2 id="job-details-heading">Job details</h2>
+                                <p>Describe the role, requirements, and when applications close.</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="title">Job Title</label>
+
+                        <div class="job-form-grid">
+                            <div class="job-form-field job-form-field--full">
+                                <label for="title">Job title</label>
                                 <input id="title" name="title" type="text" class="form-control"
+                                       placeholder="e.g. Senior Frontend Engineer"
                                        value="{{ form.title.value|default_if_none:"" }}">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="description">Job Description</label>
+
+                            <div class="job-form-field job-form-field--full">
+                                <label for="description">Job description</label>
                                 <textarea id="description" name="description" rows="5"
-                                          style="height: 200px"
                                           class="form-control">{{ form.description.value|default_if_none:"" }}</textarea>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
-                                <label for="salary">Salary(Leave empty if it's negotiable)</label>
+
+                            <div class="job-form-field">
+                                <label for="salary">Salary <span class="job-form-hint">(optional if negotiable)</span></label>
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control"
+                                       placeholder="e.g. 50000"
                                        value="{{ form.salary.value|default_if_none:"" }}">
                             </div>
-                            <div class="col-lg-6 form-group">
+
+                            <div class="job-form-field">
                                 <label for="tags">Required skills</label>
-                                <select id="tags" class="js-select2 form-control" name="tags" style="border-radius: 0"
-                                        multiple="multiple" data-placeholder="Select Tags">
+                                <select id="tags" class="js-select2 form-control" name="tags"
+                                        multiple="multiple" data-placeholder="Select skills">
                                     {% for tag in tags %}
                                         {% tag_exists tag.id form.tags.value as tag_already_exists %}
                                         <option value="{{ tag.id }}" {% if tag_already_exists %}
@@ -87,106 +78,119 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
+
+                            <div class="job-form-field">
                                 <label for="location">Location</label>
-                                <input id="location" name="location" type="text" placeholder="e.g. Dhaka, Bangladesh"
-                                       class="form-control" value="{{ form.location.value|default_if_none:"" }}">
+                                <input id="location" name="location" type="text"
+                                       placeholder="e.g. Dhaka, Bangladesh"
+                                       class="form-control"
+                                       value="{{ form.location.value|default_if_none:"" }}">
                             </div>
-                            <div class="col-lg-6 form-group">
-                                <label for="type">Type</label>
-                                <select id="type" name="type" placeholder="Choose job type"
-                                        class="form-control select2">
-                                    <option value="1" {% if form.type.value == "1" %} selected {% endif %}>Full time
-                                    </option>
-                                    <option value="2" {% if form.type.value == "2" %} selected {% endif %}>Part time
-                                    </option>
-                                    <option value="3" {% if form.type.value == "3" %} selected {% endif %}>Internship
-                                    </option>
+
+                            <div class="job-form-field">
+                                <label for="type">Employment type</label>
+                                <select id="type" name="type" class="form-control select2">
+                                    <option value="1" {% if form.type.value == "1" %} selected {% endif %}>Full time</option>
+                                    <option value="2" {% if form.type.value == "2" %} selected {% endif %}>Part time</option>
+                                    <option value="3" {% if form.type.value == "3" %} selected {% endif %}>Internship</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
-                                <label for="category">Category</label>
-                                <select id="category" name="category" class="form-control select2">
-                                    <option value="web-design" {% if form.category.value == "web-design" %}
-                                            selected {% endif %}>Web design
-                                    </option>
-                                    <option value="graphic-design" {% if form.category.value == "graphic-design" %}
-                                            selected {% endif %}>Graphic design
-                                    </option>
-                                    <option value="web-development" {% if form.category.value == "web-development" %}
-                                            selected {% endif %}>Web development
-                                    </option>
-                                    <option value="human-resource" {% if form.category.value == "human-resource" %}
-                                            selected {% endif %}>Human Resources
-                                    </option>
-                                    <option value="support" {% if form.category.value == "support" %}
-                                            selected {% endif %}>Support
-                                    </option>
-                                    <option value="android" {% if form.category.value == "android" %}
-                                            selected {% endif %}>Android
-                                    </option>
+
+                            <div class="job-form-field">
+                                <label for="id_workplace_type">Workplace type</label>
+                                <select id="id_workplace_type" name="workplace_type" class="form-control">
+                                    <option value="on_site" {% if form.workplace_type.value == "on_site" %} selected {% endif %}>On-site</option>
+                                    <option value="remote" {% if form.workplace_type.value == "remote" %} selected {% endif %}>Remote</option>
+                                    <option value="hybrid" {% if form.workplace_type.value == "hybrid" %} selected {% endif %}>Hybrid</option>
                                 </select>
                             </div>
-                            <div class="col-lg-6 form-group">
-                                <label for="vacancy">Vacancy: </label>
+
+                            <div class="job-form-field">
+                                <label for="id_experience_level">Experience level</label>
+                                <select id="id_experience_level" name="experience_level" class="form-control">
+                                    <option value="entry" {% if form.experience_level.value == "entry" %} selected {% endif %}>Entry level</option>
+                                    <option value="mid" {% if form.experience_level.value == "mid" %} selected {% endif %}>Mid level</option>
+                                    <option value="senior" {% if form.experience_level.value == "senior" %} selected {% endif %}>Senior level</option>
+                                    <option value="lead" {% if form.experience_level.value == "lead" %} selected {% endif %}>Lead/Staff</option>
+                                </select>
+                            </div>
+
+                            <div class="job-form-field">
+                                <label for="vacancy">Openings</label>
                                 <input id="vacancy" name="vacancy" type="number" min="1" class="form-control"
-                                        value="{{ form.vacancy.value | default_if_none:"" }}">
+                                       value="{{ form.vacancy.value|default_if_none:"" }}">
+                            </div>
+
+                            <div class="job-form-field">
+                                <label for="id_salary_currency">Salary currency</label>
+                                <select id="id_salary_currency" name="salary_currency" class="form-control">
+                                    <option value="BDT" {% if form.salary_currency.value == "BDT" or not form.salary_currency.value %} selected {% endif %}>BDT</option>
+                                    <option value="USD" {% if form.salary_currency.value == "USD" %} selected {% endif %}>USD</option>
+                                    <option value="EUR" {% if form.salary_currency.value == "EUR" %} selected {% endif %}>EUR</option>
+                                    <option value="GBP" {% if form.salary_currency.value == "GBP" %} selected {% endif %}>GBP</option>
+                                    <option value="INR" {% if form.salary_currency.value == "INR" %} selected {% endif %}>INR</option>
+                                </select>
+                            </div>
+
+                            <div class="job-form-field">
+                                <label for="id_salary_period">Salary period</label>
+                                <select id="id_salary_period" name="salary_period" class="form-control">
+                                    <option value="month" {% if form.salary_period.value == "month" or not form.salary_period.value %} selected {% endif %}>Per month</option>
+                                    <option value="year" {% if form.salary_period.value == "year" %} selected {% endif %}>Per year</option>
+                                    <option value="hour" {% if form.salary_period.value == "hour" %} selected {% endif %}>Per hour</option>
+                                </select>
+                            </div>
+
+                            <div class="job-form-field">
+                                <label for="id_status">Status</label>
+                                <select id="id_status" name="status" class="form-control">
+                                    <option value="published" {% if form.status.value == "published" or not form.status.value %} selected {% endif %}>Published</option>
+                                    <option value="draft" {% if form.status.value == "draft" %} selected {% endif %}>Draft</option>
+                                    <option value="closed" {% if form.status.value == "closed" %} selected {% endif %}>Closed</option>
+                                </select>
+                            </div>
+
+                            <div class="job-form-field">
+                                <label for="id_application_deadline">Application deadline</label>
+                                <input id="id_application_deadline" name="application_deadline" type="date" class="form-control"
+                                       value="{{ form.application_deadline.value|date:'Y-m-d'|default:form.application_deadline.value }}">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-6 form-group">
-                                <label for="apply_url">Apply URL <span
-                                        class="note">(users will apply on your website)</span></label>
-                                <input id="apply_url" type="url" class="form-control">
-                            </div>
-                            <div class="col-xl-6 form-group">
-                                <label for="validity">Validity of the post</label>
-                                <input id="validity" name="last_date" type="date" class="form-control"
-                                       value="{{ form.last_date.value|default_if_none:"" }}">
+                    </section>
+
+                    <section class="job-form-panel" aria-labelledby="company-details-heading">
+                        <div class="job-form-section-head">
+                            <span class="job-form-step" aria-hidden="true">2</span>
+                            <div>
+                                <h2 id="company-details-heading">Company</h2>
+                                <p>Choose which company profile this position belongs to.</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <hr class="margin-bottom--big">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Company details</h4>
-                                <p class="text-muted text-small">Select the company profile for this job.</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
+
+                        <div class="job-form-grid">
+                            <div class="job-form-field job-form-field--full">
                                 <label for="id_company">Company profile</label>
                                 {{ form.company }}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <hr>
-                                <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-magic"></i>
-                                    Save and publish
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </section>
+
+                    <div class="job-form-actions">
+                        <p class="job-form-actions-note">You can edit this listing later from your dashboard.</p>
+                        <button type="submit" class="job-form-submit">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Save and publish
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
-
 {% endblock %}
 
 {% block javascripts %}
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.2.0/tinymce.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
-
     <script>
         $(document).ready(function () {
             $('.js-select2').select2();
@@ -197,5 +201,4 @@
             });
         });
     </script>
-
 {% endblock %}

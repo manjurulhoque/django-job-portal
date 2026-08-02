@@ -1,0 +1,156 @@
+/* About page — calm, solid surfaces, site blue */
+
+.about-page {
+    --ap-ink: #1a2b3c;
+    --ap-muted: #5a6b7c;
+    --ap-line: #d5dde6;
+    --ap-surface: #ffffff;
+    --ap-canvas: #eef2f6;
+    --ap-accent: #2b90d9;
+    --ap-accent-ink: #1e6fa8;
+    --ap-accent-soft: #e8f3fb;
+    --ap-radius: 6px;
+    background: var(--ap-canvas);
+    padding: 2.75rem 0 4rem;
+}
+
+.about-page .about-shell {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.about-page .about-intro {
+    margin-bottom: 1.75rem;
+}
+
+.about-page .about-intro h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ap-ink);
+    margin: 0 0 0.5rem;
+    text-wrap: balance;
+}
+
+.about-page .about-intro p {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--ap-muted);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+.about-page .about-panel {
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line);
+    border-radius: var(--ap-radius);
+    padding: 1.75rem 1.6rem;
+    margin-bottom: 1.15rem;
+}
+
+.about-page .about-panel h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ap-ink);
+    margin: 0 0 0.7rem;
+}
+
+.about-page .about-panel p {
+    margin: 0;
+    color: var(--ap-ink);
+    font-size: 0.975rem;
+    line-height: 1.65;
+}
+
+.about-page .about-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.about-page .about-list li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    color: var(--ap-ink);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.about-page .about-list i {
+    margin-top: 0.2rem;
+    color: var(--ap-accent);
+}
+
+.about-page .about-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.4rem;
+    background: var(--ap-surface);
+    border: 1px solid var(--ap-line);
+    border-radius: var(--ap-radius);
+}
+
+.about-page .about-cta p {
+    margin: 0;
+    color: var(--ap-muted);
+    font-size: 0.95rem;
+    max-width: 42ch;
+}
+
+.about-page .about-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--ap-accent);
+    border: 1px solid var(--ap-accent);
+    border-radius: var(--ap-radius);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    text-decoration: none;
+    transition: background-color 160ms ease-out, border-color 160ms ease-out;
+}
+
+.about-page .about-btn:hover,
+.about-page .about-btn:focus {
+    background: var(--ap-accent-ink);
+    border-color: var(--ap-accent-ink);
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 575.98px) {
+    .about-page {
+        padding: 1.75rem 0 3rem;
+    }
+
+    .about-page .about-panel,
+    .about-page .about-cta {
+        padding: 1.25rem 1.1rem;
+    }
+
+    .about-page .about-cta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .about-page .about-btn {
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-page .about-btn {
+        transition: none;
+    }
+}

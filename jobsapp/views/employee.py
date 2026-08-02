@@ -20,7 +20,9 @@ class EmployeeMyJobsListView(ListView):
 
     def get_queryset(self):
         self.queryset = (
-            self.model.objects.select_related("job").filter(user_id=self.request.user.id).order_by("-created_at")
+            self.model.objects.select_related("job__company")
+            .filter(user_id=self.request.user.id)
+            .order_by("-created_at")
         )
         if (
             "status" in self.request.GET
@@ -66,4 +68,4 @@ class FavoriteListView(ListView):
     context_object_name = "favorites"
 
     def get_queryset(self):
-        return self.model.objects.select_related("job__user").filter(soft_deleted=False, user=self.request.user)
+        return self.model.objects.select_related("job__company").filter(soft_deleted=False, user=self.request.user)

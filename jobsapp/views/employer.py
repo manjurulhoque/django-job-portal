@@ -168,7 +168,7 @@ class AppliedApplicantView(DetailView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def get_queryset(self):
-        return Applicant.objects.select_related("job").filter(job_id=self.kwargs["job_id"])
+        return Applicant.objects.select_related("job__company", "user").filter(job_id=self.kwargs["job_id"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

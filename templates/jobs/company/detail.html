@@ -5,123 +5,132 @@
     {{ company.name }} - Company Profile
 {% endblock %}
 
-{% block content %}
-
-    <section class="bg-light-gray">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3 text-center">
-                    {% if company.logo %}
-                        <img src="{{ company.logo.url }}" alt="{{ company.name }}" 
-                             class="img-fluid rounded" style="max-height: 150px; max-width: 250px;">
-                    {% else %}
-                        <img src="{% static 'img/company-1.png' %}" alt="{{ company.name }}" 
-                             class="img-fluid rounded" style="max-height: 150px;">
-                    {% endif %}
-                </div>
-                <div class="col-md-9">
-                    <h1 class="heading">{{ company.name }}
-                        {% if company.featured %}
-                            <span class="badge featured-badge badge-warning">Featured</span>
-                        {% endif %}
-                    </h1>
-                    {% if company.industry %}
-                        <p class="lead"><i class="fa fa-industry"></i> {{ company.industry }}</p>
-                    {% endif %}
-                    {% if company.size %}
-                        <p><i class="fa fa-users"></i> {{ company.get_size_display }}</p>
-                    {% endif %}
-                    {% if company.website %}
-                        <p>
-                            <a href="{{ company.website }}" target="_blank" class="btn btn-outline-primary btn-sm">
-                                <i class="fa fa-link"></i> Visit Website
-                            </a>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    {% if company.description %}
-                        <h3>About Us</h3>
-                        <p class="job-detail-description">{{ company.description|safe }}</p>
-                    {% endif %}
-                    
-                    {% if company.culture_benefits %}
-                        <h3>Culture & Benefits</h3>
-                        <div class="job-detail-description">
-                            {{ company.culture_benefits|safe|linebreaks }}
-                        </div>
-                    {% endif %}
-
-                    <h3 class="mt-4">Open Positions ({{ total_jobs }})</h3>
-                    {% if jobs %}
-                        {% for job in jobs %}
-                            <div class="job-listing mb-3">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4 class="job__title">
-                                            <a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a>
-                                        </h4>
-                                        <p class="job__company">
-                                            <i class="fa fa-map-marker job__location"></i> {{ job.location }}
-                                            {% if job.type == '1' %}
-                                                <span class="badge featured-badge badge-success">Full time</span>
-                                            {% elif job.type == '2' %}
-                                                <span class="badge featured-badge badge-primary">Part time</span>
-                                            {% else %}
-                                                <span class="badge featured-badge badge-warning">Internship</span>
-                                            {% endif %}
-                                        </p>
-                                        {% if job.salary > 0 %}
-                                            <p class="text-info">Salary: {{ job.salary|intcomma }}/Monthly</p>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <a href="{% url 'jobs:jobs-detail' job.id %}" 
-                                           class="btn btn-outline-primary btn-sm">View Job</a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>No open positions at the moment.</p>
-                    {% endif %}
-                </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-3">
-                    <div class="job-detail__sidebar">
-                        <h4>Company Information</h4>
-                        {% if company.industry %}
-                            <p><strong>Industry:</strong> {{ company.industry }}</p>
-                        {% endif %}
-                        {% if company.size %}
-                            <p><strong>Company Size:</strong> {{ company.get_size_display }}</p>
-                        {% endif %}
-                        {% if company.website %}
-                            <p>
-                                <a href="{{ company.website }}" target="_blank" class="btn btn-outline-primary btn-sm btn-block">
-                                    <i class="fa fa-link"></i> Visit Website
-                                </a>
-                            </p>
-                        {% endif %}
-                        {% if user.is_authenticated and user.role == 'employer' and user == company.user %}
-                            <p>
-                                <a href="{% url 'jobs:company-edit' company.id %}" 
-                                   class="btn btn-outline-secondary btn-sm btn-block">
-                                    <i class="fa fa-edit"></i> Edit Company Profile
-                                </a>
-                            </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/company.css' %}"/>
 {% endblock %}
 
+{% block content %}
+    <section class="company-page">
+        <div class="container">
+            <div class="company-shell company-shell--detail">
+                <a href="{% url 'jobs:company-list' %}" class="company-back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> All companies
+                </a>
+
+                <header class="company-detail-header">
+                    {% if company.logo %}
+                        <img src="{{ company.logo.url }}" alt="" class="company-detail-logo">
+                    {% else %}
+                        <div class="company-detail-logo-fallback" aria-hidden="true">
+                            <i class="fa fa-building"></i>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h1>
+                            {{ company.name }}
+                            {% if company.featured %}
+                                <span class="company-badge company-badge--featured">Featured</span>
+                            {% endif %}
+                        </h1>
+                        <p class="company-detail-meta">
+                            {% if company.industry %}
+                                <span><i class="fa fa-industry" aria-hidden="true"></i> {{ company.industry }}</span>
+                            {% endif %}
+                            {% if company.size %}
+                                <span><i class="fa fa-users" aria-hidden="true"></i> {{ company.get_size_display }}</span>
+                            {% endif %}
+                            {% if company.headquarters %}
+                                <span><i class="fa fa-map-marker" aria-hidden="true"></i> {{ company.headquarters }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </header>
+
+                <div class="company-detail-layout">
+                    <div>
+                        {% if company.description %}
+                            <section class="company-panel">
+                                <h2>About</h2>
+                                <div class="company-panel-body">{{ company.description|safe }}</div>
+                            </section>
+                        {% endif %}
+
+                        {% if company.culture_benefits %}
+                            <section class="company-panel">
+                                <h2>Culture & benefits</h2>
+                                <div class="company-panel-body">{{ company.culture_benefits|safe|linebreaks }}</div>
+                            </section>
+                        {% endif %}
+
+                        <section class="company-panel">
+                            <h2>Open positions ({{ total_jobs }})</h2>
+                            {% if jobs %}
+                                <div class="company-jobs">
+                                    {% for job in jobs %}
+                                        <article class="company-job">
+                                            <div>
+                                                <h3>
+                                                    <a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a>
+                                                </h3>
+                                                <p class="company-job-meta">
+                                                    {{ job.location }} · {{ job.get_type_display }}
+                                                    {% if job.salary > 0 %}
+                                                        · {{ job.salary_currency }} {{ job.salary|intcomma }}
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <a href="{% url 'jobs:jobs-detail' job.id %}"
+                                               class="company-btn company-btn--secondary company-btn--sm">
+                                                View job
+                                            </a>
+                                        </article>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="company-card-meta mb-0">No open positions at the moment.</p>
+                            {% endif %}
+                        </section>
+                    </div>
+
+                    <aside class="company-aside">
+                        <div class="company-panel">
+                            <h2>Company info</h2>
+                            {% if company.industry %}
+                                <p class="company-aside-row">
+                                    <strong>Industry</strong>
+                                    {{ company.industry }}
+                                </p>
+                            {% endif %}
+                            {% if company.size %}
+                                <p class="company-aside-row">
+                                    <strong>Size</strong>
+                                    {{ company.get_size_display }}
+                                </p>
+                            {% endif %}
+                            {% if company.headquarters %}
+                                <p class="company-aside-row">
+                                    <strong>Headquarters</strong>
+                                    {{ company.headquarters }}
+                                </p>
+                            {% endif %}
+
+                            {% if company.website %}
+                                <a href="{{ company.website }}" target="_blank" rel="noopener noreferrer"
+                                   class="company-btn company-btn--primary company-btn--block company-btn--sm mb-2">
+                                    <i class="fa fa-link" aria-hidden="true"></i> Website
+                                </a>
+                            {% endif %}
+
+                            {% if user.is_authenticated and user.role == 'employer' and user == company.user %}
+                                <a href="{% url 'jobs:company-edit' company.id %}"
+                                   class="company-btn company-btn--secondary company-btn--block company-btn--sm">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit profile
+                                </a>
+                            {% endif %}
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
