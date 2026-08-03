@@ -9,6 +9,7 @@ from .views import (
     ApplicantsPerJobListAPIView,
     AppliedJobsAPIView,
     ApplyJobApiView,
+    CompanyViewSet,
     DashboardAPIView,
     EmployerCompanyDetailAPIView,
     EmployerCompanyListCreateAPIView,
@@ -23,6 +24,7 @@ app_name = "jobs-api"
 
 router = DefaultRouter()
 router.register("jobs", JobViewSet)
+router.register("companies", CompanyViewSet)
 
 schema_view = get_schema_view(
     openapi.Info(

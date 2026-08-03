@@ -20,6 +20,8 @@ class DashboardAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployer]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return self.serializer_class.Meta.model.objects.none()
         return self.serializer_class.Meta.model.objects.filter(
             user_id=self.request.user.id
         ).select_related("company", "user")
@@ -42,6 +44,8 @@ class EmployerCompanyListCreateAPIView(ListCreateAPIView):
         return CompanySerializer
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Company.objects.none()
         return Company.objects.filter(user=self.request.user).order_by("-created_at")
 
     def perform_create(self, serializer):
@@ -57,6 +61,8 @@ class EmployerCompanyDetailAPIView(RetrieveUpdateAPIView):
         return CompanySerializer
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Company.objects.none()
         return Company.objects.filter(user=self.request.user)
 
 
@@ -65,6 +71,8 @@ class ApplicantsListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployer]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Applicant.objects.none()
         user = self.request.user
         return Applicant.objects.filter(job__user_id=user.id).select_related(
             "user", "job", "job__company"
@@ -76,6 +84,8 @@ class ApplicantsPerJobListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployer, IsJobCreator]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Applicant.objects.none()
         return Applicant.objects.filter(job_id=self.kwargs["job_id"]).select_related(
             "user", "job", "job__company"
         ).order_by("id")

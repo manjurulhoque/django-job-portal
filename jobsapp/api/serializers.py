@@ -85,14 +85,12 @@ class DashboardJobSerializer(JobSerializer):
 
 
 class NewJobSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all())
 
     class Meta:
         model = Job
         fields = (
             "id",
-            "user",
             "company",
             "title",
             "description",
