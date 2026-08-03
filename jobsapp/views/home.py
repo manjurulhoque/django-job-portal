@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from accounts.models import User
+from categories.models import Category
 from ..decorators import user_is_employee
 from ..forms import ApplyJobForm
 from ..models import Applicant, Company, Favorite, Job
@@ -18,11 +19,13 @@ class HomeView(ListView):
     context_object_name = "jobs"
 
     def get_queryset(self):
-        return self.model.objects.unfilled()[:6]
+        return self.model.objects.unfilled().select_related("company", "category")[:6]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["trendings"] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
+        context["trendings"] = self.model.objects.unfilled(
+            created_at__month=timezone.now().month
+        ).select_related("company", "category")[:3]
         context["live_jobs_count"] = self.model.objects.unfilled().count()
         context["companies_count"] = Company.objects.count()
         context["candidates_count"] = User.objects.filter(role="employee").count()
@@ -40,13 +43,22 @@ class SearchView(ListView):
     context_object_name = "jobs"
 
     def get_queryset(self):
-        # q = JobDocument.search().query("match", title=self.request.GET['position']).to_queryset()
-        # print(q)
-        # return q
-        return self.model.objects.filter(
-            location__contains=self.request.GET.get("location", ""),
-            title__contains=self.request.GET.get("position", ""),
-        )
+        qs = self.model.objects.unfilled().select_related("company", "category").prefetch_related("tags")
+        location = self.request.GET.get("location", "")
+        position = self.request.GET.get("position", "")
+        category = self.request.GET.get("category", "")
+        if location:
+            qs = qs.filter(location__icontains=location)
+        if position:
+            qs = qs.filter(title__icontains=position)
+        if category:
+            qs = qs.filter(category_id=category)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all().order_by("name")
+        return context
 
 
 class JobListView(ListView):
@@ -56,11 +68,16 @@ class JobListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return self.model.objects.unfilled().order_by("-created_at")
+        qs = self.model.objects.unfilled().select_related("company", "category").prefetch_related("tags").order_by("-created_at")
+        category = self.request.GET.get("category")
+        if category:
+            qs = qs.filter(category_id=category)
+        return qs
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data["total_jobs"] = self.model.objects.unfilled().count()
+        data["total_jobs"] = self.get_queryset().count()
+        data["categories"] = Category.objects.all().order_by("name")
         return data
 
 

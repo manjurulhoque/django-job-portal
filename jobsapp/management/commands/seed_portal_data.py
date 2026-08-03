@@ -39,7 +39,7 @@ class Command(BaseCommand):
         tags = self._seed_tags(options["tags"])
         users = self._seed_users(options["users"])
         companies = self._seed_companies(users["employers"])
-        jobs_created = self._seed_jobs(options["jobs"], users["employers"], companies, tags)
+        jobs_created = self._seed_jobs(options["jobs"], users["employers"], companies, tags, categories)
 
         self.stdout.write(self.style.SUCCESS("Seeding completed successfully."))
         self.stdout.write(f"Categories: {len(categories)}")
@@ -308,9 +308,11 @@ class Command(BaseCommand):
             created.append(company)
         return created
 
-    def _seed_jobs(self, target_count, employers, companies, tags):
+    def _seed_jobs(self, target_count, employers, companies, tags, categories):
         if not employers or not companies:
             raise ValueError("At least one employer and one company are required to create jobs.")
+        if not categories:
+            raise ValueError("At least one category is required to create jobs.")
 
         role_pool = [
             "Software Engineer",
@@ -355,6 +357,7 @@ class Command(BaseCommand):
             job = Job.objects.create(
                 user=employer,
                 company=company,
+                category=random.choice(categories),
                 title=title,
                 description=(
                     f"We are hiring a {title} to work on impactful products and collaborate with cross-functional teams."

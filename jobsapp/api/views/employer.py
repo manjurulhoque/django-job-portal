@@ -24,7 +24,7 @@ class DashboardAPIView(ListAPIView):
             return self.serializer_class.Meta.model.objects.none()
         return self.serializer_class.Meta.model.objects.filter(
             user_id=self.request.user.id
-        ).select_related("company", "user")
+        ).select_related("company", "user", "category")
 
 
 class JobCreateAPIView(CreateAPIView):

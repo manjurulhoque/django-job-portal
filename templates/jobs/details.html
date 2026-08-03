@@ -36,6 +36,9 @@
                                 <span class="job-badge job-badge--success">{{ job.get_type_display }}</span>
                                 <span class="job-badge job-badge--accent">{{ job.get_workplace_type_display }}</span>
                                 <span class="job-badge job-badge--neutral">{{ job.get_experience_level_display }}</span>
+                                {% if job.category %}
+                                    <span class="job-badge job-badge--neutral">{{ job.category.name }}</span>
+                                {% endif %}
                             </div>
                         </header>
 

@@ -33,7 +33,7 @@ class AppliedJobsAPIView(ListAPIView):
         if getattr(self, "swagger_fake_view", False):
             return Job.objects.none()
         applied_jobs_id = list(Applicant.objects.filter(user=self.request.user).values_list("job_id", flat=True))
-        return Job.objects.filter(id__in=applied_jobs_id)
+        return Job.objects.filter(id__in=applied_jobs_id).select_related("company", "category", "user")
 
 
 @api_view(["GET"])

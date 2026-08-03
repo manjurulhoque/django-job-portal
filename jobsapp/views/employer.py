@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from accounts.forms import EmployerProfileUpdateForm
+from categories.models import Category
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Applicant, Company, Job
@@ -71,6 +72,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["categories"] = Category.objects.all().order_by("name")
         context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 
@@ -107,6 +109,7 @@ class JobUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()
+        context["categories"] = Category.objects.all().order_by("name")
         context["companies"] = Company.objects.filter(user_id=self.request.user.id)
         return context
 

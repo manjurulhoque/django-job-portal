@@ -17,7 +17,11 @@ class CompanyPagination(PageNumberPagination):
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
-    queryset = Job.objects.unfilled().select_related("company", "user").prefetch_related("tags")
+    queryset = (
+        Job.objects.unfilled()
+        .select_related("company", "user", "category")
+        .prefetch_related("tags")
+    )
     permission_classes = [AllowAny]
     pagination_class = JobPagination
 
@@ -26,6 +30,12 @@ class JobViewSet(viewsets.ReadOnlyModelViewSet):
         company_id = self.request.query_params.get("company")
         if company_id:
             qs = qs.filter(company_id=company_id)
+        category = self.request.query_params.get("category")
+        if category:
+            if category.isdigit():
+                qs = qs.filter(category_id=category)
+            else:
+                qs = qs.filter(category__slug=category)
         q = self.request.query_params.get("q")
         if q:
             qs = qs.filter(title__icontains=q)
@@ -60,10 +70,21 @@ class SearchApiView(ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        qs = Job.objects.unfilled().select_related("company", "user").prefetch_related("tags")
-        if "location" in self.request.GET and "position" in self.request.GET:
-            return qs.filter(
-                location__contains=self.request.GET["location"],
-                title__contains=self.request.GET["position"],
-            )
+        qs = (
+            Job.objects.unfilled()
+            .select_related("company", "user", "category")
+            .prefetch_related("tags")
+        )
+        location = self.request.GET.get("location")
+        position = self.request.GET.get("position")
+        category = self.request.GET.get("category")
+        if location:
+            qs = qs.filter(location__icontains=location)
+        if position:
+            qs = qs.filter(title__icontains=position)
+        if category:
+            if category.isdigit():
+                qs = qs.filter(category_id=category)
+            else:
+                qs = qs.filter(category__slug=category)
         return qs

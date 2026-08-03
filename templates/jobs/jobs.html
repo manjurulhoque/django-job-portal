@@ -33,6 +33,18 @@
                                value="{{ request.GET.location }}"
                                class="form-control">
                     </div>
+                    <div class="jobs-search-field">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" class="form-control">
+                            <option value="">All categories</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}"
+                                    {% if request.GET.category == category.id|stringformat:"s" %} selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <button type="submit" class="jobs-btn jobs-btn--primary">
                         <i class="fa fa-search" aria-hidden="true"></i> Search
                     </button>
@@ -63,6 +75,9 @@
                                         <span><i class="fa fa-map-marker" aria-hidden="true"></i> {{ job.location }}</span>
                                         <span>{{ job.get_type_display }}</span>
                                         <span>{{ job.get_workplace_type_display }}</span>
+                                        {% if job.category %}
+                                            <span>{{ job.category.name }}</span>
+                                        {% endif %}
                                     </p>
                                     {% if job.tags.all %}
                                         <div class="job-tags">

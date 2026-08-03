@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.utils import timezone
 
 from accounts.models import User
+from categories.models import Category
 from tags.models import Tag
 
 from .manager import JobManager
@@ -91,6 +92,13 @@ class Company(models.Model):
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posted_jobs")
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="jobs")
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
+        related_name="jobs",
+        null=True,
+        blank=True,
+    )
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=340, blank=True)
     description = models.TextField()
@@ -122,6 +130,7 @@ class Job(models.Model):
         indexes = [
             models.Index(fields=["status", "filled"]),
             models.Index(fields=["type", "workplace_type"]),
+            models.Index(fields=["category"]),
             models.Index(fields=["created_at"]),
             models.Index(fields=["application_deadline"]),
         ]

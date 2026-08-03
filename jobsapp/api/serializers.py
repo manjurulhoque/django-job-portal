@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from accounts.api.serializers import UserSerializer
+from categories.models import Category
+from categories.serializers import CategorySerializer
 from tags.api.serializers import TagSerializer
 
 from ..models import Applicant, Company, Job
@@ -59,6 +61,7 @@ class CompanyWriteSerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     company = CompanySerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
     job_tags = serializers.SerializerMethodField()
     type_display = serializers.CharField(source="get_type_display", read_only=True)
     workplace_type_display = serializers.CharField(source="get_workplace_type_display", read_only=True)
@@ -86,12 +89,14 @@ class DashboardJobSerializer(JobSerializer):
 
 class NewJobSerializer(serializers.ModelSerializer):
     company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all())
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:
         model = Job
         fields = (
             "id",
             "company",
+            "category",
             "title",
             "description",
             "responsibilities",
@@ -173,6 +178,7 @@ class ApplicantSerializer(serializers.ModelSerializer):
 class AppliedJobSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     company = CompanySerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
     applicant = serializers.SerializerMethodField("_applicant")
 
     class Meta:

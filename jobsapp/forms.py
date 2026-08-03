@@ -3,6 +3,7 @@ from datetime import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 
+from categories.models import Category
 from jobsapp.models import Applicant, Job, Company
 
 
@@ -17,6 +18,7 @@ class CreateJobForm(forms.ModelForm):
             "salary_currency": "Salary currency",
             "salary_period": "Salary period",
             "company": "Company profile",
+            "category": "Category",
         }
         widgets = {
             "workplace_type": forms.Select(attrs={"class": "form-control"}),
@@ -24,6 +26,7 @@ class CreateJobForm(forms.ModelForm):
             "status": forms.Select(attrs={"class": "form-control"}),
             "salary_period": forms.Select(attrs={"class": "form-control"}),
             "application_deadline": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "category": forms.Select(attrs={"class": "form-control"}),
         }
 
     def __init__(self, *args, user=None, **kwargs):
@@ -31,6 +34,9 @@ class CreateJobForm(forms.ModelForm):
         self.fields["company"].required = True
         self.fields["company"].empty_label = "Select a company"
         self.fields["company"].widget.attrs["class"] = "form-control"
+        self.fields["category"].required = True
+        self.fields["category"].queryset = Category.objects.all().order_by("name")
+        self.fields["category"].empty_label = "Select a category"
         self.fields["salary_currency"].widget = forms.Select(
             choices=[
                 ("BDT", "BDT"),

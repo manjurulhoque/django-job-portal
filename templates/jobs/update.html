@@ -96,6 +96,19 @@
                             </div>
 
                             <div class="job-form-field">
+                                <label for="id_category">Category</label>
+                                <select id="id_category" name="category" class="form-control" required>
+                                    <option value="">Select a category</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}"
+                                            {% if form.category.value|stringformat:"s" == category.id|stringformat:"s" %} selected{% endif %}>
+                                            {{ category.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="job-form-field">
                                 <label for="id_workplace_type">Workplace type</label>
                                 <select id="id_workplace_type" name="workplace_type" class="form-control">
                                     <option value="on_site" {% if form.workplace_type.value == "on_site" %} selected {% endif %}>On-site</option>
