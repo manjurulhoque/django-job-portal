@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
@@ -7,10 +7,12 @@ from rest_framework import status
 from jobsapp.api.permissions import IsEmployer, IsJobCreator
 from jobsapp.api.serializers import (
     ApplicantSerializer,
+    CompanySerializer,
+    CompanyWriteSerializer,
     DashboardJobSerializer,
     NewJobSerializer,
 )
-from jobsapp.models import Applicant
+from jobsapp.models import Applicant, Company
 
 
 class DashboardAPIView(ListAPIView):
@@ -20,12 +22,42 @@ class DashboardAPIView(ListAPIView):
     def get_queryset(self):
         return self.serializer_class.Meta.model.objects.filter(
             user_id=self.request.user.id
-        )
+        ).select_related("company", "user")
 
 
 class JobCreateAPIView(CreateAPIView):
     serializer_class = NewJobSerializer
     permission_classes = [IsAuthenticated, IsEmployer]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class EmployerCompanyListCreateAPIView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated, IsEmployer]
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return CompanyWriteSerializer
+        return CompanySerializer
+
+    def get_queryset(self):
+        return Company.objects.filter(user=self.request.user).order_by("-created_at")
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class EmployerCompanyDetailAPIView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated, IsEmployer]
+
+    def get_serializer_class(self):
+        if self.request.method in ("PUT", "PATCH"):
+            return CompanyWriteSerializer
+        return CompanySerializer
+
+    def get_queryset(self):
+        return Company.objects.filter(user=self.request.user)
 
 
 class ApplicantsListAPIView(ListAPIView):
@@ -34,7 +66,9 @@ class ApplicantsListAPIView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Applicant.objects.filter(job__user_id=user.id)
+        return Applicant.objects.filter(job__user_id=user.id).select_related(
+            "user", "job", "job__company"
+        )
 
 
 class ApplicantsPerJobListAPIView(ListAPIView):
@@ -42,7 +76,9 @@ class ApplicantsPerJobListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated, IsEmployer, IsJobCreator]
 
     def get_queryset(self):
-        return Applicant.objects.filter(job_id=self.kwargs["job_id"]).order_by("id")
+        return Applicant.objects.filter(job_id=self.kwargs["job_id"]).select_related(
+            "user", "job", "job__company"
+        ).order_by("id")
 
 
 class UpdateApplicantStatusAPIView(APIView):

@@ -4,6 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 
 from jobsapp.api.serializers import JobSerializer
+from jobsapp.models import Job
 
 
 class JobPagination(PageNumberPagination):
@@ -12,7 +13,7 @@ class JobPagination(PageNumberPagination):
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer
-    queryset = serializer_class.Meta.model.objects.unfilled()
+    queryset = Job.objects.unfilled().select_related("company", "user").prefetch_related("tags")
     permission_classes = [AllowAny]
     pagination_class = JobPagination
 
@@ -22,10 +23,10 @@ class SearchApiView(ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
+        qs = Job.objects.unfilled().select_related("company", "user").prefetch_related("tags")
         if "location" in self.request.GET and "position" in self.request.GET:
-            return self.serializer_class.Meta.model.objects.unfilled(
+            return qs.filter(
                 location__contains=self.request.GET["location"],
                 title__contains=self.request.GET["position"],
             )
-        else:
-            return self.serializer_class.Meta.model.objects.unfilled()
+        return qs
